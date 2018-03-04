@@ -3,7 +3,7 @@ title: 呼延十 # 你的博客名字，可以定义修订
 header-img: "img/facebook.jpg"
 tagline: "xixi"  
 description: "千里我独行，不必相送。"  # 一句话描述你的博客
-baseurl: ""
+baseurl: "/blog"
 url: "https://hublanker.github.com/blog/"  # 此处填写你的博客地址 
 
 # About/contact
