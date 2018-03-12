@@ -72,7 +72,7 @@ userOpt不为空时则返回他的值，为空值返回一个默认值，即新�
   	User make(){
     	return  new User("huyanshi",18,"china");
 
-  }
+  	}
 ```  
 这里的make()方法很没有必要，，，，可以直接由orElse()来设置默认值的，但是我偷懒了。。  
 
@@ -82,4 +82,36 @@ userOpt不为空时则返回他的值，为空值返回一个默认值，即新�
 ```java
 userOpt.orElseThrow(MyException::new);
 ```  
+<h4>map</h4>
+**map(map(Function<? super T,? extends U> mapper))**  
+  如果有值，则对其执行调用mapping函数得到返回值。如果返回值不为null，则创建包含mapping返回值的Optional作为map方法返回值，否则返回空Optional。
+map方法用来对Optional实例的值执行一系列操作。通过一组实现了Function接口的lambda表达式传入操作。  
 
+```java
+//map方法执行传入的lambda表达式参数对Optional实例的值进行修改。  
+//为Lambda表达式的返回值创建新的Optional实例作为map方法的返回值。  
+Optional<String> upperName = myValue.map((value) -> value.toUpperCase());  
+System.out.println(upperName.orElse("No value found"));
+```
+**flatMap(Function<? super T,Optional<U mapper)**  
+如果有值，为其执行mapping函数返回Optional类型返回值，否则返回空Optional。flatMap与map（Funtion）方法类似，区别在于flatMap中的mapper返回值必须是Optional。调用结束时，flatMap不会对结果用Optional封装。  
+flatMap方法与map方法类似，区别在于mapping函数的返回值不同。map方法的mapping函数返回值可以是任何类型T，而flatMap方法的mapping函数必须是Optional。  
+
+```java
+//map方法中的lambda表达式返回值可以是任意类型，在map函数返回之前会包装为Optional。   
+//但flatMap方法中的lambda表达式返回值必须是Optionl实例。   
+upperName = myValue.flatMap((value) -> Optional.of(value.toUpperCase()));  
+System.out.println(upperName.orElse("No value found")); 
+```
+*map和flatmap使用方法类似，区别仅在于mapper方法的返回值类型不同，flatmap方法不会发展返回值再使用Optional进行封装，因此传入的方法必须返回Optional类型。*  
+**filter**  
+如果有值并且满足断言条件返回包含该值的Optional，否则返回空Optional。  
+filter个方法通过传入限定条件对Optional实例的值进行过滤。  
+对于filter函数我们可以传入实现了Predicate接口的lambda表达式。
+
+```java
+userOpt.filter(user1 -> user1.getName().length() > 6);
+```
+如果user的名字长度大于6则返回自身，小于6则返回一个空值。  
+
+完。
