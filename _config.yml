@@ -17,11 +17,11 @@ gavatar: img/favicon.png # 浏览器地址栏小图标，可自定义更改
 favicon: img/favicon.png # 浏览器地址栏小图标，可自定义更改
 
 douban_username:  xixi
-twitter_username: 
+twitter_username: xixi
 github_username: hublanker
-facebook_username: 
-weibo_username: 
-zhihu_username: 
+facebook_username: xixi
+weibo_username: xoxo
+zhihu_username: xoxo
 
 # Build settings  
 # use Github Flavored Markdown !important  
