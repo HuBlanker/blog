@@ -94,25 +94,26 @@ layout: default
                     <div class="ds-thread" data-thread-key="{{page.id}}" data-title="{{page.title}}" data-url="{{site.url}}{{page.url}}"></div>
                 </div>
                 <!-- 多说评论框 end -->
+                      <div id="container"></div>
+                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                        <script src="https://billts.site/js/gitment.js"></script>
+                        <script>
+                        var gitment = new Gitment({
+                            id: '{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}',
+                          owner: 'hublanker',
+                          repo: 'blog',
+                          oauth: {
+                            client_id: 'efc3581371af477954ef',
+                            client_secret: 'b3b9d18d0eb4ed55753160ccee07929ef8bfe133',
+                          },
+                        })
+                        gitment.render('container')
+                        </script>
 
-            </div>
+                     </div>
         </div>
     </div>
-      <div id="container"></div>
-<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-<script src="https://billts.site/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-    id: '{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}',
-  owner: 'hublanker',
-  repo: 'blog',
-  oauth: {
-    client_id: 'efc3581371af477954ef',
-    client_secret: 'b3b9d18d0eb4ed55753160ccee07929ef8bfe133',
-  },
-})
-gitment.render('container')
-</script>
+
 </article>
 
 
