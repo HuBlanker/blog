@@ -103,6 +103,7 @@ layout: default
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
+    id: '{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}',
   owner: 'hublanker',
   repo: 'blog',
   oauth: {
