@@ -117,7 +117,6 @@ forEach是Terminal操作，当遍历完成时，流被消耗无法继续对其�
 
 **reduce()**  
 
-
 这个方法的主要作用是把 Stream 元素组合起来。它提供一个起始值（种子），然后依照运算规则（BinaryOperator），和前面 Stream 的第一个、第二个、第 n 个元素组合。从这个意义上说，字符串拼接、数值的 sum、min、max、average 都是特殊的 reduce。  
 
 ```java
@@ -139,6 +138,7 @@ strList.sort(String::compareTo);
 **接下来将一些原理(类型)差不多的放一起说一哈。**  
 
 **limit()/skip()** 
+
 取前n个元素/跳过前n个元素。
 
 ```java
@@ -146,6 +146,7 @@ strList.sort(String::compareTo);
 strList.stream().limit(2).skip(1).forEach(System.out::print);
 ```  
 **findFirst()**  
+
 取stream得第一个值，值得一提的是返回值为Optional<>.  
 Optional是一个容器，可以包含一个值，使用它可以尽量避免NullPointException。
 具体见：<a herf="http://your123.com/2018/03/11/java8-Optional%E7%B1%BB%E5%88%9D%E4%BD%93%E9%AA%8C/">java8 Optional 类初体验</a>
@@ -165,6 +166,7 @@ min和max操作可以通过reduce方法实现，但是因为经常使用所以�
     Arrays.asList(1,1,2,3,4,5,6).stream().distinct();
 ```
 **Match类方法**
+
 match类方法返回一个boolean值。
 - allMatch：Stream 中全部元素符合传入的 predicate，返回 true
 - anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true
