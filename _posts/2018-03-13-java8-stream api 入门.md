@@ -1,6 +1,6 @@
 --- 
 layout: post
-categories: java8
+category: [java8,java]
 ---
 
 <h2>什么是Stream，为什么需要Stream</h2>
