@@ -1,3 +1,8 @@
+--- 
+layout: post
+categories: java8
+---
+
 <h2>什么是Stream，为什么需要Stream</h2>
 Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。    
 
