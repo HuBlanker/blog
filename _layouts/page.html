@@ -31,9 +31,8 @@ layout: default
 			{{ content }}
 		</div>
 	</div>
-</div>
-
-<hr>
+	<div>
+		<hr>
 {% for category in site.categories %}
 <h2>{{ category | first }}</h2> </span>{{ category | last | size }}</span> 
 <ul class="arc-list">
@@ -42,3 +41,6 @@ layout: default
 {% endfor %}
 </ul> 
 {% endfor %}
+	</div>
+</div>
+
