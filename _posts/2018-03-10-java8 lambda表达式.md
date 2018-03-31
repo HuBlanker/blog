@@ -1,6 +1,6 @@
 --- 
 layout: post
-category: java
+category: [java8,java]
 ---
 前些天在写代码时，突然发现某一位大佬的代码中充斥着stream来操作List，自己的for循环相比之下黯然失色，遂决定要尽快学习一下。接下来突然的一周加班阻塞了我的行程，导致今天才有时间开始。
 
