@@ -1,3 +1,7 @@
+--- 
+layout: post
+category: [java8,java]
+---
 java8里面新增了一套处理时间和日期的API，为什么要搞一套全新的API呢，因为原来的java.util.Date以及Calendar实在是太难用了。   
 如果你有过在程序中处理时间的经验你就会知道，在java8以前，处理时间是多么让人痛苦。  
 
