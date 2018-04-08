@@ -1,4 +1,4 @@
-###Spring Boot 是什么
+### Spring Boot 是什么
 官网对他的介绍是：  
 
 **Spring Boot 使您能轻松地创建独立的、生产级的、基于 Spring 且能直接运行的应用程序。我们对 Spring 平台和第三方库有自己的看法，所以您从一开始只会遇到极少的麻烦。**
@@ -13,7 +13,7 @@ Spring Boot拥有合理(主流)的默认配置，例如：默认情况下,Spring
 
 当然你也可以禁用其默认配置并自己添加新的配置，这个过程也十分简单。  
 
-###环境搭建
+### 环境搭建
 前提：
 本文使用：Idea + maven.  
 正式开始！
@@ -201,8 +201,13 @@ public class AccountController {
 }
 ```
 10.测试一下：  
+<<<<<<< HEAD
 [![WX20180408-193358.png](https://i.loli.net/2018/04/08/5aca010815735.png)](https://i.loli.net/2018/04/08/5aca010815735.png)
 [![WX20180408-193336.png](https://i.loli.net/2018/04/08/5aca0111e2928.png)](https://i.loli.net/2018/04/08/5aca0111e2928.png)
+=======
+![WX20180408-193336.png](https://i.loli.net/2018/04/08/5ac9fe32eb939.png)
+![WX20180408-193358.png](https://i.loli.net/2018/04/08/5ac9fe33017e9.png)
+>>>>>>> 4e9ca57084766011e63187cbbd0628e608796fef
 ok，大功告成，在各层中添加你的代码吧！
 
 <br>
