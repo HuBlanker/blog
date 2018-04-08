@@ -1,3 +1,7 @@
+--- 
+layout: post
+category: [Spring Boot,Web]
+---
 ### Spring Boot 是什么
 官网对他的介绍是：  
 
