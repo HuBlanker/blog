@@ -1,0 +1,68 @@
+<p>前一阵在写很多sql及类sql语句，发现自己的记忆力可以说是相当烂了，上午刚查过插入语句怎么写，下午就忘记了需要重新查，，而且隐隐约约的有点强迫症？？只要记得不是特别清晰，就需要去重新查，看，记一遍，十分浪费时间，因此在这里将自己用到的sql语句记下来，方便后续的查找！！</p>
+
+<p>PS:以个人习惯记录，切勿直接copy执行。<br />
+PSS:我发现我终于记住了，在写下面表格时基本没有去查了。。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>语句</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>插入语句</td>
+      <td>insert into 表(字段) values (值);</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>查找语句</td>
+      <td>select 字段 from 表 where 条件 order by 列 limit 数量</td>
+      <td>order/limit非必须</td>
+    </tr>
+    <tr>
+      <td>删除语句</td>
+      <td>delete from 表名 where 条件</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>修改语句</td>
+      <td>update 表名 set 字段=值 where 条件</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>去重值</td>
+      <td>select distinct 列名 from 表 where 条件</td>
+      <td>列名可以为多个，但同时作用于多个，使用需谨慎</td>
+    </tr>
+    <tr>
+      <td>模糊查找 like</td>
+      <td>select 列名 from 表 where 列 like ‘%嘻嘻%’；</td>
+      <td>谨慎使用，有性能问题</td>
+    </tr>
+    <tr>
+      <td>模糊查找 contact</td>
+      <td><em>省略前面</em> where 列 contact(‘%’,#{name},’’);</td>
+      <td>用于mybatis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+<h4>ChangeLog</h4>
+<p>2018-09-02      添加基础语句
+<br />
+<br /></p>
+
+<p><strong>以上皆为个人所思所得，如有错误欢迎评论区指正。</strong></p>
+
+<p><strong>欢迎转载，烦请署名并保留原文链接。</strong></p>
+
+<p><strong>联系邮箱：huyanshi2580@gmail.com</strong></p>
+
+<p><strong>更多学习笔记见个人博客——&gt;<a href="/">呼延十</a></strong></p>

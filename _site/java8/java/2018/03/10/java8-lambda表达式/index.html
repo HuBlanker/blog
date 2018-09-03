@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="千里我独行，不必相送。">
+
+    <title>Java8 lambda表达式 - 呼延十</title>
+
+    <link rel="canonical" href="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</head>
+
+
+
+
+
+
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">呼延十</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                
+                <li>
+                    <a href="/1.%E5%88%86%E7%B1%BB%E6%9F%A5%E7%9C%8B/">分类查看</a>
+                </li>
+                
+                <li>
+                    <a href="/2.%E6%97%B6%E9%97%B4%E5%BD%92%E6%A1%A3/">时间归档</a>
+                </li>
+                
+                <li>
+                    <a href="/3.%E5%85%B3%E4%BA%8E/">关于</a>
+                </li>
+                
+                <li>
+                    <a href="/4.%E6%90%9C%E7%B4%A2/">搜索</a>
+                </li>
+                
+		<li>
+                    <a href="101.200.47.120:8100">Demo</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/facebook.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="Tags">
+                        
+                    </div>
+                    <h1>Java8 lambda表达式</h1>
+                    
+                    <span class="meta">Posted by 呼延十 on March 10, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+
+                <p>前些天在写代码时，突然发现某一位大佬的代码中充斥着stream来操作List，自己的for循环相比之下黯然失色，遂决定要尽快学习一下。接下来突然的一周加班阻塞了我的行程，导致今天才有时间开始。</p>
+
+<h3>lambda表达式</h3>
+<p>lambda表达式允许将函数作为参数传递进方法中。lambda有什么作用呢？我目前的理解是：<br />
+<strong>make your code elegant！！！</strong></p>
+
+<p>在java 8 以前，java是不允许将函数复制给变量的，比如：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		<span class="n">lambda</span> <span class="o">=</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">){</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+		<span class="o">}</span> 
+</code></pre></div></div>
+<p>这种操作是不允许的。</p>
+
+<p>那么在java 8 中，这个lambda是什么类型呢？是一个“函数型接口”，函数型接口与普通接口最大的区别就是函数型接口只有一个函数需要被实现。为了防止后续人员对函数型接口进行添加，java8新增了@FunctionalInterface注解，可以防止函数型接口被添加函数（注意：default和static方法并不受约束，仍旧可以添加使用）。<br />
+像这样：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	  <span class="nd">@FunctionalInterface</span>
+	  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyLambdaInterface</span> <span class="o">{</span>
+	    <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">);</span>
+	  <span class="o">}</span>
+</code></pre></div></div>
+<p>ok，做完这些我们就可以开始使用lambda了。下面的代码可以在一个方法中打印字符车。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="n">MyLambdaInterface</span> <span class="n">lambdaInterface</span> <span class="o">=</span> <span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+	<span class="n">lambdaInterface</span><span class="o">.</span><span class="na">doSomething</span><span class="o">(</span><span class="s">"huyashi is good！"</span><span class="o">);</span>
+</code></pre></div></div>
+<p>这样的情况下已经比java7及以前简洁了太多太多。不信你可以自己用java7实现一个类似的效果。</p>
+
+<p>但是lambda就仅止于此吗？NO！如果你有5个方法，每个方法都是接受String而返回void，每个方法仅仅使用一次。java7却要求定义5个不同的接口实现类，而lambda只需要5行代码。</p>
+
+<p>上述情况只是lambda的最简单使用姿势，你当然可以定义负责的接口，如多个参数，具有返回值，只需要在赋值lambda时用花括号将函数的实现括起来就好。</p>
+
+<p>一个简单的小栗子:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nd">@FunctionalInterface</span>
+	  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HardInterface</span> <span class="o">{</span>
+	    <span class="n">String</span>  <span class="nf">add</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">);</span>
+	  <span class="o">}</span>
+</code></pre></div></div>
+<p>使用：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	 <span class="n">HardInterface</span> <span class="n">hardInterface</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+	      <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+	      <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">10</span><span class="o">;</span>
+	      <span class="k">return</span> <span class="n">s</span><span class="o">+</span><span class="n">i</span><span class="o">;</span>
+	    <span class="o">};</span>
+	    <span class="n">hardInterface</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"huyanshi"</span><span class="o">,</span><span class="mi">110</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>总结一下：<br />
+lambda表达式替代了原先的匿名类的作用，将<br />
+1.编写接口实现类，实现该接口中的方法。<br />
+2.new 一个实现类的实例。
+简化为：<strong>new 一个接口的实例并将一个方法赋值给它</strong></p>
+
+<p>Lambda结合FunctionalInterface Lib, forEach, stream()，method reference等新特性可以使代码变的更加简洁！</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/" data-toggle="tooltip" data-placement="top" title="Java 面试知识点合集">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/java8/java/2018/03/10/java8-%E6%8E%A5%E5%8F%A3%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="Java8 接口的静态方法和默认方法">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Duoshuo Share start -->
+                <style>
+                    .ds-share{
+                        text-align: right;
+                    }
+                    
+                    @media only screen and (max-width: 700px) {
+                        .ds-share {
+
+                        }
+                    }
+                </style>
+
+                <div class="ds-share"
+                    data-thread-key="/java8/java/2018/03/10/java8 lambda表达式" data-title="Java8 lambda表达式"
+                    data-images="your123.com/img/facebook.jpg"
+                    data-content="前些天在写代码时，突然发现某一位大佬的代码中充斥着stream来操作List，自己的for循环相比之下黯然失色，遂决定要尽快学习一下。接下来突然的一周加班... | Microdust:Azeril's blog"
+                    data-url="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+
+                       <li data-toggle="ds-share-icons-more">以上皆为作者个人所思所得，如有错误欢迎指正。</li>
+                        <li>联系方式：邮箱：huyanshi2580@gmail.com</li>
+                        <li>欢迎转载，请保留原文链接。谢谢！嘻嘻！</li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- Duoshuo Share end-->
+
+
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread" data-thread-key="/java8/java/2018/03/10/java8 lambda表达式" data-title="Java8 lambda表达式" data-url="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"></div>
+                </div>
+                <!-- 多说评论框 end -->
+                      <div id="container"></div>
+                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                        <script src="https://billts.site/js/gitment.js"></script>
+                        <script>
+                        var gitment = new Gitment({
+                            id: 'Java8 lambda表达式 - 呼延十',
+                          owner: 'hublanker',
+                          repo: 'blog',
+                          oauth: {
+                            client_id: 'cb39b56b472f24811e5c',
+                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
+                          },
+                        })
+                        gitment.render('container')
+                        </script>
+
+                     </div>
+        </div>
+    </div>
+
+</article>
+
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cnfeat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<!-- jQuery -->
+<!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <!-- kill the Facebook and Weibo -->
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+              
+                    
+
+                    
+                    <li>
+                        <a href="https://github.com/hublanker">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <div style="display:none">
+                                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273102887'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273102887' type='text/javascript'%3E%3C/script%3E"));</script>
+                                </div>
+                                <i class="fa fa-douban fa-stack-1x fa-inverse">统</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    
+                    
+
+                    
+                    <!--
+                    
+                    -->
+
+                </ul>
+                <p class="copyright text-muted">
+                &copy; 2018 呼延十 ❖ Powered by Jekyll & Gitment.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="cb-search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px;
+      opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+    <input type="text" class="form-control cb-search-content" id="cb-search-content" style="position: fixed; top: 60px" placeholder="文章标题 日期 标签" >
+
+    <div style="position: fixed; top: 16px; right: 16px;">
+        <img src="/search/img/cb-close.png"  id="cb-close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px;">
+    <img src="/search/img/cb-search.png"  id="cb-search-btn"  title="双击ctrl试一下"/>
+</div>
+
+<link rel="stylesheet" href="/search/css/cb-search.css">
+
+<script src="/search/js/bootstrap3-typeahead.min.js"></script>
+<script src="/search/js/cb-search.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js",function(){
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!-- Bootstrap Core JavaScript -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/pfliu.min.js "></script>
+
+    </body>
+
+</html>

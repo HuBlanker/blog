@@ -1,0 +1,77 @@
+<p>java8里面新增了一套处理时间和日期的API，为什么要搞一套全新的API呢，因为原来的java.util.Date以及Calendar实在是太难用了。 <br />
+如果你有过在程序中处理时间的经验你就会知道，在java8以前，处理时间是多么让人痛苦。</p>
+
+<p>举个简单的小栗子：</p>
+
+<p>如果你需要查询当前周的订单，那么你需要先获取本地时间，然后根据本地时间获取一个Calendar，然后对Calendar进行一些时间上的加减操作，然后获取Calendar中的时间。</p>
+
+<p>而在java8中，你只需要这样：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">LocalDate</span> <span class="n">date</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+    <span class="c1">//当前时间减去今天是周几</span>
+    <span class="n">LocalDate</span> <span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="na">minusDays</span><span class="o">(</span><span class="n">date</span><span class="o">.</span><span class="na">getDayOfWeek</span><span class="o">().</span><span class="na">getValue</span><span class="o">());</span>
+    <span class="c1">//当前时间加上（8-今天周几）</span>
+    <span class="n">LocalDate</span> <span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="na">plusDays</span><span class="o">(</span><span class="mi">8</span> <span class="o">-</span><span class="n">date</span><span class="o">.</span><span class="na">getDayOfWeek</span><span class="o">().</span><span class="na">getValue</span><span class="o">());</span>
+</code></pre></div></div>
+<p>是不是很简单呢，接下来就将看一下java8的时间api具体怎么使用吧。</p>
+
+<p>java8中提供里真正的日期，时间分割开来的操作，LocalDate是日期相关操作，LocalTime是时间(即每天24个小时)的操作。 <br />
+想要获取时间及日期的话请使用LocalDateTime.</p>
+<h3>LocalDate</h3>
+<p>首先，获取日期：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 取当前日期：</span>
+<span class="n">LocalDate</span> <span class="n">today</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span> <span class="c1">// -&gt; 2014-12-24</span>
+<span class="c1">// 根据年月日取日期，12月就是12：</span>
+<span class="n">LocalDate</span> <span class="n">crischristmas</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2014</span><span class="o">,</span> <span class="mi">12</span><span class="o">,</span> <span class="mi">25</span><span class="o">);</span> <span class="c1">// -&gt; 2014-12-25</span>
+<span class="c1">// 根据字符串取：</span>
+<span class="n">LocalDate</span> <span class="n">endOfFeb</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"2014-02-28"</span><span class="o">);</span> <span class="c1">// 严格按照ISO yyyy-MM-dd验证，02写成2都不行，当然也有一个重载方法允许自己定义格式</span>
+<span class="n">LocalDate</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"2014-02-29"</span><span class="o">);</span> <span class="c1">// 无效日期无法通过：DateTimeParseException: Invalid date</span>
+</code></pre></div></div>
+<p>日期转换：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 取本月第1天：</span>
+<span class="n">LocalDate</span> <span class="n">firstDayOfThisMonth</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">TemporalAdjusters</span><span class="o">.</span><span class="na">firstDayOfMonth</span><span class="o">());</span> <span class="c1">// 2014-12-01</span>
+<span class="c1">// 取本月第2天：</span>
+<span class="n">LocalDate</span> <span class="n">secondDayOfThisMonth</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="na">withDayOfMonth</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> <span class="c1">// 2014-12-02</span>
+<span class="c1">// 取本月最后一天，再也不用计算是28，29，30还是31：</span>
+<span class="n">LocalDate</span> <span class="n">lastDayOfThisMonth</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">TemporalAdjusters</span><span class="o">.</span><span class="na">lastDayOfMonth</span><span class="o">());</span> <span class="c1">// 2014-12-31</span>
+<span class="c1">// 取下一天：</span>
+<span class="n">LocalDate</span> <span class="n">firstDayOf2015</span> <span class="o">=</span> <span class="n">lastDayOfThisMonth</span><span class="o">.</span><span class="na">plusDays</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="c1">// 变成了2015-01-01</span>
+<span class="c1">// 取2015年1月第一个周一，这个计算用Calendar要死掉很多脑细胞：</span>
+<span class="n">LocalDate</span> <span class="n">firstMondayOf2015</span> <span class="o">=</span> <span class="n">LocalDate</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"2015-01-01"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span><span class="n">TemporalAdjusters</span><span class="o">.</span><span class="na">firstInMonth</span><span class="o">(</span><span class="n">DayOfWeek</span><span class="o">.</span><span class="na">MONDAY</span><span class="o">));</span> <span class="c1">// 2015-01-05</span>
+</code></pre></div></div>
+<h3>LocalTime</h3>
+<p>获取时间：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//包含毫秒</span>
+<span class="n">LocalTime</span> <span class="n">now</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span> <span class="c1">// 11:09:09.240</span>
+<span class="c1">//不包含毫秒  </span>
+<span class="n">LocalTime</span> <span class="n">now</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">withNano</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span> <span class="c1">// 11:09:09</span>
+<span class="c1">//构造时间  </span>
+<span class="n">LocalTime</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span> <span class="c1">// 00:00:00</span>
+<span class="n">LocalTime</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"12:00:00"</span><span class="o">);</span> <span class="c1">// 12:00:00</span>
+</code></pre></div></div>
+
+<p>LocalDateTime的很多操作都和LocalDate差不多，具体的请查看一下源码就秒懂了。</p>
+
+<p>####提醒一下朋友们：千万不要觉得学习LocalDate及相关操作很麻烦，而继续使用java.util.date,因为当你认真的看一下，你会发现用不了半个小时你就可以基本掌握LocalDate的使用。而这半个小时带来的效率提升，代码质量的提升是很大的。</p>
+
+<p>我就是很早就知道了LocalDate但是懒得学习，总觉得java.util.Date可以凑活使用即使他很渣，但是当我终于静下心来学了一下之后，后悔莫及！！！！我为什么没有早点认真学习呢！我为什么要使用愚蠢的java.util.Date那么久呢！！！</p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+<h4>ChangeLog</h4>
+<p>2018-03-31      完成
+<br /></p>
+
+<p><strong>以上皆为个人所思所得，如有错误欢迎评论区指正。</strong></p>
+
+<p><strong>欢迎转载，烦请署名并保留原文链接。</strong></p>
+
+<p><strong>联系邮箱：huyanshi2580@gmail.com</strong></p>
+
+<p><strong>更多学习笔记见个人博客——&gt;<a href="https://hublanker.github.io/blog/">呼延十</a></strong></p>
+

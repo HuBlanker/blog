@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="千里我独行，不必相送。">
+
+    <title>搭建常用开发环境 - 呼延十</title>
+
+    <link rel="canonical" href="your123.com/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/04/06/%E6%90%AD%E5%BB%BA%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+
+    <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</head>
+
+
+
+
+
+
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">呼延十</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                
+                <li>
+                    <a href="/1.%E5%88%86%E7%B1%BB%E6%9F%A5%E7%9C%8B/">分类查看</a>
+                </li>
+                
+                <li>
+                    <a href="/2.%E6%97%B6%E9%97%B4%E5%BD%92%E6%A1%A3/">时间归档</a>
+                </li>
+                
+                <li>
+                    <a href="/3.%E5%85%B3%E4%BA%8E/">关于</a>
+                </li>
+                
+                <li>
+                    <a href="/4.%E6%90%9C%E7%B4%A2/">搜索</a>
+                </li>
+                
+		<li>
+                    <a href="101.200.47.120:8100">Demo</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/facebook.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="Tags">
+                        
+                    </div>
+                    <h1>搭建常用开发环境</h1>
+                    
+                    <span class="meta">Posted by 呼延十 on April 6, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+
+                <p>前两天犯了一个愚蠢的错误，我的bazel环境出了一点点小问题，然后被我误操作删除了一个C的头文件彻底跑不起来了。在google很久后终于在github上找到一个解决办法，执行一个rm命令，当时我以为这个命令的效果会和maven上的clean然后重新build就ok了。是的，我的电脑被删除干净了。</p>
+
+<p>产品还在催着上需求，我就开始很慌乱的搭建环境，想想上次搭建环境的时候也是很慌乱？？？总不能一点进步都没有吧，所以我打算将自己日常搭建的环境逐步记录下来，方便自己以后<strong>被</strong>‘重置’电脑或者新换电脑搭建环境时参考。</p>
+
+<p>由于目前使用Mac，所以仅供Mac用户参考，等我以后用回自己的Windows再写Windows环境搭建吧(Windows搭建环境实在是太麻烦了呜呜)。</p>
+
+<p>这篇文章只介绍常用环境的搭建及工具安装，使用方法不过多介绍，感兴趣的可以自行google(也许后面我就写了呢！)。</p>
+
+<h3 id="安装jdk">安装JDK</h3>
+<p>1.去Oracle官网下载<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK1.8</a>.(除非维护老项目否则不要再用jdk7了求求你们了，老项目也强烈建议迁移至jdk8)。<br />
+2.点开安装包一路点击，安装成功。<br />
+3.此时在终端中输入<code class="highlighter-rouge">java -version</code>应该就会显示jdk版本号了。
+<img src="https://i.loli.net/2018/04/07/5ac7d7fbe8bec.png" alt="WX20180407-042506.png" /><br />
+3.配置环境变量，进入终端，输入<code class="highlighter-rouge">vi ~/.bash_profile</code>.<br />
+4.在打开的文件中追加以下内容。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
+export JAVA_HOME
+export PATH
+export CLASSPATH
+
+</code></pre></div></div>
+<p>5.执行<code class="highlighter-rouge">source ~/.bash_profile</code>以使刚才的配置生效。<br />
+6.终端执行<code class="highlighter-rouge">echo $JAVA_HOME</code>.
+如果显示java安装路径，则配置环境变量成功。</p>
+
+<h3 id="安装homebrew">安装homebrew</h3>
+<p>brew 又叫Homebrew，是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件， 只需要一个命令， 非常方便</p>
+
+<p>这个东西是我觉得程序员在经济允许的条件下应该抛弃windows的一大原因，安装软件太方便了！</p>
+
+<p>安装方法，在终端执行</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+</code></pre></div></div>
+
+<p>OK!</p>
+
+<h3 id="git">git</h3>
+
+<p>git作为当前最流行的(我唯一会的)版本管理工具,每次换电脑都是必不可少的。</p>
+<h4 id="安装">安装：</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install git
+</code></pre></div></div>
+<p>安装完成之后初始化版本库。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//建立一个自己喜欢的工作目录
+$ mkdir work
+//设置自己的git用户名及邮箱
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+//初始化版本库  
+$ git init
+//从远程库拉取代码
+$ git clone xxxxxxxxxx
+</code></pre></div></div>
+
+<h4 id="终端显示当前分支名">终端显示当前分支名</h4>
+<p>在终端进行git操作时，看不到当前的分支名称总是感觉慌慌的。。所以这个技能必备！</p>
+
+<p>1.终端执行<code class="highlighter-rouge">vi ~/.bashrc</code>
+在打开的文件中添加以下代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function git_branch {
+   branch="`git branch 2&gt;/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+   if [ "${branch}" != "" ];then
+       if [ "${branch}" = "(no branch)" ];then
+           branch="(`git rev-parse --short HEAD`...)"
+       fi
+       echo " ($branch)"
+   fi
+}
+
+export PS1='\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ '
+</code></pre></div></div>
+<p>2.执行加载命令<code class="highlighter-rouge">source ./.bashrc</code></p>
+
+<p>3.由于mac不会自动加载.bashrc，所以需要执行<code class="highlighter-rouge">echo "[ -r ~/.bashrc ] &amp;&amp; source ~/.bashrc" &gt;&gt; .bash_profile</code>以使每次开机后自动生效。</p>
+
+<h4 id="git-简化命令">git 简化命令</h4>
+
+<p>经常使用终端来提交代码，每次都要敲下pull，push，branch，status实在是不太优雅，name简单版本来啦。</p>
+
+<p>在终端执行：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+$ git config --global alias.ps push
+$ git config --global alias.pl pull
+</code></pre></div></div>
+<p>我经常使用的就是这几个，泥淖而已对其中我设置的别名进行自定义，当然也可以添加更多别名。</p>
+
+<h4 id="git-命令自动补全">git 命令自动补全</h4>
+
+<p>有了别名怎么能少得了自动补全呢？</p>
+
+<p>1.使用brew安装bash-completion。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install bash-completion
+</code></pre></div></div>
+<p>然后根据安装后的提示将提示内容内容写入到~/.bash_profile中。</p>
+
+<p>2.将<a href="https://github.com/git/git/tree/master/contrib/completion">git-completion.bash</a>的内容拷贝至文件<code class="highlighter-rouge">~/.git-completion.bash</code>中(如果没有此文件就新建)。</p>
+
+<p>3.在~/.bashrc中添加<code class="highlighter-rouge">source ~/.git-completion.bash</code>.</p>
+
+<p>4.重启终端完成。</p>
+
+<p>安装完成git别名和git自动补全后，当你想输入<code class="highlighter-rouge">git pull origin master</code>,你只需要输入<code class="highlighter-rouge">git pl o[tab] m[tab]</code>即可。效率提成(装逼程度)大幅提升。</p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+<h4>ChangeLog</h4>
+<p>2018-04-06   JDK安装</p>
+
+<p><br /></p>
+
+<p><strong>以上皆为个人所思所得，如有错误欢迎评论区指正。</strong></p>
+
+<p><strong>欢迎转载，烦请署名并保留原文链接。</strong></p>
+
+<p><strong>联系邮箱：huyanshi2580@gmail.com</strong></p>
+
+<p><strong>更多学习笔记见个人博客——&gt;<a href="https://hublanker.github.io/blog/">呼延十</a></strong></p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/java8/java/2018/03/31/java8-Date-Time-api/" data-toggle="tooltip" data-placement="top" title="Java8 Date Time Api">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/spring%20boot/web/2018/04/07/spring-boot-mybatis-web-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Spring Boot Mybatis Web 开发环境搭建">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Duoshuo Share start -->
+                <style>
+                    .ds-share{
+                        text-align: right;
+                    }
+                    
+                    @media only screen and (max-width: 700px) {
+                        .ds-share {
+
+                        }
+                    }
+                </style>
+
+                <div class="ds-share"
+                    data-thread-key="/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/04/06/搭建常用开发环境" data-title="搭建常用开发环境"
+                    data-images="your123.com/img/facebook.jpg"
+                    data-content="前两天犯了一个愚蠢的错误，我的bazel环境出了一点点小问题，然后被我误操作删除了一个C的头文件彻底跑不起来了。在google很久后终于在github上找... | Microdust:Azeril's blog"
+                    data-url="your123.com/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/04/06/%E6%90%AD%E5%BB%BA%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+
+                       <li data-toggle="ds-share-icons-more">以上皆为作者个人所思所得，如有错误欢迎指正。</li>
+                        <li>联系方式：邮箱：huyanshi2580@gmail.com</li>
+                        <li>欢迎转载，请保留原文链接。谢谢！嘻嘻！</li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- Duoshuo Share end-->
+
+
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread" data-thread-key="/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/04/06/搭建常用开发环境" data-title="搭建常用开发环境" data-url="your123.com/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/04/06/%E6%90%AD%E5%BB%BA%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"></div>
+                </div>
+                <!-- 多说评论框 end -->
+                      <div id="container"></div>
+                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                        <script src="https://billts.site/js/gitment.js"></script>
+                        <script>
+                        var gitment = new Gitment({
+                            id: '搭建常用开发环境 - 呼延十',
+                          owner: 'hublanker',
+                          repo: 'blog',
+                          oauth: {
+                            client_id: 'cb39b56b472f24811e5c',
+                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
+                          },
+                        })
+                        gitment.render('container')
+                        </script>
+
+                     </div>
+        </div>
+    </div>
+
+</article>
+
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cnfeat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<!-- jQuery -->
+<!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <!-- kill the Facebook and Weibo -->
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+              
+                    
+
+                    
+                    <li>
+                        <a href="https://github.com/hublanker">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <div style="display:none">
+                                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273102887'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273102887' type='text/javascript'%3E%3C/script%3E"));</script>
+                                </div>
+                                <i class="fa fa-douban fa-stack-1x fa-inverse">统</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    
+                    
+
+                    
+                    <!--
+                    
+                    -->
+
+                </ul>
+                <p class="copyright text-muted">
+                &copy; 2018 呼延十 ❖ Powered by Jekyll & Gitment.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="cb-search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px;
+      opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+    <input type="text" class="form-control cb-search-content" id="cb-search-content" style="position: fixed; top: 60px" placeholder="文章标题 日期 标签" >
+
+    <div style="position: fixed; top: 16px; right: 16px;">
+        <img src="/search/img/cb-close.png"  id="cb-close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px;">
+    <img src="/search/img/cb-search.png"  id="cb-search-btn"  title="双击ctrl试一下"/>
+</div>
+
+<link rel="stylesheet" href="/search/css/cb-search.css">
+
+<script src="/search/js/bootstrap3-typeahead.min.js"></script>
+<script src="/search/js/cb-search.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js",function(){
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!-- Bootstrap Core JavaScript -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/pfliu.min.js "></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,129 @@
+<p>前两天犯了一个愚蠢的错误，我的bazel环境出了一点点小问题，然后被我误操作删除了一个C的头文件彻底跑不起来了。在google很久后终于在github上找到一个解决办法，执行一个rm命令，当时我以为这个命令的效果会和maven上的clean然后重新build就ok了。是的，我的电脑被删除干净了。</p>
+
+<p>产品还在催着上需求，我就开始很慌乱的搭建环境，想想上次搭建环境的时候也是很慌乱？？？总不能一点进步都没有吧，所以我打算将自己日常搭建的环境逐步记录下来，方便自己以后<strong>被</strong>‘重置’电脑或者新换电脑搭建环境时参考。</p>
+
+<p>由于目前使用Mac，所以仅供Mac用户参考，等我以后用回自己的Windows再写Windows环境搭建吧(Windows搭建环境实在是太麻烦了呜呜)。</p>
+
+<p>这篇文章只介绍常用环境的搭建及工具安装，使用方法不过多介绍，感兴趣的可以自行google(也许后面我就写了呢！)。</p>
+
+<h3 id="安装jdk">安装JDK</h3>
+<p>1.去Oracle官网下载<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK1.8</a>.(除非维护老项目否则不要再用jdk7了求求你们了，老项目也强烈建议迁移至jdk8)。<br />
+2.点开安装包一路点击，安装成功。<br />
+3.此时在终端中输入<code class="highlighter-rouge">java -version</code>应该就会显示jdk版本号了。
+<img src="https://i.loli.net/2018/04/07/5ac7d7fbe8bec.png" alt="WX20180407-042506.png" /><br />
+3.配置环境变量，进入终端，输入<code class="highlighter-rouge">vi ~/.bash_profile</code>.<br />
+4.在打开的文件中追加以下内容。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
+export JAVA_HOME
+export PATH
+export CLASSPATH
+
+</code></pre></div></div>
+<p>5.执行<code class="highlighter-rouge">source ~/.bash_profile</code>以使刚才的配置生效。<br />
+6.终端执行<code class="highlighter-rouge">echo $JAVA_HOME</code>.
+如果显示java安装路径，则配置环境变量成功。</p>
+
+<h3 id="安装homebrew">安装homebrew</h3>
+<p>brew 又叫Homebrew，是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件， 只需要一个命令， 非常方便</p>
+
+<p>这个东西是我觉得程序员在经济允许的条件下应该抛弃windows的一大原因，安装软件太方便了！</p>
+
+<p>安装方法，在终端执行</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+</code></pre></div></div>
+
+<p>OK!</p>
+
+<h3 id="git">git</h3>
+
+<p>git作为当前最流行的(我唯一会的)版本管理工具,每次换电脑都是必不可少的。</p>
+<h4 id="安装">安装：</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install git
+</code></pre></div></div>
+<p>安装完成之后初始化版本库。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//建立一个自己喜欢的工作目录
+$ mkdir work
+//设置自己的git用户名及邮箱
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+//初始化版本库  
+$ git init
+//从远程库拉取代码
+$ git clone xxxxxxxxxx
+</code></pre></div></div>
+
+<h4 id="终端显示当前分支名">终端显示当前分支名</h4>
+<p>在终端进行git操作时，看不到当前的分支名称总是感觉慌慌的。。所以这个技能必备！</p>
+
+<p>1.终端执行<code class="highlighter-rouge">vi ~/.bashrc</code>
+在打开的文件中添加以下代码：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function git_branch {
+   branch="`git branch 2&gt;/dev/null | grep "^\*" | sed -e "s/^\*\ //"`"
+   if [ "${branch}" != "" ];then
+       if [ "${branch}" = "(no branch)" ];then
+           branch="(`git rev-parse --short HEAD`...)"
+       fi
+       echo " ($branch)"
+   fi
+}
+
+export PS1='\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ '
+</code></pre></div></div>
+<p>2.执行加载命令<code class="highlighter-rouge">source ./.bashrc</code></p>
+
+<p>3.由于mac不会自动加载.bashrc，所以需要执行<code class="highlighter-rouge">echo "[ -r ~/.bashrc ] &amp;&amp; source ~/.bashrc" &gt;&gt; .bash_profile</code>以使每次开机后自动生效。</p>
+
+<h4 id="git-简化命令">git 简化命令</h4>
+
+<p>经常使用终端来提交代码，每次都要敲下pull，push，branch，status实在是不太优雅，name简单版本来啦。</p>
+
+<p>在终端执行：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+$ git config --global alias.ps push
+$ git config --global alias.pl pull
+</code></pre></div></div>
+<p>我经常使用的就是这几个，泥淖而已对其中我设置的别名进行自定义，当然也可以添加更多别名。</p>
+
+<h4 id="git-命令自动补全">git 命令自动补全</h4>
+
+<p>有了别名怎么能少得了自动补全呢？</p>
+
+<p>1.使用brew安装bash-completion。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install bash-completion
+</code></pre></div></div>
+<p>然后根据安装后的提示将提示内容内容写入到~/.bash_profile中。</p>
+
+<p>2.将<a href="https://github.com/git/git/tree/master/contrib/completion">git-completion.bash</a>的内容拷贝至文件<code class="highlighter-rouge">~/.git-completion.bash</code>中(如果没有此文件就新建)。</p>
+
+<p>3.在~/.bashrc中添加<code class="highlighter-rouge">source ~/.git-completion.bash</code>.</p>
+
+<p>4.重启终端完成。</p>
+
+<p>安装完成git别名和git自动补全后，当你想输入<code class="highlighter-rouge">git pull origin master</code>,你只需要输入<code class="highlighter-rouge">git pl o[tab] m[tab]</code>即可。效率提成(装逼程度)大幅提升。</p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+<h4>ChangeLog</h4>
+<p>2018-04-06   JDK安装</p>
+
+<p><br /></p>
+
+<p><strong>以上皆为个人所思所得，如有错误欢迎评论区指正。</strong></p>
+
+<p><strong>欢迎转载，烦请署名并保留原文链接。</strong></p>
+
+<p><strong>联系邮箱：huyanshi2580@gmail.com</strong></p>
+
+<p><strong>更多学习笔记见个人博客——&gt;<a href="https://hublanker.github.io/blog/">呼延十</a></strong></p>

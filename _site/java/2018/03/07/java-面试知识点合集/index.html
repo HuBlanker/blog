@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="千里我独行，不必相送。">
+
+    <title>Java 面试知识点合集 - 呼延十</title>
+
+    <link rel="canonical" href="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
+
+    <!-- Icons -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</head>
+
+
+
+
+
+
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">呼延十</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                
+                <li>
+                    <a href="/1.%E5%88%86%E7%B1%BB%E6%9F%A5%E7%9C%8B/">分类查看</a>
+                </li>
+                
+                <li>
+                    <a href="/2.%E6%97%B6%E9%97%B4%E5%BD%92%E6%A1%A3/">时间归档</a>
+                </li>
+                
+                <li>
+                    <a href="/3.%E5%85%B3%E4%BA%8E/">关于</a>
+                </li>
+                
+                <li>
+                    <a href="/4.%E6%90%9C%E7%B4%A2/">搜索</a>
+                </li>
+                
+		<li>
+                    <a href="101.200.47.120:8100">Demo</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/facebook.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="Tags">
+                        
+                    </div>
+                    <h1>Java 面试知识点合集</h1>
+                    
+                    <span class="meta">Posted by 呼延十 on March 7, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+
+                <p>摘要：网上java面试知识杂乱而繁多，每次想看的时候总会挑挑拣拣许多时间就过去了，所以我对其进行一次学习，整理。<br />
+学习：许多的基础知识掌握并不牢固，借此机会学习一发。<br />
+整理：对知识做出合理的分类，设置目录，方便自己以后回顾时查看</p>
+<h2>目录</h2>
+
+<ul>
+  <li>基础篇
+    <ul>
+      <li>Java基础
+ 	- <a href="#1.1.1">1.面对对象的三大特性</a><br />
+ 	-  <a href="#1.1.2">2.final，finally，finalize的区别</a><br />
+  	- <a href="#1.1.3">3.Exception、Error、运行时异常与一般异常有何异同</a><br />
+  	- <a href="#1.1.4">4.请写出你最常遇到的5种运行时异常</a><br />
+  	- <a href="#1.1.5">5.java的基础类型</a><br />
+  	- <a href="#1.1.6">6.Integer和int的区别，Integer的缓存范围</a><br />
+  	- <a href="#1.1.7">7.包装类，装箱与拆箱</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2>正文</h2>
+<h3>一、基础篇</h3>
+<h4>1.1 java基础</h4>
+<h5 id="1.1.1">1.面向对象的特征：封装、继承、多态  </h5>
+
+<p>(1).封装：属性能够描述事物的特征，方法能够描述事物的动作。封装就是把同一类事物的共性（包括属性和方法）归到同一类中，方便使用。</p>
+
+<p>封装的好处有：<br />
+隐藏数据及实现细节，对每个属性加以不同的修饰符可以防止对信息的错误改动，更加安全。 <br />
+降低模块间的耦合度，以及代码复用。</p>
+
+<p>举个栗子：有一个类<b>车</b>，当需要使用时，只需要new一辆车，然后点击启动，前进，后退，就好。而不用知道车的轮胎多大，发动机型号，或者知道车是如何前进的。</p>
+
+<p>(2).继承：Java继承是面向对象的最显著的一个特征。继承是从已有的类中派生出新的类，新的类能吸收已有类的数据属性和行为，并能扩展新的能力。JAVA不支持多继承，单继承使JAVA的继承关系很简单，一个类只能有一个父类，易于管理程序，父类是子类的一般化，子类是父类的特化（具体化)。</p>
+
+<p>好处：提高代码复用率，以及易维护性。</p>
+
+<p>举个栗子：有一个类叫<b>动物</b>，它有属性：腿的数量。有方法：可以叫。<br />
+新建一个他的子类<b>猫</b>，猫就自动拥有了上述属性集方法，你还可以添加一个新的属性：毛的颜色。
+这样就不需要重新写一遍腿的数量，可以叫的代码。</p>
+
+<p>(3).多态：不同类对象对相同行为的不同反应，我们就把它叫做多态。 与继承相对应的是多态提供了对同一类对象差异性的处理方法，子类通过多态重写从父类继承的方法来实现子类的差异性。</p>
+
+<p>直接举个栗子：</p>
+<pre><code>
+class Animal{ 叫；}//叫是动物的一个方法  
+class 猫 extend Animal{叫；}
+class 狗 extend Animal{叫；}
+
+Animal 狗 = new 狗();
+Animal 猫 = new 猫();  
+
+狗.叫();  
+猫.叫();
+</code></pre>
+<p>猫和狗同样是Animal，调用同一个方法却可以得到不同的叫声。</p>
+
+<h5 id="1.1.2">2.final，finally，finalize的区别</h5>
+<p>这个问题，，，我好想知道他们有什么联系。<br />
+<strong>final</strong><br />
+final 关键字可以用来修饰变量，方法，类。<br />
+用于变量时，此变量只能被赋值一次之后不能修改，且赋值必须在定义时或者构造方法中进行，常用来定义一个常量。<br />
+<strong>finally</strong><br />
+finally用于异常处理，在try-catch块之后，可以不存在，存在的时候无论是否捕获错误都会执行finally块中的代码，常用于资源的释放，即无论是否捕获错误，都要将一些连接，文件关闭，将资源释放掉。
+<strong>finalize()</strong><br />
+finalize()是一个定义域Object类的方法，也就是所有的java类都继承了此方法，主要用于java虚拟机进行垃圾回收，删除此对象之前对此对象调用finalize()方法。</p>
+
+<h5 id="1.1.3">3.Exception、Error、运行时异常与一般异常有何异同</h5>
+<p>首先引入一张java异常相关类的类图：<br />
+<img src="https://i.loli.net/2018/03/16/5aaa99d019f39.jpg" alt="1354020417_5176.jpg" />
+首先，所有的javaException以及Error都继承自Throwable。</p>
+
+<p><strong>Error</strong>：表示程序无法处理的错误，大多数情况和程序员的代码无关，而是JVM相关的资源错误。发生此类错误时，程序无法继续，系统能做的只是尽力的安全退出程序。</p>
+
+<p><strong>Exception</strong>：可以被应用程序捕获及处理的。</p>
+
+<p>先忘记上面的分类,java Exception通常可以分为<strong>checked exception(可查异常）(Exception 类下除RuntimeException之外)</strong> 和 <strong>unchecked exception(不可查异常)(RuntimeException和Error)</strong>。</p>
+
+<p><strong>可查异常</strong>：此类的异常是经常出现的，有迹可循甚至可查预测到可能会抛出的，因此编译器会强制要求我们去捕获/抛出它，显式的对其进行处理(不对其进行处理编译无法通过)。比如IOException和SQLException。<br />
+在读写一个文件时，我们可以想象会出现哪些情况的异常，比如文件不正常关闭，此时应该怎么处理，都有迹可循。所以我们可以在编写程序时就对此类异常作出处理。</p>
+
+<p><strong>不可查异常</strong><br />
+Error情况严重，一般发成程序都会结束。<br />
+RuntimeException：运行时异常，RuntimeException及其子类，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。(此类异常不try-catch,不 throw 也可以通过编译。)<br />
+比如空指针异常，我们也可以在每个可能引发空指针的地方捕获处理，但显然是不科学的，我们应该设计严谨的逻辑使得程序不会出现此类异常。</p>
+
+<h5 id="1.1.4">4.请写出你最常见到的5种运行时异常</h5>
+<ul>
+  <li>NullPointerException - 空指针引用异常</li>
+  <li>ClassCastException - 类型强制转换异常。</li>
+  <li>IllegalArgumentException - 传递非法参数异常。</li>
+  <li>ArithmeticException - 算术运算异常</li>
+  <li>IndexOutOfBoundsException - 下标越界异常</li>
+  <li>NumberFormatException当应用程序试图将字符串转换成一种数值类型，但该字符串不能转换为适当格式时，抛出该异常.(属于IllegalArhumentException的子类)</li>
+</ul>
+
+<h5 id="1.1.5">5.java的基础类型</h5>
+<p>java的基础类型，其实多用一点很自然的就记住了，但是如果你还没有记住，建议在面试前一定要背过去，因为如果这个都不会，真的是很尴尬。。<br />
+整型：byte，int，short，long。<br />
+浮点型：float，double。<br />
+字符：char。<br />
+布尔：boolean。</p>
+
+<h5 id="1.1.6">6.Integer和int的区别，Integer的缓存范围</h5>
+<p>在java中，有八种基础类型，详见上一条。<br />
+而java是一种面对对象的语言，很多时候不可以用基础数据类型而需要一个类。因此加入了Integer，Boolean等包装类。<br />
+区别：<br />
+1.int是一个基础数据类型，Integer是一个包装类，是一个对象。<br />
+2.类初始化时，int的值为0，Integer的值为null。<br />
+当你只是需要一个值来进行一些加减乘除的运算及作为参数传递一下，那么可以定义为int，如果需要对其做一些类型的转换，尽量定义为一个Integer，因为java的对象会继承以及拥有一些自己的方法，使用起来更加方便。<br />
+<br />
+Integer的缓存问题：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">compare1</span><span class="o">(){</span>
+         <span class="n">Integer</span> <span class="n">i1</span> <span class="o">=</span> <span class="mi">127</span><span class="o">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="mi">127</span><span class="o">,</span> <span class="n">i3</span> <span class="o">=</span> <span class="mi">128</span><span class="o">,</span> <span class="n">i4</span> <span class="o">=</span> <span class="mi">128</span><span class="o">;</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i1</span>  <span class="o">==</span> <span class="n">i2</span><span class="o">);</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">i2</span><span class="o">));</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i3</span>  <span class="o">==</span> <span class="n">i4</span><span class="o">);</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i3</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">i4</span><span class="o">));</span>
+     <span class="o">}</span>
+</code></pre></div></div>
+<p>输出结果为：<br />
+true，true，false，true。</p>
+
+<p>当时用Integer i= 127这种操作时，会进行装箱操作，即发生Integer i = Integer.valueOf(127).
+当值处于（-128，127）之间时，不会去重新new一个Integer，而是从缓存中取。因此在此范围之内的Integer，使用  == 判断时也会返回true，因为他们本身就是同一个对象(缓存中)。而equal方法就是判断其值是否相等，返回true，并没有问题。<br />
+为了避免造成错误，可以使用Integer i = new Integer(127),这样就不会出现因为java缓存导致的问题。</p>
+
+<h5 id="1.1.7">7.包装类，装箱与拆箱</h5>
+<p>包装类：java是一个面对对象的语言，但是java中的基本数据类型却不是面对对象的，为了弥补这一点，对每一个基本数据类型设计了一个与之相对应的类型，这个类型就是包装类。八种基本数据类型与对应的包装类为：</p>
+
+<ul>
+  <li>int -&gt;Integer</li>
+  <li>short -&gt; Short</li>
+  <li>long -&gt; Long</li>
+  <li>byte -&gt; Byte</li>
+  <li>float -&gt; Float</li>
+  <li>double -&gt; Double</li>
+  <li>char -&gt; Character</li>
+  <li>boolean -&gt; Boolean</li>
+</ul>
+
+<p><strong>包装类共同的方法</strong></p>
+
+<ul>
+  <li>带有基本值参数并创建包装类对象的构造函数。如利用Integer包装类创建对象，Integer obj=new Integer(145);</li>
+  <li>带有字符串参数并创建包装类对象的构造函数.如：new Integer(“-45.36”);</li>
+  <li>可生成对象基本值的typeValue方法，如：obj.intValue();</li>
+  <li>将字符串转换为基本值的parseType方法，如：Integer.parseInt(args[0]);</li>
+  <li>生成哈稀表代码的hashCode方法，如：obj.hasCode();</li>
+  <li>对同一个类的两个对象进行比较的equals()方法，如：obj1.eauqls(obj2);</li>
+  <li>生成字符串表示法的toString()方法，如：obj.toString().</li>
+</ul>
+
+<p><strong>装箱与拆箱</strong></p>
+
+<p>装箱是将基本类型转换为对应的包装类,拆箱反之。</p>
+
+<p>在java1.5之前，如果你需要将一个基本类型放入集合(Collection)中，需要先将其转化为对象，然后将转化后的对象放入集合中，这样操作十分繁琐。因此，在java1.5中引入了自动装箱与拆箱操作。</p>
+
+<p>何时发生自动装箱与拆箱？</p>
+
+<p>当需要的是一个对象而传入的是一个基本类型时(或者反之)。</p>
+
+<p>最经典的就是在处理Collection时：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">//在这个过程中发生了装箱与拆箱</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">integerList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">integerList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span><span class="c1">//autoboxing</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">integerList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span><span class="c1">//unboxing</span>
+</code></pre></div></div>
+<p>此外还有<br />
+赋值时：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Integer</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>方法调用时：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">//尽量自己注意声明类型，这种代码会产生很多不必要的装箱与拆箱，耗费资源，降低程序性能。</span>
+  <span class="n">show</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+  
+  <span class="kt">int</span> <span class="nf">show</span><span class="o">(</span><span class="n">Integer</span> <span class="n">i</span> <span class="o">){</span>
+    <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>在自动装箱与拆箱的过程中，有哪些问题需要注意呢？</p>
+
+<p>1.equals 与 == 的区别。<br />
+equals方法是可以重写的，也就是说具体怎么定义‘相等’可以由你设定，而 == 用在基础类型是判定其值是否相等，用在对象是判定比较双方是否为同一个对象。<strong>这里需要注意一下Integer的缓存问题，详见<a href="#1.1.6">Integer的缓存问题</a></strong></p>
+
+<p>2.拆箱过程中的空指针问题</p>
+
+<p>当将包装类与原始类型比较时，如果未初始化包装类，在拆箱过程中调用obj.xxxvalueU时会发生空指针异常。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Integer</span> <span class="n">i</span> <span class="o">;</span>
+  	<span class="c1">//在方法中，方法省去了。</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">){</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"huyanshi"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+<p>以上代码运行时会抛出NullPointException。</p>
+
+<p>3.创建很多无用的对象，为GC增加压力。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Integer</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+ <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5000</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+
+   <span class="n">sum</span><span class="o">+=</span><span class="n">i</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<p>这个操作中，+操作并不适用于Integer对象，因此会进行自动拆箱，而拿到+的结果后又会装箱为Integer。在这个过程中，会创建几千个无用的对象，降低程序的性能。因此应尽量避免。</p>
+
+<p>总的来说，自动装箱和拆箱着实为开发者带来了很大的方便，但是在使用时也是需要格外留意，避免引起出现文章提到的问题。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-toggle="tooltip" data-placement="top" title="Java8 lambda表达式">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Duoshuo Share start -->
+                <style>
+                    .ds-share{
+                        text-align: right;
+                    }
+                    
+                    @media only screen and (max-width: 700px) {
+                        .ds-share {
+
+                        }
+                    }
+                </style>
+
+                <div class="ds-share"
+                    data-thread-key="/java/2018/03/07/java-面试知识点合集" data-title="Java 面试知识点合集"
+                    data-images="your123.com/img/facebook.jpg"
+                    data-content="摘要：网上java面试知识杂乱而繁多，每次想看的时候总会挑挑拣拣许多时间就过去了，所以我对其进行一次学习，整理。
+学习：许多的基础知识掌握并不牢固，借此机... | Microdust:Azeril's blog"
+                    data-url="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
+                    <div class="ds-share-inline">
+                      <ul  class="ds-share-icons-16">
+
+                       <li data-toggle="ds-share-icons-more">以上皆为作者个人所思所得，如有错误欢迎指正。</li>
+                        <li>联系方式：邮箱：huyanshi2580@gmail.com</li>
+                        <li>欢迎转载，请保留原文链接。谢谢！嘻嘻！</li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- Duoshuo Share end-->
+
+
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread" data-thread-key="/java/2018/03/07/java-面试知识点合集" data-title="Java 面试知识点合集" data-url="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/"></div>
+                </div>
+                <!-- 多说评论框 end -->
+                      <div id="container"></div>
+                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                        <script src="https://billts.site/js/gitment.js"></script>
+                        <script>
+                        var gitment = new Gitment({
+                            id: 'Java 面试知识点合集 - 呼延十',
+                          owner: 'hublanker',
+                          repo: 'blog',
+                          oauth: {
+                            client_id: 'cb39b56b472f24811e5c',
+                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
+                          },
+                        })
+                        gitment.render('container')
+                        </script>
+
+                     </div>
+        </div>
+    </div>
+
+</article>
+
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"cnfeat"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: ''
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<!-- jQuery -->
+<!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <!-- kill the Facebook and Weibo -->
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+              
+                    
+
+                    
+                    <li>
+                        <a href="https://github.com/hublanker">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <div style="display:none">
+                                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273102887'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273102887' type='text/javascript'%3E%3C/script%3E"));</script>
+                                </div>
+                                <i class="fa fa-douban fa-stack-1x fa-inverse">统</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    
+                    
+
+                    
+                    <!--
+                    
+                    -->
+
+                </ul>
+                <p class="copyright text-muted">
+                &copy; 2018 呼延十 ❖ Powered by Jekyll & Gitment.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="cb-search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px;
+      opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+    <input type="text" class="form-control cb-search-content" id="cb-search-content" style="position: fixed; top: 60px" placeholder="文章标题 日期 标签" >
+
+    <div style="position: fixed; top: 16px; right: 16px;">
+        <img src="/search/img/cb-close.png"  id="cb-close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px;">
+    <img src="/search/img/cb-search.png"  id="cb-search-btn"  title="双击ctrl试一下"/>
+</div>
+
+<link rel="stylesheet" href="/search/css/cb-search.css">
+
+<script src="/search/js/bootstrap3-typeahead.min.js"></script>
+<script src="/search/js/cb-search.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js",function(){
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!-- Bootstrap Core JavaScript -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/pfliu.min.js "></script>
+
+    </body>
+
+</html>

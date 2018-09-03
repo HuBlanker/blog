@@ -3,10 +3,11 @@ layout: page
 description: "呼延十的成长之路"
 ---
 
-{% for post in paginator.posts %}
+
+{% for post in site.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">            
+        <h2 class="post-title">
             {{ post.title }}
         </h2>
         {% if post.subtitle %}
@@ -39,3 +40,4 @@ description: "呼延十的成长之路"
     {% endif %}
 </ul>
 {% endif %}
+

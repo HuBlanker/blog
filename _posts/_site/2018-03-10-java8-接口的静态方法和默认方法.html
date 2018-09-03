@@ -1,0 +1,52 @@
+<p>java8的接口中可以有default方法及static方法。<br />
+普通的抽象方法不可以有实现，实现此接口的类必须实现所有抽象方法。<br />
+默认方法必须有实现，实现此接口的类默认继承此方法，当然你也可以覆盖默认方法。（不实现此方法会默认继承，并不会报错）。<br />
+静态方法必须有实现。但是实现此接口的类无法实现静态方法。</p>
+
+<p>举一个小栗子：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultInterfaceTest</span> <span class="o">{</span>
+	
+	  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">LoggerSimpleFromPfliu</span> <span class="n">log</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LoggerSimpleFromPfliu</span><span class="o">(</span>
+	      <span class="n">DefaultInterfaceTest</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+	
+	
+	  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+	    <span class="n">TestInterface</span><span class="o">.</span><span class="na">staticMethod</span><span class="o">();</span>
+	    <span class="n">DefaultInterfaceTest</span> <span class="n">defaultInterfaceTest</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultInterfaceTest</span><span class="o">();</span>
+	    <span class="n">defaultInterfaceTest</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
+	
+	  <span class="o">}</span>
+	
+	  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+	    <span class="n">TestClass</span> <span class="n">testClass</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TestClass</span><span class="o">();</span>
+	    <span class="n">testClass</span><span class="o">.</span><span class="na">abstractmethod</span><span class="o">();</span>
+	    <span class="n">testClass</span><span class="o">.</span><span class="na">defaultMethod</span><span class="o">();</span>
+	
+	
+	  <span class="o">}</span>
+	  
+	  <span class="kd">private</span> <span class="kd">class</span> <span class="nc">TestClass</span> <span class="kd">implements</span> <span class="n">TestInterface</span> <span class="o">{</span>
+	
+	   	<span class="nd">@Override</span>
+	    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">abstractmethod</span><span class="o">()</span> <span class="o">{</span>
+	      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"abstract"</span><span class="o">);</span>
+	    <span class="o">}</span>
+	
+	  <span class="o">}</span>
+	
+	  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TestInterface</span> <span class="o">{</span>
+	    <span class="kt">void</span> <span class="nf">abstractmethod</span><span class="o">();</span>
+	    <span class="k">default</span> <span class="kt">void</span> <span class="nf">defaultMethod</span><span class="o">()</span> <span class="o">{</span>
+	      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"default"</span><span class="o">);</span>
+	    <span class="o">}</span>
+	    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">staticMethod</span><span class="o">()</span> <span class="o">{</span>
+	      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"static"</span><span class="o">);</span>
+	    <span class="o">}</span>
+	  <span class="o">}</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+<p>程序执行结果是：<br />
+static<br />
+abstract<br />
+default</p>
