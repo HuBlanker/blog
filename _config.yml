@@ -4,7 +4,7 @@ header-img: "img/facebook.jpg"
 tagline: "xixi"  
 description: "千里我独行，不必相送。"  # 一句话描述你的博客
 baseurl: ""
-url: "your123.com"  # 此处填写你的博客地址 
+url: "couplecoders.tech"  # 此处填写你的博客地址 
 
 # About/contact
 owner: 
