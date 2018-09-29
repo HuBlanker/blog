@@ -10,38 +10,38 @@ PS:此文没有原理解读，仅有使用工具解决办法。
 工作中与前端的数据交换使用的协议是json+protobuf，主要是用protobuf。
 
 现在我需要接收一份较为复杂的数据，数据格式如下：
-```json
-{
-  "result": [
-    {
-      "String": "string",
-      "Int": 123,
-      "persions": [
-        {
-          "person_name": "huyan",
-          "person_name_2": "shi"
-        }
-      ],
-      "money": [
-        {
-          "type": "dollar",
-          "num": 100
-        }
-      ]
-    },
-    {
-      "String": "str",
-      "Int": 123,
-      "persions": [],
-      "money": [
-        {
-          "type": "软妹币",
-          "num": 100
-        }
-      ]
-    }
-  ]
-}
+```Json
+      {
+        "result": [
+          {
+            "String": "string",
+            "Int": 123,
+            "persions": [
+              {
+                "person_name": "huyan",
+                "person_name_2": "shi"
+              }
+            ],
+            "money": [
+              {
+                "type": "dollar",
+                "num": 100
+              }
+            ]
+          },
+          {
+            "String": "str",
+            "Int": 123,
+            "persions": [],
+            "money": [
+              {
+                "type": "软妹币",
+                "num": 100
+              }
+            ]
+          }
+        ]
+      }
 ```
 
 result里面是一个类的列表，我一开始将其定义为proto(这里要尤其注意，这个数据暂不牵涉到数据交换，单纯是懒，定义proto顺手就定义了)，然后在拿到result数组之后，需要将其转化为Java POJO列表。  
