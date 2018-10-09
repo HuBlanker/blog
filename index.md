@@ -1,6 +1,7 @@
 ---
 layout: page
 description: "呼延十的成长之路"
+background-color: "#395692"
 ---
 
 
