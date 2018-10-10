@@ -1,4 +1,4 @@
---- 
+---
 layout: post
 category: [Spring Boot,Web]
 ---
@@ -225,5 +225,3 @@ ok，大功告成，在各层中添加你的代码吧！
 **联系邮箱：huyanshi2580@gmail.com**
 
 **更多学习笔记见个人博客------><a href="https://hublanker.github.io/blog/">呼延十</a>**
-
-

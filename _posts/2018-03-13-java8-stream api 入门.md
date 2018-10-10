@@ -1,4 +1,4 @@
---- 
+---
 layout: post
 category: [java8,java]
 ---
@@ -8,7 +8,7 @@ Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 
 
 Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。    
 
-同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。所以说，Java 8 中首次出现的java.util.stream 是一个函数式语言+多核时代综合影响的产物。 
+同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。所以说，Java 8 中首次出现的java.util.stream 是一个函数式语言+多核时代综合影响的产物。
 <p align="right">----这段介绍引用自IBM的《Java 8 中的 Streams API 详解》    
 文章写的非常好，给我很大启发，链接会在文末给出</p>   
 
@@ -142,7 +142,7 @@ strList.sort(String::compareTo);
 
 **接下来将一些原理(类型)差不多的放一起说一哈。**  
 
-**limit()/skip()** 
+**limit()/skip()**
 
 取前n个元素/跳过前n个元素。
 
@@ -159,7 +159,7 @@ Optional是一个容器，可以包含一个值，使用它可以尽量避免Nul
 ```java
     String first = strList.stream().findFirst().get();
 ```  
-  
+
 **min()/max()/distinct()**    
 
 取最小/最大/无重复值。  

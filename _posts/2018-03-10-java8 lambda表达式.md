@@ -1,4 +1,4 @@
---- 
+---
 layout: post
 category: [java8,java]
 ---
@@ -8,18 +8,18 @@ category: [java8,java]
 lambda表达式允许将函数作为参数传递进方法中。lambda有什么作用呢？我目前的理解是：  
 **make your code elegant！！！**  
 
-在java 8 以前，java是不允许将函数复制给变量的，比如： 
- 
+在java 8 以前，java是不允许将函数复制给变量的，比如：
+
 ```java
 		lambda = public void print(String s){
 		System.out.println(s);
-		} 
+		}
 ```
 这种操作是不允许的。  
 
 那么在java 8 中，这个lambda是什么类型呢？是一个“函数型接口”，函数型接口与普通接口最大的区别就是函数型接口只有一个函数需要被实现。为了防止后续人员对函数型接口进行添加，java8新增了@FunctionalInterface注解，可以防止函数型接口被添加函数（注意：default和static方法并不受约束，仍旧可以添加使用）。  
 像这样：  
-	
+
 ```java
 	  @FunctionalInterface
 	  public interface MyLambdaInterface {
@@ -39,7 +39,7 @@ ok，做完这些我们就可以开始使用lambda了。下面的代码可以在
 上述情况只是lambda的最简单使用姿势，你当然可以定义负责的接口，如多个参数，具有返回值，只需要在赋值lambda时用花括号将函数的实现括起来就好。
 
 一个简单的小栗子:  
-	
+
 ```java
 	@FunctionalInterface
 	  public interface HardInterface {

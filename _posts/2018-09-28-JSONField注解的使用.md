@@ -78,7 +78,7 @@ result里面是一个类的列表，我一开始将其定义为proto(这里要�
 
 在每个名字不一样的属性上打上注解，注解里面备注名字，妥了！
 
-![](http://pem6cy6sv.bkt.clouddn.com/WX20180928-205928.png)
+![](http://img.couplecoders.tech/WX20180928-205928.png)
 
 
 ### @JSONField

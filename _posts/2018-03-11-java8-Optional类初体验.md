@@ -1,4 +1,4 @@
---- 
+---
 layout: post
 category: [java8,java]
 ---
@@ -6,7 +6,7 @@ category: [java8,java]
 
 ```java
 	    User user = ......;
-	    
+
 	    if (user != null){
 	      String name = user.getName();
 	      if (name != null){
@@ -22,8 +22,8 @@ category: [java8,java]
 
 Optional实际上是个容器：它可以保存类型T的值，或者仅仅保存null。Optional提供很多有用的方法，这样我们就不用显式进行空值检测。
 
-所幸OPtional 类的源码加上注释不过三百多行，我就将其中的方法一一道来。 
- 
+所幸OPtional 类的源码加上注释不过三百多行，我就将其中的方法一一道来。
+
 <h4>构造方法</h4>
 Optional的构造方法有三种，Optional.of(),Optional.ofNullable(),Optional.empty()。  
 **Optional.of(T)**  
@@ -52,7 +52,7 @@ return user != null
 ```java
  	Optional<User> userOpt = Optional.of(user);
     userOpt.ifPresent(System.out::println);
-    
+
     // no elegant method!
     if (userOpt.isPresent()){
       System.out.println(userOpt.get());
@@ -105,7 +105,7 @@ flatMap方法与map方法类似，区别在于mapping函数的返回值不同。
 //map方法中的lambda表达式返回值可以是任意类型，在map函数返回之前会包装为Optional。   
 //但flatMap方法中的lambda表达式返回值必须是Optionl实例。   
 upperName = myValue.flatMap((value) -> Optional.of(value.toUpperCase()));  
-System.out.println(upperName.orElse("No value found")); 
+System.out.println(upperName.orElse("No value found"));
 ```
 *map和flatmap使用方法类似，区别仅在于mapper方法的返回值类型不同，flatmap方法不会发展返回值再使用Optional进行封装，因此传入的方法必须返回Optional类型。*  
 **filter**  
