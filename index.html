@@ -49,14 +49,14 @@ background-color: "#395692"
 页
 </option>
 {% assign page_num = 1 %}
-<option value="/home/">跳至:首页</option>
+<option value="/">跳至:首页</option>
 {% for page in (1..paginator.total_pages) %}
 {% assign page_num = page_num | plus: 1 %}
 {% if page_num < paginator.total_pages %}
-<option value="/home/paginate_{{ page_num }}/">跳至:第 {{ page_num }} 页</option>
+<option value="/page{{ page_num }}/">跳至:第 {{ page_num }} 页</option>
 {% endif %}
 {% endfor %}
-<option value="/home/paginate_{{ paginator.total_pages }}">跳至:尾页</option>
+<option value="/page{{ paginator.total_pages }}">跳至:尾页</option>
 </select>
 {% elsif page == 1 %}
 {% else %}
