@@ -10,13 +10,15 @@
 
     <title>Mysql 常用命令记录 - 呼延十</title>
 
-    <link rel="canonical" href="your123.com/mysql/2018/09/02/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
+    <link rel="canonical" href="http://0.0.0.0:8101/mysql/2018/09/02/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
 
     <!-- Icons -->
-  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="shortcut icon" href="/img/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/clean-blog.css">
@@ -35,15 +37,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
+    <!-- <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    </script>
+    </script> -->
 
 
 </head>
@@ -106,7 +108,7 @@
     <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/facebook.jpg')
+        background-color: #395692
     }
 </style>
 <header class="intro-header" >
@@ -137,8 +139,15 @@
 
                 <p>前一阵在写很多sql及类sql语句，发现自己的记忆力可以说是相当烂了，上午刚查过插入语句怎么写，下午就忘记了需要重新查，，而且隐隐约约的有点强迫症？？只要记得不是特别清晰，就需要去重新查，看，记一遍，十分浪费时间，因此在这里将自己用到的sql语句记下来，方便后续的查找！！</p>
 
-<p>PS:以个人习惯记录，切勿直接copy执行。<br />
-PSS:我发现我终于记住了，在写下面表格时基本没有去查了。。</p>
+<p>PS:以个人习惯记录，切勿直接copy执行。文中命令/方法只是本人使用过的一些，不覆盖所有，例如：数据库导入导出还有其他多种方式，有兴趣可以自行研究。</p>
+
+<p>PSS:我发现我终于记住了，在写下面表格时基本没有去查了。。</p>
+
+<p>PSSS:  所有命令都手动实践过(不包含拼写错误)，因此可以放心使用。</p>
+
+<p>PS4: 如果大家觉得我写的不好，给大家介绍一个mysql学习的网站<a href="http://www.runoob.com/mysql/mysql-tutorial.html">unoob.com</a> ,这个网站有队mysql的基本入门介绍，且分类，示例都做的比较好。（我也是在上面学习的哈哈哈哈）。</p>
+
+<h3 id="基础语句">基础语句</h3>
 
 <table>
   <thead>
@@ -187,12 +196,231 @@ PSS:我发现我终于记住了，在写下面表格时基本没有去查了。�
   </tbody>
 </table>
 
+<h3 id="数据库导入与导出">数据库导入与导出</h3>
+
+<h4 id="导出sql文件">导出sql文件</h4>
+<ul>
+  <li>导出数据库的结构及数据
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="err">数据库用户名</span> <span class="o">-</span><span class="n">p</span> <span class="err">数据库名</span><span class="o">&gt;</span><span class="err">导出路径及文件名</span>
+<span class="o">//</span><span class="n">example</span>
+<span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="n">huyanshi</span> <span class="o">-</span><span class="n">p</span> <span class="n">mydb</span><span class="o">&gt;~/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">mydb</span><span class="p">.</span><span class="k">sql</span>
+</code></pre></div>    </div>
+  </li>
+  <li>导出数据库中某张表结构及数据
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="err">数据库用户名</span> <span class="o">-</span><span class="n">p</span> <span class="err">数据库名</span> <span class="err">表名</span><span class="o">&gt;</span><span class="err">导出路径及文件名</span>
+<span class="o">//</span><span class="n">example</span>
+<span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="n">huyanshi</span> <span class="o">-</span><span class="n">p</span> <span class="n">mydb</span> <span class="n">mytable</span><span class="o">&gt;~/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">mydb_mytable</span><span class="p">.</span><span class="k">sql</span>
+</code></pre></div>    </div>
+  </li>
+  <li>导出数据库全部表结构
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="err">数据库用户名</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">d</span> <span class="c1">--add-drop-table 数据库名&gt;导出路径及文件名</span>
+<span class="o">//</span><span class="n">example</span>
+<span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="n">huyanshi</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">d</span> <span class="c1">--add-drop-table mydb &gt;~/Desktop/mydb_st.sql</span>
+</code></pre></div>    </div>
+  </li>
+  <li>导出某张表的结构
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="err">数据库用户名</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">d</span> <span class="c1">--add-drop-table 数据库名 表名&gt;导出路径及文件名</span>
+<span class="o">//</span><span class="n">example</span>
+<span class="n">mysqldump</span> <span class="o">-</span><span class="n">u</span> <span class="n">huyanshi</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">d</span> <span class="c1">--add-drop-table mydb mytable &gt;~/Desktop/mydb_mytable_st.sql</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="导出excel">导出excel</h4>
+<p>有时会有一些运营/hr/IT来找你让你导出一些简单的数据，这个时候呢，工具化当然是一劳永逸的方法，但是大部分时间下我们正在着急的完成新feature(改bug)，并没有时间来将数据查询工具化，那么此时，简单的给其一个excel就是一种良好的替代方法，excel也可以较为清晰的展(TA)示(men)数(xi)据(huan)。</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="err">数据库用户名</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">e</span> <span class="nv">"查询语句"</span> <span class="err">数据库名</span><span class="o">&gt;</span><span class="err">导出路径及文件名</span>
+<span class="o">//</span><span class="n">example</span>
+<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">huyanshi</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span> <span class="n">e</span> <span class="nv">"select * from mytable"</span> <span class="n">mydb</span><span class="o">&gt;~/</span><span class="n">Desktop</span><span class="o">/</span><span class="k">result</span><span class="p">.</span><span class="n">xls</span>
+</code></pre></div></div>
+<h4 id="从sql文件导入">从sql文件导入</h4>
+<p>1.进入mysql命令行，创建数据库，使用数据库后执行source</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql -u 数据库用户名 -p
+输入密码
+use mydb
+source 文件路径及文件名
+</code></pre></div></div>
+
+<h4 id="从xls文件导入">从xls文件导入</h4>
+
+<p>如果有这个需求的话，我建议写一个脚本进行导入，因为可以在脚本中保证数据的正确性，防止后续对数据进行处理时出现各种意外情况，同时，个人在遇到此需求时也都是使用脚本进行导入，对简单的命令没有研究，因此不做介绍。后续如果碰到新的需求可能会将脚本贴在这里。</p>
+
+<h3 id="关键字使用">关键字使用</h3>
+
+<h4 id="distinct">distinct</h4>
+
+<p>distinct的效果为去重，举例如下：<br />
+现有数据</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zhangsan</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+      <td>520</td>
+    </tr>
+    <tr>
+      <td>zhangsan</td>
+      <td>230</td>
+    </tr>
+    <tr>
+      <td>huyan</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+      <td>400</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>假设上表是学生的考试成绩，现在我们想知道表格中共有多少个学生，即获取第一列不重复的值</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">distinct</span> <span class="n">name</span> <span class="k">from</span> <span class="n">record</span><span class="p">;</span>
+</code></pre></div></div>
+<p>返回结果为：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zhangsan</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+    </tr>
+    <tr>
+      <td>huyan</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>基本用法很简单，但是distinct 有一个限制，即去重列必须是返回列，比如：</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">distinct</span> <span class="n">name</span><span class="p">,</span><span class="n">socre</span> <span class="k">from</span> <span class="n">record</span><span class="p">;</span>
+</code></pre></div></div>
+<p>该语句会对(name+score)的组合进行去重，即（zhangsan，600）和（zhangsan，230）会被认为是不同的两个记录。</p>
+
+<p>想要实现类似于：“name字段去重，对于重复值取分数最高”这种效果需要自己实现，distinct不可以。</p>
+
+<h4 id="group-by">group by</h4>
+
+<p>group by语句可以实现对数据以一列或者多列进行分组，例如可以使用group by实现distinct的功能。</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">record</span> <span class="k">group</span> <span class="k">by</span> <span class="n">name</span>
+</code></pre></div></div>
+<p>而在实际使用过程中，group by 语句经常和函数（求和，求均值，计数等）一起使用，(毕竟如果分组不是为了统计，那将毫无意义)。语句使用规范如下：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="err">列名</span><span class="p">,</span><span class="err">函数</span> <span class="k">from</span> <span class="err">表名</span> <span class="k">group</span> <span class="k">by</span> <span class="err">列名</span>  <span class="k">having</span> <span class="err">条件</span>
+</code></pre></div></div>
+<p>例如统计每个学生的分数之和：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span><span class="p">,</span><span class="k">sum</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="k">from</span> <span class="n">record</span> <span class="k">group</span> <span class="k">by</span> <span class="n">name</span><span class="p">;</span>
+</code></pre></div></div>
+<p>得到结果如下图：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>sum(score)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zhangsan</td>
+      <td>830</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+      <td>920</td>
+    </tr>
+    <tr>
+      <td>huyan</td>
+      <td>600</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>group by语句也有类似于distinct的限制，查询的字段除了聚合函数（SUM ,AVG,COUNT…)以外 必须只能是分组的字段。即：</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span><span class="err">错误语句</span>
+<span class="k">select</span> <span class="n">name</span><span class="p">,</span><span class="n">score</span> <span class="k">from</span> <span class="n">record</span> <span class="k">group</span> <span class="k">by</span> <span class="n">name</span><span class="p">;</span>
+</code></pre></div></div>
+<p>会报错。其实想想，如果该语句不报错，那么同一个name对应的两个score应该返回哪一个值呢？</p>
+
+<h4 id="having-语句">having 语句</h4>
+<p>having 语句一般与group 语句一起使用，作用为：对分组后的数据进行筛选，类似于where子句的语法，但是where子句作用于每一独立行，having语句作用于每一分组后的行。
+示例：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span><span class="p">,</span><span class="k">sum</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="k">from</span> <span class="n">record</span> <span class="k">having</span> <span class="k">sum</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">650</span><span class="p">;</span>
+</code></pre></div></div>
+<p>该语句会按name分组查询并取到score的总和，且过滤掉总和小于650的行。结果为：
+name | sum(score)|
+—|—
+zhangsan | 830
+lisi | 920</p>
+
+<h4 id="order-by">order by</h4>
+<p>order by 语句一般在其他的基础语句后连接使用，功能为对返回结果进行排序，使用规则如下：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">record</span> <span class="k">order</span> <span class="k">by</span> <span class="err">列名</span><span class="mi">1</span><span class="p">,</span><span class="err">列名</span><span class="mi">2</span> <span class="p">[</span><span class="k">ASC</span><span class="p">][</span><span class="k">DESC</span><span class="p">]</span>
+</code></pre></div></div>
+<p>mysql 可以对多个列排序，当有多个列时，仅当第一个列相同时使用第二个列进行排序。<br />
+mysql 默认使用升序，可以使用[DESC] 来使查询结果逆序输出。<br />
+示例：</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">record</span> <span class="k">order</span> <span class="k">by</span> <span class="n">score</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></div></div>
+<p>查询结果为：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zhangsan</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>huyan</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+      <td>520</td>
+    </tr>
+    <tr>
+      <td>lisi</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <td>zhangsan</td>
+      <td>230</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>12345:</p>
+
 <p><br />
 <br />
 <br />
 <br /></p>
 <h4>ChangeLog</h4>
-<p>2018-09-02      添加基础语句
+<p>2018-09-02      添加基础语句<br />
+2018-09-04      添加数据库的导入导出<br />
+2018-09-08      添加distinct,group by,order by, having等基础语句的使用
 <br />
 <br /></p>
 
@@ -207,12 +435,32 @@ PSS:我发现我终于记住了，在写下面表格时基本没有去查了。�
 
                 <hr>
 
+                <div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'Mysql 常用命令记录', // 可选。默认为 location.href
+  owner: 'hublanker',
+  repo: 'blog',
+  oauth: {
+    client_id: '2297651c181f632a31db',
+    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
+  },
+})
+gitment.render('container')
+</script>
+
                 <ul class="pager">
                     
                     <li class="previous">
                         <a href="/linux/2018/09/02/linux-command/" data-toggle="tooltip" data-placement="top" title="Linux Command">&larr; Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2018/09/05/%E4%BD%BF%E7%94%A8jekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="使用jekyll搭建个人博客">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -221,7 +469,7 @@ PSS:我发现我终于记住了，在写下面表格时基本没有去查了。�
                     .ds-share{
                         text-align: right;
                     }
-                    
+
                     @media only screen and (max-width: 700px) {
                         .ds-share {
 
@@ -231,9 +479,9 @@ PSS:我发现我终于记住了，在写下面表格时基本没有去查了。�
 
                 <div class="ds-share"
                     data-thread-key="/mysql/2018/09/02/mysql-常用命令记录" data-title="Mysql 常用命令记录"
-                    data-images="your123.com/img/facebook.jpg"
+                    data-images="http://0.0.0.0:8101/img/facebook.jpg"
                     data-content="前一阵在写很多sql及类sql语句，发现自己的记忆力可以说是相当烂了，上午刚查过插入语句怎么写，下午就忘记了需要重新查，，而且隐隐约约的有点强迫症？？只要... | Microdust:Azeril's blog"
-                    data-url="your123.com/mysql/2018/09/02/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
+                    data-url="http://0.0.0.0:8101/mysql/2018/09/02/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
 
@@ -249,48 +497,14 @@ PSS:我发现我终于记住了，在写下面表格时基本没有去查了。�
                 <!-- Duoshuo Share end-->
 
 
-                <!-- 多说评论框 start -->
-                <div class="comment">
-                    <div class="ds-thread" data-thread-key="/mysql/2018/09/02/mysql-常用命令记录" data-title="Mysql 常用命令记录" data-url="your123.com/mysql/2018/09/02/mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/"></div>
-                </div>
-                <!-- 多说评论框 end -->
-                      <div id="container"></div>
-                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-                        <script src="https://billts.site/js/gitment.js"></script>
-                        <script>
-                        var gitment = new Gitment({
-                            id: 'Mysql 常用命令记录 - 呼延十',
-                          owner: 'hublanker',
-                          repo: 'blog',
-                          oauth: {
-                            client_id: 'cb39b56b472f24811e5c',
-                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
-                          },
-                        })
-                        gitment.render('container')
-                        </script>
 
-                     </div>
+
         </div>
     </div>
 
 </article>
 
 
-
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"cnfeat"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
 
 <!-- async load function -->
 <script>
@@ -332,7 +546,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <!-- jQuery -->
 <!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
 <!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+<!-- <script src="/js/jquery.min.js "></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <footer>
     <div class="container">
         <div class="row">
@@ -347,7 +562,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
                             </span>
                         </a>
                     </li>
-              
+
                     
 
                     
@@ -360,8 +575,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     <li>
                         <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
@@ -375,11 +590,11 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
+
+
 
                     
-                    
-                    
+
 
                     
                     <!--
@@ -413,7 +628,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <script src="/search/js/cb-search.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+<!-- <script src="/js/bootstrap.min.js "></script> -->
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/clean-blog.min.js "></script>
@@ -429,7 +644,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
 
 <!-- Bootstrap Core JavaScript -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/pfliu.min.js "></script>

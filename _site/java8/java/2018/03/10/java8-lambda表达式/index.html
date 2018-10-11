@@ -10,13 +10,15 @@
 
     <title>Java8 lambda表达式 - 呼延十</title>
 
-    <link rel="canonical" href="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+    <link rel="canonical" href="http://0.0.0.0:8101/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
 
     <!-- Icons -->
-  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="shortcut icon" href="/img/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/clean-blog.css">
@@ -35,15 +37,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
+    <!-- <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    </script>
+    </script> -->
 
 
 </head>
@@ -106,7 +108,7 @@
     <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/facebook.jpg')
+        background-color: #395692
     }
 </style>
 <header class="intro-header" >
@@ -145,7 +147,7 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		<span class="n">lambda</span> <span class="o">=</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">){</span>
 		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-		<span class="o">}</span> 
+		<span class="o">}</span>
 </code></pre></div></div>
 <p>这种操作是不允许的。</p>
 
@@ -196,6 +198,22 @@ lambda表达式替代了原先的匿名类的作用，将<br />
 
                 <hr>
 
+                <div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'Java8 lambda表达式', // 可选。默认为 location.href
+  owner: 'hublanker',
+  repo: 'blog',
+  oauth: {
+    client_id: '2297651c181f632a31db',
+    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
+  },
+})
+gitment.render('container')
+</script>
+
                 <ul class="pager">
                     
                     <li class="previous">
@@ -214,7 +232,7 @@ lambda表达式替代了原先的匿名类的作用，将<br />
                     .ds-share{
                         text-align: right;
                     }
-                    
+
                     @media only screen and (max-width: 700px) {
                         .ds-share {
 
@@ -224,9 +242,9 @@ lambda表达式替代了原先的匿名类的作用，将<br />
 
                 <div class="ds-share"
                     data-thread-key="/java8/java/2018/03/10/java8 lambda表达式" data-title="Java8 lambda表达式"
-                    data-images="your123.com/img/facebook.jpg"
+                    data-images="http://0.0.0.0:8101/img/facebook.jpg"
                     data-content="前些天在写代码时，突然发现某一位大佬的代码中充斥着stream来操作List，自己的for循环相比之下黯然失色，遂决定要尽快学习一下。接下来突然的一周加班... | Microdust:Azeril's blog"
-                    data-url="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                    data-url="http://0.0.0.0:8101/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
 
@@ -242,48 +260,14 @@ lambda表达式替代了原先的匿名类的作用，将<br />
                 <!-- Duoshuo Share end-->
 
 
-                <!-- 多说评论框 start -->
-                <div class="comment">
-                    <div class="ds-thread" data-thread-key="/java8/java/2018/03/10/java8 lambda表达式" data-title="Java8 lambda表达式" data-url="your123.com/java8/java/2018/03/10/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"></div>
-                </div>
-                <!-- 多说评论框 end -->
-                      <div id="container"></div>
-                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-                        <script src="https://billts.site/js/gitment.js"></script>
-                        <script>
-                        var gitment = new Gitment({
-                            id: 'Java8 lambda表达式 - 呼延十',
-                          owner: 'hublanker',
-                          repo: 'blog',
-                          oauth: {
-                            client_id: 'cb39b56b472f24811e5c',
-                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
-                          },
-                        })
-                        gitment.render('container')
-                        </script>
 
-                     </div>
+
         </div>
     </div>
 
 </article>
 
 
-
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"cnfeat"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
 
 <!-- async load function -->
 <script>
@@ -325,7 +309,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <!-- jQuery -->
 <!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
 <!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+<!-- <script src="/js/jquery.min.js "></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <footer>
     <div class="container">
         <div class="row">
@@ -340,7 +325,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
                             </span>
                         </a>
                     </li>
-              
+
                     
 
                     
@@ -353,8 +338,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     <li>
                         <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
@@ -368,11 +353,11 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
+
+
 
                     
-                    
-                    
+
 
                     
                     <!--
@@ -406,7 +391,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <script src="/search/js/cb-search.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+<!-- <script src="/js/bootstrap.min.js "></script> -->
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/clean-blog.min.js "></script>
@@ -422,7 +407,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
 
 <!-- Bootstrap Core JavaScript -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/pfliu.min.js "></script>

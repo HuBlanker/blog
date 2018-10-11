@@ -10,13 +10,15 @@
 
     <title>Java 面试知识点合集 - 呼延十</title>
 
-    <link rel="canonical" href="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
+    <link rel="canonical" href="http://0.0.0.0:8101/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
 
     <!-- Icons -->
-  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="shortcut icon" href="/img/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/clean-blog.css">
@@ -35,15 +37,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
+    <!-- <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?eb36172b6e0ff040885ac8ca3d613bee";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    </script>
+    </script> -->
 
 
 </head>
@@ -106,7 +108,7 @@
     <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('/img/facebook.jpg')
+        background-color: #395692
     }
 </style>
 <header class="intro-header" >
@@ -144,13 +146,18 @@
   <li>基础篇
     <ul>
       <li>Java基础
- 	- <a href="#1.1.1">1.面对对象的三大特性</a><br />
- 	-  <a href="#1.1.2">2.final，finally，finalize的区别</a><br />
-  	- <a href="#1.1.3">3.Exception、Error、运行时异常与一般异常有何异同</a><br />
-  	- <a href="#1.1.4">4.请写出你最常遇到的5种运行时异常</a><br />
-  	- <a href="#1.1.5">5.java的基础类型</a><br />
-  	- <a href="#1.1.6">6.Integer和int的区别，Integer的缓存范围</a><br />
-  	- <a href="#1.1.7">7.包装类，装箱与拆箱</a></li>
+        <ul>
+          <li><a href="#1.1.1">1.面对对象的三大特性</a></li>
+          <li><a href="#1.1.2">2.final，finally，finalize的区别</a></li>
+          <li><a href="#1.1.3">3.Exception、Error、运行时异常与一般异常有何异同</a></li>
+          <li><a href="#1.1.4">4.请写出你最常遇到的5种运行时异常</a></li>
+          <li><a href="#1.1.5">5.java的基础类型</a></li>
+          <li><a href="#1.1.6">6.Integer和int的区别，Integer的缓存范围</a></li>
+          <li><a href="#1.1.7">7.包装类，装箱与拆箱</a></li>
+          <li><a href="#1.1.8">8.String,StringBuilder,StringBuffer</a></li>
+          <li><a href="#1.1.9">9.重写和重载的区别</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -317,7 +324,7 @@ true，true，false，true。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">//尽量自己注意声明类型，这种代码会产生很多不必要的装箱与拆箱，耗费资源，降低程序性能。</span>
   <span class="n">show</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
-  
+
   <span class="kt">int</span> <span class="nf">show</span><span class="o">(</span><span class="n">Integer</span> <span class="n">i</span> <span class="o">){</span>
     <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
   <span class="o">}</span>
@@ -354,8 +361,153 @@ equals方法是可以重写的，也就是说具体怎么定义‘相等’可�
 
 <p>总的来说，自动装箱和拆箱着实为开发者带来了很大的方便，但是在使用时也是需要格外留意，避免引起出现文章提到的问题。</p>
 
+<h5 id="1.1.8">8.String,StringBuilder,StringBuffer</h5>
+
+<p>这个题目我单独写了一片博文用来分析，见<a href="/源码阅读/2018/09/09/String-StringBuilder-StringBuffer异同/">2018-09-09-String-StringBuilder-StringBuffer异同.md&lt;/&gt;</a></p>
+
+<h5 id="1.1.9">9.重写和重载的区别</h5>
+
+<p>其实我们要明白，这两个根本不是相似的概念，只是名字相近罢了。</p>
+
+<font color="red">重写</font>
+
+<ol>
+  <li>重写发生在继承关系当中，当父类中指定了一个方法，子类可以更加具体的重写他。
+例如：</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//动物有叫的方法，接受次数n，输出n次叫声</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+
+  <span class="kt">void</span> <span class="nf">noise</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">){</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span> <span class="o">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"noise"</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">//新建一个动物，指向一条狗，让他叫，得到结果为汪汪汪</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="n">String</span> <span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="n">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+    <span class="n">animal</span><span class="o">.</span><span class="na">noise</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="c1">//狗是一种动物，具体的实现了叫声为汪汪汪</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">noise</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span> <span class="o">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"wang"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>在该例中，Dog类重写了Animal类的方法，将叫声更为具体化，当拿到一条狗，我们只需要知道它是个动物，就可以让他叫，叫声依它自己的实现而定。</p>
+
+<font color="red">重载</font>
+
+<p>重载发生在一个类中，可以使用两个名字相同的方法，来对不同的输入进行不同的反应，这就是重载。</p>
+
+<p>例如：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//人，比较聪明</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+
+  <span class="c1">//当你传入数字，人就会根据你的数字发出hHA的声音</span>
+  <span class="kt">void</span> <span class="nf">noise</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"HA"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+  <span class="o">}</span>
+
+  <span class="c1">//当你传入字符串，人就会把他念出来</span>
+  <span class="kt">void</span> <span class="nf">noise</span><span class="o">(</span><span class="n">String</span> <span class="n">noise</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">noise</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+    <span class="n">person</span><span class="o">.</span><span class="na">noise</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="n">person</span><span class="o">.</span><span class="na">noise</span><span class="o">(</span><span class="s">"HEHE"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>上面两个例子说明了重载和重写在日程编码过程中的应用。</p>
+
+<p>接下来说一下他们各自的限制。</p>
+
+<font color="red">重写的限制</font>
+
+<p>(一) 父类方法的参数列表必须完全与被子类重写的方法的参数列表相同，否则不能称其为重写而是重载。</p>
+
+<p>(二) 父类的返回类型必须与被子类重写的方法返回类型相同，否则不能称其为重写而是重载。</p>
+
+<p>(三) Java中规定，被子类重写的方法不能拥有比父类方法更加严格的访问权限。</p>
+
+<p>(四) 在继承过程中如果父类当中的方法抛出异常，那么在子类中重写父类的该方法时，也要抛出异常，且只能抛出父类异常的子类，即：异常不能大于父类。</p>
+
+<font color="red">重载的限制</font>
+
+<p>（一）在使用重载时只能通过不同的参数列表，必须具有不同的参数列表。</p>
+
+<p>（二）不能通过访问权限、返回类型、抛出的异常进行重载。</p>
+
+<p>（三）方法的异常类型和数目不会对重载造成影响。</p>
+
+<p>（四）可以有不同的返回类型，只要参数列表不同就可以了。</p>
+
+<p>（五）可以有不同的访问修饰符。</p>
+
+<p>（六）可以抛出不同的异常。</p>
+
+<font color="red">尤其注意：参数的数量，顺序，类型才可以构成重载，仅有返回值不同时不构成重载</font>
+
+<p><br /></p>
+
+<font color="red">共性</font>
+
+<p><br />
+<strong>在我看来，他们的共性就是都可以在一定程度上实现多态吧。</strong></p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+<h4>ChangeLog</h4>
+<p>2018-03-20 完成前面7点
+2018-09-26 完成重载重写
+<br />
+<br /></p>
+
+<p><strong>以上皆为个人所思所得，如有错误欢迎评论区指正。</strong></p>
+
+<p><strong>欢迎转载，烦请署名并保留原文链接。</strong></p>
+
+<p><strong>联系邮箱：huyanshi2580@gmail.com</strong></p>
+
+<p><strong>更多学习笔记见个人博客——&gt;<a href="/">呼延十</a></strong></p>
+
 
                 <hr>
+
+                <div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'Java 面试知识点合集', // 可选。默认为 location.href
+  owner: 'hublanker',
+  repo: 'blog',
+  oauth: {
+    client_id: '2297651c181f632a31db',
+    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
+  },
+})
+gitment.render('container')
+</script>
 
                 <ul class="pager">
                     
@@ -371,7 +523,7 @@ equals方法是可以重写的，也就是说具体怎么定义‘相等’可�
                     .ds-share{
                         text-align: right;
                     }
-                    
+
                     @media only screen and (max-width: 700px) {
                         .ds-share {
 
@@ -381,10 +533,10 @@ equals方法是可以重写的，也就是说具体怎么定义‘相等’可�
 
                 <div class="ds-share"
                     data-thread-key="/java/2018/03/07/java-面试知识点合集" data-title="Java 面试知识点合集"
-                    data-images="your123.com/img/facebook.jpg"
+                    data-images="http://0.0.0.0:8101/img/facebook.jpg"
                     data-content="摘要：网上java面试知识杂乱而繁多，每次想看的时候总会挑挑拣拣许多时间就过去了，所以我对其进行一次学习，整理。
 学习：许多的基础知识掌握并不牢固，借此机... | Microdust:Azeril's blog"
-                    data-url="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
+                    data-url="http://0.0.0.0:8101/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/">
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
 
@@ -400,48 +552,14 @@ equals方法是可以重写的，也就是说具体怎么定义‘相等’可�
                 <!-- Duoshuo Share end-->
 
 
-                <!-- 多说评论框 start -->
-                <div class="comment">
-                    <div class="ds-thread" data-thread-key="/java/2018/03/07/java-面试知识点合集" data-title="Java 面试知识点合集" data-url="your123.com/java/2018/03/07/java-%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E5%90%88%E9%9B%86/"></div>
-                </div>
-                <!-- 多说评论框 end -->
-                      <div id="container"></div>
-                        <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-                        <script src="https://billts.site/js/gitment.js"></script>
-                        <script>
-                        var gitment = new Gitment({
-                            id: 'Java 面试知识点合集 - 呼延十',
-                          owner: 'hublanker',
-                          repo: 'blog',
-                          oauth: {
-                            client_id: 'cb39b56b472f24811e5c',
-                            client_secret: '92f22469d62aead71cca535ddb41df3fed70882a',
-                          },
-                        })
-                        gitment.render('container')
-                        </script>
 
-                     </div>
+
         </div>
     </div>
 
 </article>
 
 
-
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"cnfeat"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 end -->
 
 <!-- async load function -->
 <script>
@@ -483,7 +601,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <!-- jQuery -->
 <!--<script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>-->
 <!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
+<!-- <script src="/js/jquery.min.js "></script> -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <footer>
     <div class="container">
         <div class="row">
@@ -498,7 +617,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
                             </span>
                         </a>
                     </li>
-              
+
                     
 
                     
@@ -511,8 +630,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
-                    
+
+
                     
                     <li>
                         <a href="https://web.umeng.com/main.php?c=site&a=frame&siteid=1273102887">
@@ -526,11 +645,11 @@ var duoshuoQuery = {short_name:"cnfeat"};
                         </a>
                     </li>
                     
-                    
+
+
 
                     
-                    
-                    
+
 
                     
                     <!--
@@ -564,7 +683,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <script src="/search/js/cb-search.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js "></script>
+<!-- <script src="/js/bootstrap.min.js "></script> -->
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/clean-blog.min.js "></script>
@@ -580,7 +699,8 @@ var duoshuoQuery = {short_name:"cnfeat"};
 <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
 
 <!-- Bootstrap Core JavaScript -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/pfliu.min.js "></script>
