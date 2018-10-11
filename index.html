@@ -28,16 +28,47 @@ background-color: "#395692"
 
 <!-- Pager -->
 <!-- 分页链接 -->
-<div class="pagination">
+<h2 style="text-align:center;">
+{% if paginator.page == 1 %}
+<span style="margin-right:15px;"><i><b>首页</b></i></span>
+{% endif %}
+{% if  paginator.total_pages >1 %}
 {% if paginator.previous_page %}
-<a href="/page{{ paginator.previous_page }}" class="previous">Previous</a>
-{% else %}
-<span class="previous">Previous</span>
+<a href="/home/" title="首页">首页</a>
+<a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="上一页">
+<span class="fa fa-backward" style="padding:10px;"></span></a>
 {% endif %}
-<span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+{% for page in (1..paginator.total_pages) %}
+{% if page == paginator.page %}
+<select onChange="location.replace(this.options[this.selectedIndex].value)">
+<option>
+第
+{{ paginator.page }}
+ /
+{{ paginator.total_pages }}
+页
+</option>
+{% assign page_num = 1 %}
+<option value="/home/">跳至:首页</option>
+{% for page in (1..paginator.total_pages) %}
+{% assign page_num = page_num | plus: 1 %}
+{% if page_num < paginator.total_pages %}
+<option value="/home/paginate_{{ page_num }}/">跳至:第 {{ page_num }} 页</option>
+{% endif %}
+{% endfor %}
+<option value="/home/paginate_{{ paginator.total_pages }}">跳至:尾页</option>
+</select>
+{% elsif page == 1 %}
+{% else %}
+{% endif %}
+{% endfor %}
 {% if paginator.next_page %}
-<a href="/page{{ paginator.next_page }}" class="next">Next</a>
-{% else %}
-<span class="next ">Next</span>
+<a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="下一页">
+<i class="fa fa-forward" style="padding:10px;"></i></a>
+<a href="/home/paginate_{{ paginator.total_pages }}/" title="尾页">尾页</a>
 {% endif %}
-</div>
+{% if paginator.page == paginator.total_pages %}
+<span style="margin-left:15px;"><i><b>已达尾页</b></i></span>
+{% endif %}
+{% endif %}
+</h2>
