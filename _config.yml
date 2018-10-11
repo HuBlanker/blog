@@ -61,3 +61,5 @@ google_verify:
 bing_verify:
 
 # Links to include in footer navigation
+paginate:5
+paginate_path: "page:num"
