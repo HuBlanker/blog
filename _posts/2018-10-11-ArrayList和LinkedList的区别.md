@@ -5,7 +5,7 @@ category: 源码阅读
 
 PS：推荐大家先去了解一下链表这个数据结构。
 
-ArrayList和LinkedList可以说是日常业务开发中最常使用的容器类了，同时，也是他们的区别也是面试高发区，虽然很简单，但是我们总是不能说的完整，今天就通过对他们源码的阅读来进一步加深理解。
+ArrayList和LinkedList可以说是日常业务开发中最常使用的容器类了，同时，他们的区别也是面试高发区，虽然很简单，但是我们总是不能说的完整，今天就通过对他们源码的阅读来进一步加深理解。
 
 首先，看他们类的定义可以发现：
 ![](http://img.couplecoders.tech/markdown-img-paste-20181011174000106.png)
@@ -14,7 +14,7 @@ ArrayList和LinkedList可以说是日常业务开发中最常使用的容器类�
 
 他们都是实现了List<E>接口，这个接口干了什么呢？
 
-这个接口定义了对列表的一些基本操作，如```add,contains,indexof,remove```等基本方式，由他的类各自进行实现。
+这个接口定义了对列表的一些基本操作，如```add,contains,indexof,remove```等基本方法，由他的实现类各自进行实现。
 
 因此，当你只是需要一个列表进行常规的添加移除查找操作，那么ArrayList和LinkedList在使用体验(不考虑性能)上基本没有区别，你甚至不用关心他的内部实现，而是调用一些List<E>接口的方法就ok。
 
@@ -28,7 +28,7 @@ ArrayList和LinkedList可以说是日常业务开发中最常使用的容器类�
 
 ![](http://img.couplecoders.tech/markdown-img-paste-20181011174948431.png)
 
-ArrayList有两个成员变量，图中可以看到，一个Object的数据，一个int类型的size，用来定义数组的大小。
+ArrayList有两个成员变量，图中可以看到，一个Object的数组，一个int类型的size，用来定义数组的大小。
 
 #### get()方法
 ![](http://img.couplecoders.tech/markdown-img-paste-20181011175724911.png)
@@ -45,7 +45,7 @@ ArrayList有两个成员变量，图中可以看到，一个Object的数据，�
 
 ![](http://img.couplecoders.tech/markdown-img-paste-20181011180632931.png)
 
-首先确保容量够用，让步计算出需要移动的数量，例如size=10，要删除index=5的元素，则需要移动后面的四个元素，然后调用```System.arraycopy()```方法，将数组的后面4个依次向前移动一位，然后将数组最后一位置为null。
+首先确保容量够用，然后计算出需要移动的数量，例如size=10，要删除index=5的元素，则需要移动后面的四个元素，然后调用```System.arraycopy()```方法，将数组的后面4个依次向前移动一位，然后将数组最后一位置为null。
 
 
 ### LinkedList
@@ -53,7 +53,7 @@ ArrayList有两个成员变量，图中可以看到，一个Object的数据，�
 #### 成员变量
 
 ![](http://img.couplecoders.tech/markdown-img-paste-20181011181337422.png)
-LinkedList本身的属性比较少，主要有三个，一个是size，表名当前有多少个节点；一个是first代表第一个节点；一个是last代表最后一个节点。
+LinkedList本身的属性比较少，主要有三个，一个是size，表明当前有多少个节点；一个是first代表第一个节点；一个是last代表最后一个节点。
 
 
 #### get()方法
