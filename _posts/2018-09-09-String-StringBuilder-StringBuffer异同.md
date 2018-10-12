@@ -5,8 +5,7 @@ category: 源码阅读
 
  字符串在编程中使用的非常频繁，同时又是面试中的常见题型，那么我们的对字符串相关类String，StringBuilder，StringBuffer的理解真的正确吗？今天就通过对三个类源码的阅读，来进一步加强理解。  
 
-
- ## 目录
+## 目录
  * <a href="#2">String概述</a>
  * <a href="#3">StringBuilder 和StringBuffer</a>
  * <a href="#4">异同</a>
@@ -22,7 +21,7 @@ category: 源码阅读
 
 同样的，用来保存值得char数组 value也是被final修饰的，这就可以得出关于String的一个很重要的结论。  
 
-**String是字符串常亮，值是不可改变，通常我们对String的操作都是通过new一个新的String对象来完成的**  
+**String是字符串常量，值是不可改变，通常我们对String的操作都是通过new一个新的String对象来完成的**  
 
 如下图中的subString方法和replace方法。
 ![substring](http://img.couplecoders.tech/markdown-img-paste-20180921000114583.png)
