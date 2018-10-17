@@ -1,23 +1,12 @@
-## 说明
+呼延十的博客仓库：
 
-此博客模板 Fork 自仓库：[cnfeat/blog.io: 简单直接可用博客模板](https://github.com/cnfeat/blog.io)
+	<a href="http://huyan.couplecoders.tech/">http://huyan.couplecoders.tech/</a>
 
-配套说用说明：[如何搭建一个独立博客——简明 GitHub Pages与 jekyll 教程 - 读立写生](http://www.cnfeat.com/blog/2014/05/10/how-to-build-a-blog/)
+记录自己工作中用到的知识及自己的学习历程。
 
-## 博客模板修订清单
+博客使用Jekyll搭建，评论系统使用GitMent搭建。
 
-文档内有详细注释，可按注释逐个修订
+联系我：
+	email：huyanshi2580@gmail.com
 
-* 博客名字、作者信息、浏览器小图标等：_config.yml 
-* 个人介绍页面：about.md
-* 代表作页面：milestone.md
-* 文章模板：blog.io/_posts/2015-03-02-how-to-write.md 
-* 
-
-## 模板作者
-
-陈素封，博客：独立写生：[cnfeat.com](cnfeat.com)
-
-联系方式：cnfeat@gmail.com
-
-
+欢迎来信，与君共勉。
