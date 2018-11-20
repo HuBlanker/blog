@@ -30,6 +30,20 @@ layout: default
                 {% endif %}
 
 				{{ content }}
+                <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="{{ site.baseurl }}/js/pfliu.min.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '{{page.title}}', // 可选。默认为 location.href
+  owner: 'hublanker',
+  repo: 'blog',
+  oauth: {
+    client_id: '2297651c181f632a31db',
+    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
+  },
+})
+gitment.render('container')
+</script>
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
@@ -52,19 +66,7 @@ layout: default
                 </ul>
                 <hr style="visibility: hidden;">
 
-                {% if site.disqus_username %}
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                {% endif %}
-
-                {% if site.netease_comment %}
-                <!-- 网易云跟帖 评论框 start -->
-                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-                <!-- 网易云跟帖 评论框 end -->
-                {% endif %}
+                
             </div>  
 
     <!-- Side Catalog Container -->
@@ -101,20 +103,7 @@ layout: default
 </article>
 
 
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="{{ site.baseurl }}/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: '{{page.title}}', // 可选。默认为 location.href
-  owner: 'hublanker',
-  repo: 'blog',
-  oauth: {
-    client_id: '2297651c181f632a31db',
-    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
-  },
-})
-gitment.render('container')
-</script>
+
 
 <!-- add support for mathjax by voleking-->
 {% if page.mathjax %}
