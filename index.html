@@ -6,9 +6,9 @@ background-color: "#395692"
 
 
 {% for post in paginator.posts %}
-{% if post.featured != true %}
-{% continue %}
-{% endif %}
+{* if post.featured != true *}
+{* continue *}
+{* endif *}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
         <h2 class="post-title">
