@@ -100,6 +100,22 @@ layout: default
     </div>
 </article>
 
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '{{page.title}}', // 可选。默认为 location.href
+  owner: 'hublanker',
+  repo: 'blog',
+  oauth: {
+    client_id: '2297651c181f632a31db',
+    client_secret: 'a62f60d8da404586acc965a2ba6a6da9f053703b',
+  },
+})
+gitment.render('container')
+</script>
+
 <!-- add support for mathjax by voleking-->
 {% if page.mathjax %}
   {% include mathjax_support.html %}
