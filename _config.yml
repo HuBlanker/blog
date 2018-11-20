@@ -7,6 +7,8 @@ description: "帝都低端程序员HuYan的博客"
 keyword: "web,博客,后端"
 url: "https://huyan.couplecoders.tech"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+port:    4000
+host:    127.0.0.1
 
 # Publish posts or collection documents with a future date.
 future: true
