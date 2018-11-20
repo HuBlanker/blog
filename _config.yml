@@ -64,3 +64,7 @@ bing_verify:
 plugins: [jekyll-paginate]
 paginate: 5
 paginate_path: "page:num"
+
+# Featured Tags
+featured-tags: true  
+featured-condition-size: 1
