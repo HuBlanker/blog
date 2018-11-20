@@ -30,8 +30,9 @@ layout: default
                 {% endif %}
 
 				{{ content }}
-                <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="{{ site.baseurl }}/js/pfliu.min.js"></script>
+              <div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
 <script>
 var gitment = new Gitment({
   id: '{{page.title}}', // 可选。默认为 location.href
