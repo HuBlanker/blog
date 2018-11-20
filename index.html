@@ -1,10 +1,7 @@
 ---
 layout: page
-description: "呼延十的成长之路"
-background-color: "#395692"
+description: "我干了什么 究竟拿了时间换了什么"
 ---
-
-
 
 {% for post in paginator.posts %}
 <div class="post-preview">
@@ -18,58 +15,32 @@ background-color: "#395692"
         </h3>
         {% endif %}
         <div class="post-content-preview">
-            {{ post.content | strip_html | truncate:150 }}
+            {% if post.lang == 'en' %}
+                {{ post.content | strip_html | truncate:300 }}
+            {% else %}
+                {{ post.content | strip_html | truncate:200 }}
+            {% endif %}
         </div>
     </a>
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
 </div>
-
 <hr>
 {% endfor %}
 
 <!-- Pager -->
-<!-- 分页链接 -->
-<h2 style="text-align:center;">
-{% if paginator.page == 1 %}
-<span style="margin-right:15px;"><i><b>首页</b></i></span>
+{% if paginator.total_pages > 1 %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
 {% endif %}
-{% if  paginator.total_pages >1 %}
-{% if paginator.previous_page %}
-<a href="/" title="首页">首页</a>
-<a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="上一页">
-<span class="fa fa-backward" style="padding:10px;"></span></a>
-{% endif %}
-{% for page in (1..paginator.total_pages) %}
-{% if page == paginator.page %}
-<select onChange="location.replace(this.options[this.selectedIndex].value)">
-<option>
-第
-{{ paginator.page }}
- /
-{{ paginator.total_pages }}
-页
-</option>
-{% assign page_num = 1 %}
-<option value="/">跳至:首页</option>
-{% for page in (1..paginator.total_pages) %}
-{% assign page_num = page_num | plus: 1 %}
-{% if page_num < paginator.total_pages %}
-<option value="/page{{ page_num }}/">跳至:第 {{ page_num }} 页</option>
-{% endif %}
-{% endfor %}
-<option value="/page{{ paginator.total_pages }}">跳至:尾页</option>
-</select>
-{% elsif page == 1 %}
-{% else %}
-{% endif %}
-{% endfor %}
-{% if paginator.next_page %}
-<a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" title="下一页">
-<i class="fa fa-forward" style="padding:10px;"></i></a>
-<a href="/page{{ paginator.total_pages }}/" title="尾页">尾页</a>
-{% endif %}
-{% if paginator.page == paginator.total_pages %}
-<span style="margin-left:15px;"><i><b>已达尾页</b></i></span>
-{% endif %}
-{% endif %}
-</h2>

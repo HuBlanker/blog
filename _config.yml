@@ -1,70 +1,109 @@
 # Site settings
-title: 呼延十 # 你的博客名字，可以定义修订
-header-img: "img/facebook.jpg"
-tagline: "xixi"  
-description: "千里我独行，不必相送。"  # 一句话描述你的博客
-baseurl: ""
-url: "huyan.couplecoders.tech"  # 此处填写你的博客地址 
+title: 呼延十
+SEOTitle: 呼延十的博客 | HuYan Blog
+header-img: img/home-bg.jpg
+email: huyanshi2580@gmail.com
+description: "帝都低端程序员HuYan的博客"
+keyword: "web,博客,后端"
+url: "https://huyan.couplecoders.tech"              # your host, for absolute URL
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
-# About/contact
-owner: 
-  name: "呼延十" # 填写作者信息：名字
-  email: huyanshi2580@Gmail.com # 填写作者信息：邮箱
-  bio: "呼延胡言" # 填写作者信息：博客描述
+# Publish posts or collection documents with a future date.
+future: true
 
-# Data
-gavatar: img/favicon.png # 浏览器地址栏小图标，可自定义更改
-favicon: img/favicon.png # 浏览器地址栏小图标，可自定义更改
+# SNS settings
+RSS: false
+weibo_username:     huxpro
+zhihu_username:     huxpro
+github_username:    huxpro
+twitter_username:   huxpro
+#facebook_username:  huxpro
+#linkedin_username:  firstname-lastname-idxxxx
 
-douban_username:  xixi
-twitter_username: 
-github_username: hublanker
-facebook_username: 
-weibo_username: 
-zhihu_username: 
 
-# Build settings  
-# use Github Flavored Markdown !important  
-# document: http://jekyllrb.com/docs/configuration/#kramdown  
-markdown: kramdown
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 highlighter: rouge
 permalink: pretty
-paginate: 8
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+# If you have timezone issue (e.g. #68) in China, uncomment to use this:
+#timezone: CN  
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone: Asia/Beijing
 
-# Defaults for posts
-defaults:
-  -
-    scope: 
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      author: "呼延十" # 你的名字
-      header-img: "img/facebook.jpg" # We don't want posts without a header image, that whould mean white on white
 
-# Comments 
-comments :
-  provider : duoshuo # 使用 disqus 评论模块，读者翻墙才能看见
-  duoshuo :
-    short_name :  # 填写你的 disqus id
-  disqus :
-      short_name :  # 填写你的 disqus id
-
-# Analytics and webmaster tools stuff goes here
-google_analytics:  # 填写你  google_analytics id
-google_verify:
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
-
-# Links to include in footer navigation
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+# make sure you have this gem installed
+# `$ gem install jekyll-paginate`
 plugins: [jekyll-paginate]
-paginate: 5
-paginate_path: "page:num"
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+
+
+# Disqus settings
+disqus_username: hux
+
+# Netease settings
+netease_comment: false
+
+
+
+# Analytics settings
+# Baidu Analytics 
+# ba_track_id: [your track id]
+
+# Google Analytics
+ga_track_id: ''            # Format: UA-xxxxxx-xx
+ga_domain: 
+
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "呼延十"
+sidebar-avatar: /img/dehua.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
 
 # Featured Tags
-featured-tags: true  
-featured-condition-size: 1
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# MathJax rendering for layout:page (e.g. post preview)
+page-mathjax: false
+
+
+
+# Friends
+friends: [
+    #{
+    #     title: "Su",
+    #     href: "http://su.gallery/"
+    # }
+]
