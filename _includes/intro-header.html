@@ -7,7 +7,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-color: ('{{ site.baseurl }}/{% if page.background-color %}{{ page.background-color }}{% else %}{{ site.background-color }}{% endif %}');
+        background-color: {{ post.background-color }});
         background: {{ page.header-bg-css }};
     }
 
