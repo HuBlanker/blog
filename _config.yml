@@ -110,4 +110,8 @@ friends: [
     #     title: "Su",
     #     href: "http://su.gallery/"
     # }
+    {
+        title: "HuiHui",
+        href: "http://huihui.couplecoders.tech/"
+    }
 ]
