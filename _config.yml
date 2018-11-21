@@ -15,8 +15,8 @@ future: true
 
 # SNS settings
 RSS: false
-weibo_username:     hublanker
-zhihu_username:     hublanker
+baidu_tongji:       12816550
+zhihu_username:     liu-shuai-99-72
 github_username:    hublanker
 twitter_username:   hublanker
 #facebook_username:  huxpro
