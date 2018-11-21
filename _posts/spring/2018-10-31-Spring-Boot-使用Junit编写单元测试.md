@@ -1,6 +1,8 @@
 ---
 layout: post
 category: [开发环境搭建,Spring Boot]
+tags:
+  - Spring Boot
 ---
 
 ## 摘要

@@ -1,6 +1,9 @@
 ---
 layout: post
-category: 源码阅读
+category: [源码阅读,java]
+tags:
+  - java
+  - 源码阅读
 ---
 
 <font  color="red">PS.本文基于JDK1.8</font>

@@ -1,6 +1,9 @@
 ---
 layout: post
-category: [开发者手册,Spring]
+category: [开发者手册,Spring Boot]
+tags:
+  - 开发者手册
+  - Spring Boot
 ---
 
 ## 什么是AOP

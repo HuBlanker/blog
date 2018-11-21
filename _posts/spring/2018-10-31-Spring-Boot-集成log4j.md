@@ -1,6 +1,8 @@
 ---
 layout: post
 category: [开发环境搭建,Spring Boot]
+tags:
+  - Spring Boot
 ---
 
 好的日志不仅能够方便的自己的编码调试过程，在线上debug过程中也是十分重要的！

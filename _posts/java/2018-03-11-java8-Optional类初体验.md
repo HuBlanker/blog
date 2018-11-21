@@ -1,6 +1,9 @@
 ---
 layout: post
 category: [java8,java]
+tags:
+  - java
+  - java8
 ---
 众所周知，在java语言开发中，NullPointerException是一直被大家所深恶痛绝的。然而在以前的java版本中，对空值的判断有繁琐而无趣。且十分影响代码的美观。例如下面这种情况：  
 

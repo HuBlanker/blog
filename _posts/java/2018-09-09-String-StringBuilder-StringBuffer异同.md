@@ -1,6 +1,9 @@
 ---
 layout: post
-category: 源码阅读
+category: [源码阅读,java]
+tags:
+  - java
+  - 源码阅读
 ---
 
  字符串在编程中使用的非常频繁，同时又是面试中的常见题型，那么我们的对字符串相关类String，StringBuilder，StringBuffer的理解真的正确吗？今天就通过对三个类源码的阅读，来进一步加强理解。  
