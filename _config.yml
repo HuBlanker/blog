@@ -14,7 +14,7 @@ host:    127.0.0.1
 future: true
 
 # SNS settings
-RSS: false
+RSS: true
 baidu_tongji:       12816550
 zhihu_username:     liu-shuai-99-72
 github_username:    hublanker
