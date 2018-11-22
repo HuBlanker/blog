@@ -2,8 +2,8 @@
 layout: post
 category: [java8,java]
 tags:
-  - java
-  - java8
+  - Java
+  - Java8
 ---
 
 <h2>什么是Stream，为什么需要Stream</h2>
