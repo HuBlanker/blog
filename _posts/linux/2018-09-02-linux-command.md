@@ -1,6 +1,6 @@
 ---
 layout: post
-category: linux
+category: Linux
 tags:
   - Linux
 ---
