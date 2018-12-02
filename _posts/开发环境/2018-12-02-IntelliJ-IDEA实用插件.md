@@ -35,6 +35,8 @@ tags:
 
 **这个插件操作十分简单,可以帮你批量生成类及一些方法,实属利器.**
 
+
+**遇到问题可以查看官方教程,<a href="https://github.com/kmaster/better-mybatis-generator">点击这里哦</a>**
 遇到问题可以查看官方教程.
 
 ## 2.gsonformat
