@@ -84,4 +84,4 @@ LocalDateTime的很多操作都和LocalDate差不多，具体的请查看一下�
 
 **联系邮箱：huyanshi2580@gmail.com**
 
-**更多学习笔记见个人博客------><a href="https://hublanker.github.io/blog/">呼延十</a>**
+**更多学习笔记见个人博客------><a href="{{ site.baseurl }}/">呼延十</a>**

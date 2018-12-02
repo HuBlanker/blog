@@ -239,4 +239,4 @@ stream的基本用法到这里就差不多啦，以后有时间的话将自己�
 
 **联系邮箱：huyanshi2580@gmail.com**
 
-**更多学习笔记见个人博客------><a href="https://hublanker.github.io/blog/">呼延十</a>**
+**更多学习笔记见个人博客------><a href="{{ site.baseurl }}/">呼延十</a>**
