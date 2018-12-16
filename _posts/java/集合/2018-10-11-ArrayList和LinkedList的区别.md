@@ -4,6 +4,7 @@ category: [源码阅读,java]
 tags:
   - Java
   - 源码阅读
+  - Java集合
 ---
 
 PS：推荐大家先去了解一下链表这个数据结构。

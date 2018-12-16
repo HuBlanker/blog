@@ -285,6 +285,24 @@ kill  -9 2334
 top
 ```
 
+## 18.grep
+
+用于过滤/搜索的特定字符。可使用正则表达式能多种命令配合使用，使用上十分灵活。
+命令格式:
+`grep [option] pattern file`
+
+
+常用命令:
+
+```shell
+# 查找指定进程
+ps -ef | grep tomcat
+# 查找文本中特定字符串
+cat ha.log | grep xixi
+cat ha.log | grep xix
+# 显示查找到的字符串之前5行的内容,B-之前,A-之后,C-之前之后都显示
+cat ha.log | grep -B 5 xixi
+```
 
 <br>
 完。

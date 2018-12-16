@@ -4,6 +4,7 @@ category: java面试
 tags:
   - Java
   - Java面试
+  - Java集合
 ---
 
 在前面的一片文章写了<a href="{{ site.baseurl }}/源码阅读/2018/10/16/HashMap源码阅读/">HashMap的源码阅读</a>，这次来说一下HashTable的一些知识。

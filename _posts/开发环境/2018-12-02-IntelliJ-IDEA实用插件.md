@@ -3,7 +3,7 @@ layout: post
 category: 开发环境搭建
 tags:
   - 开发环境搭建
-  - Mybatis
+  - MyBatis
 ---
 
 很多工具都有一个共同点,第一眼看上去总是很麻烦,让人望而生畏,却忽略掉了他能带来的效率的提升,比如:Intellij的数据库连接功能,我用intellij快两年了,今天才第一次使用...
