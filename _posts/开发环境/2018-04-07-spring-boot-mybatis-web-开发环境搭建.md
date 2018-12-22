@@ -5,6 +5,7 @@ tags:
   - 开发环境搭建
   - Spring Boot
   - Web
+  - MyBatis
 ---
 ### Spring Boot 是什么
 官网对他的介绍是：  
