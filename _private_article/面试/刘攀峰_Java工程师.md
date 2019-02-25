@@ -21,7 +21,7 @@
 - 熟练使用IDE,git,Maven,Docker等开发,构建,部署工具
 - 熟练使用Redis及Hbase等NoSQL数据库
 - 了解Linux系统及Shell语言,熟练使用Ubuntu进行开发,维护公司及个人服务器,能够编写常用的Shell脚本
-- 了解常用的常用的中间件,有使用经验
+- 了解及使用过hue,airflow等开源软件进行数据的处理及可视化工作.
 
 <h4 style="margin-top:-10px;margin-bottom:10px">项目经验</h4>
 
