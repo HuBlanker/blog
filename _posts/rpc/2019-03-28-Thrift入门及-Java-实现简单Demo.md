@@ -264,7 +264,7 @@ https://zh.wikipedia.org/wiki/Thrift
   * double：64 位浮点数，对应 Java 的 double
   * string：utf-8编码的字符串，对应 Java 的 String
 *  结构体类型：
-  * struct：定义公共的对象，类似于 C 语言中的结构体定义，在 Java 中是一个 JavaBean
+    * struct：定义公共的对象，类似于 C 语言中的结构体定义，在 Java 中是一个 JavaBean
 * 容器类型：
   * list：对应 Java 的 ArrayList
   * set：对应 Java 的 HashSet
