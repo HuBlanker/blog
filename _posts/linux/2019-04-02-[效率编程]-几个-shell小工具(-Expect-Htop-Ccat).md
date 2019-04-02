@@ -15,6 +15,7 @@ tags:
 * ccat : linux 下上色版本的cat
 * htop : 上色增强版本的top
 * 软连接
+* z: 快速的cd
 
 最终实现了,高效的登录至服务器,不用输入密码.以及使用ccat查看源码,使用htop观察机器内存等信息.
 
@@ -143,6 +144,25 @@ ln -s ~/jump /usr/local/bin/jump
 在~/.zshrc文件中加入`alias="~/jump"`即可.
 
 
+## Z
+
+这个名字真的是简洁.
+
+这是一个快速管理你的cd命令的脚本.<a href="https://github.com/rupa/z">github仓库</a>
+
+基本实现就是:
+
+你安装了z,之后你的cd会被记录到.z文件,然后当你想切换目录的时候,只需要`z xx + tab`即可. xx是你想去的目录的部分名字即可,z使用正则表达式来匹配,所以只要你输入的`xx`足够`不重复`,基本是无敌精准的.
+
+#### 安装
+
+使用zsh的朋友,打开`~/.zshrc`,将其中的`plugins={git}` 添加z,变成`plugins={git z}`,然后执行`source ~/.zshrc`即可.
+
+#### 使用
+
+先瞎cd几下.然后`z`:
+
+![2019-04-02-20-25-53](http://img.couplecoders.tech/2019-04-02-20-25-53.png)
 
 ## 参考文章
 
@@ -159,6 +179,7 @@ ln -s ~/jump /usr/local/bin/jump
 <br>
 <h4>ChangeLog</h4>
 2019-04-02      完成
+2019-04-03      添加Z
 <br>
 <br>
 
