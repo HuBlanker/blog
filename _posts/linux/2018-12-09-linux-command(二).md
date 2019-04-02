@@ -304,6 +304,43 @@ cat ha.log | grep xix
 cat ha.log | grep -B 5 xixi
 ```
 
+## 19.lsof
+
+lsof（list open files）是一个列出当前系统打开文件的工具。在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。所以如传输控制协议 (TCP) 和用户数据报协议 (UDP) 套接字等，系统在后台都为该应用程序分配了一个文件描述符，无论这个文件的本质如何，该文件描述符为应用程序与基础操作系统之间的交互提供了通用接口。因为应用程序打开文件的描述符列表提供了大量关于这个应用程序本身的信息，因此通过lsof工具能够查看这个列表对系统监测以及排错将是很有帮助的。
+
+#### 详细链接
+
+http://www.cnblogs.com/peida/archive/2013/02/26/2932972.html
+
+
+#### 例子
+
+```bash
+//是否在被监听,这个用法比较奇怪,但是能用
+lsof -i -nP | grep XXXX
+//查看某个端口的的占用情况
+lsof -i tcp:XXX
+lsof -i udp:XXX
+```
+
+## 20. ln
+
+设置软连接和硬链接
+
+用于过滤/搜索的特定字符。可使用正则表达式能多种命令配合使用，使用上十分灵活。
+命令格式:
+`ln [option] source target`
+
+常用命令:
+
+```bash
+//软连接
+ls -s a.txt b.txt
+//硬链接
+ls a.txt b.txt
+```
+
+
 <br>
 完。
 
@@ -313,6 +350,7 @@ cat ha.log | grep -B 5 xixi
 <br>
 <h4>ChangeLog</h4>
 2018-12-09 完成
+2010-04-02 添加lsof
 <br>
 <br>
 
