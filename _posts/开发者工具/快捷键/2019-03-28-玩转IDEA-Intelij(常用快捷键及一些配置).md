@@ -37,7 +37,9 @@ shift + f10 | run 启动 |
 ctrl + shift + f9 | debug 启动当前类|
 ctrl + shift + f10 | run 启动当前类 | 
 shift + command + a | find action,然后输入你想做的动作,很多常用功能都有 |  比如输入`opt`,提醒你优化import
-
+command + w | 选中光标所在的单词
+command + y | 删除光标所在行
+command + x | 剪切光标所在行
 
 
 ## 分屏快捷键的配置
