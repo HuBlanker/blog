@@ -29,8 +29,10 @@ alt + s | 将当前文件放回左侧的区域 |
 shift + f6 | 重命名当前变量/方法等 | 会同步到使用它的地方
 shift + alt + ⬆️/⬇️ | 向上/向下移动一行代码  |
 shift + enter | 无论你的光标是否在行尾,开始下一行. | 
+shift + command + enter | 自动不全当前行的分号 | 当当前行有分号,开始下一行
 command + o | 实现方法 | 
-双击 shift | 全局查找任何东西 |
+双击 shift | 全局查找任何东西 | 可以使用`tab`切换要查找的类型
+shift + command + alt + n | 全局查找symbols | 主要用来查找方法
 command + n | 查找Java类 |
 shift + f9 | debug 启动 |
 shift + f10 | run 启动 | 
@@ -40,7 +42,8 @@ shift + command + a | find action,然后输入你想做的动作,很多常用功
 command + w | 选中光标所在的单词
 command + y | 删除光标所在行
 command + x | 剪切光标所在行
-
+command + shift + r | 全局查找和替换
+alt + F7 | 查询类,变量等的引用
 
 ## 分屏快捷键的配置
 

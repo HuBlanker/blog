@@ -18,6 +18,8 @@ tags:
 ls -a       
 #列出当前文件的权限文件大小等信息
 ls -l
+# 列出文件及大小,大小为人类可读的
+ls -lh
 ```
 
 ## 2.du
@@ -245,6 +247,9 @@ find 命令的功能十分强大,这里不多做介绍,具体使用时可以详�
 命令格式:
 `ps[参数]`
 
+* -e : 显示全部的进程
+* -o : 自定义格式
+
 常用命令:
 
 ```shell
@@ -254,6 +259,8 @@ ps -A
 ps -l
 # 与grep组合使用,查看特定的进程
 ps -ef | grep tomcat
+# 以特定形式查看进程,并以内存占用排序,并且取前10
+ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' --sort -rsz | head -n 10
 ```
 
 ## 16.kill
@@ -316,9 +323,9 @@ http://www.cnblogs.com/peida/archive/2013/02/26/2932972.html
 #### 例子
 
 ```bash
-//是否在被监听,这个用法比较奇怪,但是能用
+#是否在被监听,这个用法比较奇怪,但是能用
 lsof -i -nP | grep XXXX
-//查看某个端口的的占用情况
+#查看某个端口的的占用情况
 lsof -i tcp:XXX
 lsof -i udp:XXX
 ```
@@ -334,12 +341,57 @@ lsof -i udp:XXX
 常用命令:
 
 ```bash
-//软连接
+#软连接
 ls -s a.txt b.txt
-//硬链接
+#硬链接
 ls a.txt b.txt
 ```
 
+## 21.telnet
+
+用于远程登录服务器,不过现在基本使用ssh了.
+
+可以用他来测试本地端口或者远程端口是否开放.
+
+```bash
+#连接本地8888端口
+telnet 127.0.0.1 8888
+```
+
+## 22.free
+
+查看机器的内存.
+
+命令比较简单,主要就是几个可读性参数以及`s`参数用来持续查看内存.
+
+```bash
+#人类可读方式输出内存占用
+free -h
+#每隔3s输出内存占用
+free -h -s 3
+```
+
+## 23.tree
+
+以树状显示文件夹的结构.
+
+ubuntu和mac上没有此命令,需要安装.
+MAC:
+```
+brew intall tree
+```
+UBUNTU:
+```
+sudo apt-get install tree
+```
+使用:
+
+```bash
+# 当前目录
+tree
+## 某个目录
+tree /xxx
+```
 
 <br>
 完。
