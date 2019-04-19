@@ -54,6 +54,12 @@ private Long dateTimeStrToTimeStamp(String dateTime) {
   }
 ```
 
+#### 获取下周一和下周日的LocalDate
+
+```java
+LocalDate start = LocalDate.now().plusDays(8 - LocalDate.now().getDayOfWeek().getValue());
+LocalDate end = LocalDate.now().plusDays(14  - LocalDate.now().getDayOfWeek().getValue());
+```
 
 
 

@@ -28,8 +28,8 @@ ctrl + s | 将当前文件放到水平分屏的右侧 |
 alt + s | 将当前文件放回左侧的区域 | 
 shift + f6 | 重命名当前变量/方法等 | 会同步到使用它的地方
 shift + alt + ⬆️/⬇️ | 向上/向下移动一行代码  |
-shift + enter | 无论你的光标是否在行尾,开始下一行. | 
-shift + command + enter | 自动不全当前行的分号 | 当当前行有分号,开始下一行
+shift + enter | 无论你的光标是否在行尾,开始下一行. | 建议将下一个的快捷键改为此快捷键,可以较为方便的室自动补全当前语句和下一行.
+shift + command + enter | 自动补全当前行的分号 | 当当前行有分号,开始下一行
 command + o | 实现方法 | 
 双击 shift | 全局查找任何东西 | 可以使用`tab`切换要查找的类型
 shift + command + alt + n | 全局查找symbols | 主要用来查找方法
@@ -44,6 +44,12 @@ command + y | 删除光标所在行
 command + x | 剪切光标所在行
 command + shift + r | 全局查找和替换
 alt + F7 | 查询类,变量等的引用
+ctrl + n | 自动生成代码 | get/set,construct之类
+command + alt + l | 自动格式化代码 |
+command + alt + o | 自动优化import | 
+F8 | 单步跳过 | 
+F9 | 跳过当前断点
+
 
 ## 分屏快捷键的配置
 
@@ -86,6 +92,13 @@ alt + F7 | 查询类,变量等的引用
 
 以后需要直接在代码中`main`就会自动生成了.
 
+#### 2018 版本自动提示忽略大小写
+
+网上的忽略大小写基本都是以前的版本.
+
+在2018中,在`Setting->Editor->General->Code Complete`中取消勾选 `match case`.
+
+![2019-04-16-11-02-10](http://img.couplecoders.tech/2019-04-16-11-02-10.png)
 
 
 <br>

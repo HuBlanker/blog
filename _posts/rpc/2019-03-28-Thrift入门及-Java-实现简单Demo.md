@@ -68,7 +68,7 @@ service  UserService {
 
 在命令行中进入`user.thrift`所在的目录,然后执行`thrift -r -gen java user.thrift`.
 
-会发现在当前目录下生成了`gen-java`文件夹,将文件夹中的`userService`文件copy到项目名录下.
+会发现在当前目录下生成了`gen-java`文件夹,将文件夹中的`userService`文件copy到项目目录下.
 
 这个文件定义了`接口`,`入参`,`出参`,是客户端和服务器共同使用的一个文件.也是thrift框架很重要的一部分.
 
