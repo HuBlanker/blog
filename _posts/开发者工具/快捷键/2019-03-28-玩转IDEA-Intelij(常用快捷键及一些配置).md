@@ -49,6 +49,8 @@ command + alt + l | 自动格式化代码 |
 command + alt + o | 自动优化import | 
 F8 | 单步跳过 | 
 F9 | 跳过当前断点
+command + 7 | 打开structure视图,可以查看类的属性和方法
+command + F12 | 以弹窗的形式查看类的属性和方法,
 
 
 ## 分屏快捷键的配置

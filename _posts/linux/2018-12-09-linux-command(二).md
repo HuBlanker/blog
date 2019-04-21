@@ -196,6 +196,8 @@ space 向下一页
 ```shell
 # 显示文件前10行
 head -n 5 ha.log
+# 将文件的前1000行copy到另一个文件中,查看结果,或者用真实数据的一部分进行测试常用
+head -n 1000 ha.log > hehe.me
 ```
 
 ## 12.tail
