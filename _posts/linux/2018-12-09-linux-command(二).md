@@ -173,7 +173,15 @@ more +/pp ha
 less ha.log
 # 查看进程并通过less分页
 ps -ef | less
+```
 
+使用`less`命令之后进入查看,可以使用一些命令来控制.
+
+```
+y 向上一行
+enter 向下一行
+space 向下一页
+/ 搜索(同vim)
 ```
 
 ## 11.head
@@ -392,6 +400,26 @@ tree
 ## 某个目录
 tree /xxx
 ```
+
+## 34.wc
+
+这不是卧槽!是wordcount.
+
+根据byte,line,word来统计某个文件.
+
+当然支持管道,可以对你前一个命令的输出进行计数.
+
+```
+wc _config.yml
+wc -c _config.yml
+wc -l _config.yml
+wc -w _config.yml
+cat _config.yml | wc -l
+```
+
+执行结果如下:
+
+![2019-04-19-20-35-17](http://img.couplecoders.tech/2019-04-19-20-35-17.png)
 
 <br>
 完。
