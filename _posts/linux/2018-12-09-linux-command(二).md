@@ -308,6 +308,13 @@ top
 命令格式:
 `grep [option] pattern file`
 
+#### option
+
+* -A number 显示目标之后的number行
+* -B 之前的x行
+* -C 前后的x行
+* -i --ignore-case 忽略大小写
+* -v   --revert-match 显示不包含匹配文本的所有行。相当于反选的感觉
 
 常用命令:
 
@@ -319,6 +326,8 @@ cat ha.log | grep xixi
 cat ha.log | grep xix
 # 显示查找到的字符串之前5行的内容,B-之前,A-之后,C-之前之后都显示
 cat ha.log | grep -B 5 xixi
+# 显示没有命中的所有行
+cat ha.log | grep -v 'ha'
 ```
 
 ## 19.lsof
@@ -403,7 +412,7 @@ tree
 tree /xxx
 ```
 
-## 34.wc
+## 24.wc
 
 这不是卧槽!是wordcount.
 
