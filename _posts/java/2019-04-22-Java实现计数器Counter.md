@@ -59,7 +59,141 @@ tags:
     }
 ```
 
-## 
+## 对map的操作减少
+
+对于每一个字符串,都需要get确认,然后put新值,这明显是不科学的.
+
+`HashMap`的`put`方法,其实是有返回值的,会返回旧值.
+
+这就意味着我们可以通过一次map操作来达到目的.
+
+经过这样两次的优化,现在的方法为:
+
+```java
+    public static Map<String, MutableInteger> count2(List<String> strings) {
+        HashMap<String, MutableInteger> c = new HashMap<>();
+        strings.forEach(per -> {
+            MutableInteger init = new MutableInteger(1);
+            MutableInteger last = c.put(per, init);
+            if (last != null) {
+                init.set(last.get() + 1);
+            }
+        });
+        return c;
+    }
+```
+
+## 简单测试一下:
+
+```java
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+
+        String[] ss = {"my", "aa", "cc", "aa", "cc", "b", "w", "sssssa", "10", "10"};
+
+        for (int i = 0; i < 100000000; i++) {
+            list.add(ss[i % 10]);
+        }
+        long s = System.currentTimeMillis();
+        System.out.println(count1(list));
+        System.out.println(System.currentTimeMillis() - s);
+
+        long s1 = System.currentTimeMillis();
+        System.out.println(count2(list));
+        System.out.println(System.currentTimeMillis() - s1);
+
+    }
+```
+
+测试结果如下:
+
+```
+{aa=20000000, cc=20000000, b=10000000, w=10000000, sssssa=10000000, my=10000000, 10=20000000}
+4234
+{aa=20000000, cc=20000000, b=10000000, w=10000000, sssssa=10000000, my=10000000, 10=20000000}
+951
+```
+
+
+可以看到结果非常明显,效率提高了4倍.
+
+<font color="red">NOTE:</font>
+这个测试明显是有偏向的,因为我这个1亿条数据,只有几种,所以数据重复率非常高.但是日常使用中数据重复率不会有这么夸张.
+但是构建1亿条重复率不高的测试数据,太麻烦了.
+
+## 分析
+
+其实起作用比较大的是可变的Integer类.
+
+而map的操作我们知道,取和放到时O(1)的.所以这个的提升不是特别的大.`经测试,修改为两次操作,仅增加80ms.`
+
+## 最终代码(使用泛型实现通用类)
+
+实现了以下几个API:
+
+* add(T): 向计数器添加一个值.
+* addAll(List<T>): 一次性添加多个值.以`List`的形式.
+* get(T): 返回该值目前的数量.
+* getALl(): 返回该计数器目前所有的计数信息.形式为,`Map<T,Integer>`
+
+```java
+package daily.counter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by pfliu on 2019/04/21.
+ */
+public class Counter<T extends Object> {
+
+    private HashMap<T, MutableInteger> c = new HashMap<>();
+    
+    public void add(T t) {
+        MutableInteger init = new MutableInteger(1);
+        MutableInteger last = c.put(t, init);
+        if (last != null) {
+            init.set(last.get() + 1);
+        }
+    }
+
+    public void addAll(List<T> list) {
+        list.forEach(this::add);
+    }
+
+    public int get(T t) {
+        return c.get(t).val;
+    }
+
+    public Map<T, Integer> getAll() {
+        Map<T, Integer> ret = new HashMap<>();
+        c.forEach((key, value) -> ret.put(key, value.val));
+        return ret;
+    }
+
+    public static final class MutableInteger {
+
+        private int val;
+
+        MutableInteger(int val) {
+            this.val = val;
+        }
+
+        public int get() {
+            return this.val;
+        }
+
+        void set(int i) {
+            this.val = i;
+        }
+    }
+}
+```
+
+当然你完全不用自己实现,网上一大把已经实现的.
+
+但是自己思考一下为什么要这样实现,还是有很多的好处的.
 
 <br>
 完。
