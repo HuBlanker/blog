@@ -17,7 +17,6 @@ tags:
 直接随手写一个:
 
 ```java
-    public static Map<String, Integer> count(List<String> stringList){
         HashMap<String,Integer> c = new HashMap<>();
         stringList.forEach(per->{
             c.put(per, c.getOrDefault(per, 0) + 1);//步骤1
