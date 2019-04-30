@@ -55,6 +55,14 @@ from student s
 ![2019-04-19-10-34-51](http://img.couplecoders.tech/2019-04-19-10-34-51.png)
 
 
+## coalesce(...)
+
+这个函数可以由多个参数,作用是返回第一个不为null的值.
+
+![2019-04-27-22-19-59](http://img.couplecoders.tech/2019-04-27-22-19-59.png)
+
+经常使用它的场合是,某个字段的默认值是null,但是你想返回的默认值为0,所有你可以这样写`select coalesce(x.y,0)`,当y字段为null时,会拿到0.
+
 
 <br>
 <br>
