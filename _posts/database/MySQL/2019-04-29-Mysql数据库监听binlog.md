@@ -291,6 +291,7 @@ https://cloud.tencent.com/developer/article/1384059
 <br>
 <h4>ChangeLog</h4>
 2019-04-30 完
+2019-05-01 使用Multimap替换Map<String,List<BinLogListener>>
 <br>
 <br>
 
