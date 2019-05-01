@@ -1,2 +1,3 @@
 use_images/**
 _site/**
+.DS_Store
