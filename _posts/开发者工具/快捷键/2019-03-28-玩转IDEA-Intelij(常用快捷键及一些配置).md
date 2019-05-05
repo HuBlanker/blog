@@ -53,7 +53,8 @@ command + 7 | 打开structure视图,可以查看类的属性和方法
 command + 9 | 打开版本控制
 alt + F12 / command + 8 | 在idea中打开终端 | 第二个快捷键为自己配置
 command + F7 | 寻找使用者 
-command + F12 | 以弹窗的形式查看类的属性和方法,
+command + F12 | 以弹窗的形式查看类的属性和方法
+ctrl + h | 查看类的继承关系
 
 
 ## 分屏快捷键的配置
