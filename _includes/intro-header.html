@@ -124,7 +124,7 @@
 		$.ajax({
 			url: "http://couplecoders.tech:8090/count?s=" +  window.location.href.replace('http://huyan.couplecoders.tech',""),
 			type: "GET",
-			dataType: "text",
+			dataType: "gsonp",
 			jsonp:"callback",
 			success: function(data) {
                 alert("right")
