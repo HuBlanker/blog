@@ -22,3 +22,4 @@ task :deploy, :msg do |t, args|
       sh 'git ps blog_origin master'
 end
 
+
