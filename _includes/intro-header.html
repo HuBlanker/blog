@@ -127,12 +127,9 @@
 			dataType: "jsonp",
 			jsonp:"callback",
 			success: function(data) {
-                alert("right")
-                alert(data);
-				target1.innerHTML = data;
+				target1.innerHTML = data.get("num");
 			},
 			error: function(){
-				alert("wrong");
 			}
 		});
 	};
