@@ -18,8 +18,8 @@ task :deploy, :msg do |t, args|
       mm = args[:msg]
       sh "git add ."
       sh "git ci -am #{mm}"
-	Rake::Task["tt"].invoke(t,mm)
-      Rake::Task["ps"].invoke
+	Rake::Task["tt"].execute(t,mm)
+      Rake::Task["ps"].execute
  end
 
 desc "tt"
