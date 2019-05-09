@@ -127,7 +127,7 @@
 			dataType: "jsonp",
 			jsonp:"callback",
 			success: function(data) {
-                alert(data.get("num"));
+                alert(data.num); 
 				target1.innerHTML = data.get("num");
 			},
 			error: function(){
