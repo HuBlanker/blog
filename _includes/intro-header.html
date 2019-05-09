@@ -120,14 +120,12 @@
 	//请求函数
 	window.onload =  function(){
 		var target1  = document.getElementById("hot");
-        alert(1);
 		$.ajax({
 			url: "http://couplecoders.tech:8090/count?s=" +  window.location.href.replace('http://huyan.couplecoders.tech',""),
 			type: "GET",
 			dataType: "jsonp",
 			jsonp:"callback",
 			success: function(data) {
-                alert(data.num); 
 				target1.innerHTML = data.num;
 			},
 			error: function(){
