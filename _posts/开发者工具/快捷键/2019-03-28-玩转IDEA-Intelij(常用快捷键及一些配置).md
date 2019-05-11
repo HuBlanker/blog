@@ -32,6 +32,8 @@ shift + enter | 无论你的光标是否在行尾,开始下一行. | 建议将�
 shift + command + enter | 自动补全当前行的分号 | 当当前行有分号,开始下一行
 command + o | 实现方法 | 
 双击 shift | 全局查找任何东西 | 可以使用`tab`切换要查找的类型
+command + n | 全局查找类 
+command + shift + n | 全局查找文件 | 这几个是一系列,都可以通过双击shift之后使用tab来切换,也可以直接按快捷键.
 shift + command + alt + n | 全局查找symbols | 主要用来查找方法
 command + n | 查找Java类 |
 shift + f9 | debug 启动 |
