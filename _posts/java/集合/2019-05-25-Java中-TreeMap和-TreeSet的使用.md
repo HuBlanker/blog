@@ -58,7 +58,7 @@ TreeMap是一个有序的key-value集合,基于红黑树（Red-Black tree）实�
 
 具体的使用方法见下方API极其注释(常用的没有注释).
 
-```
+```java
 // 返回(大于等输入key)的最小的key/entry,不存在返回null
 Entry<K, V>                ceilingEntry(K key)
 K                          ceilingKey(K key)
@@ -117,7 +117,7 @@ TreeSet是基于TreeMap实现的。TreeSet中的元素支持2种排序方式：�
 
 API如下:
 
-```
+```java
 boolean                   add(E object)
 boolean                   addAll(Collection<? extends E> collection)
 void                      clear()
