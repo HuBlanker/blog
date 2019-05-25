@@ -5,7 +5,42 @@ tags:
   - Linux
 ---
 
-## 1.ls
+### 目录
+
+<!-- TOC -->
+
+- [目录](#目录)
+- [1.ls](#1ls)
+- [2.du](#2du)
+- [3.df](#3df)
+- [4.touch](#4touch)
+- [5.cat](#5cat)
+- [6.rm](#6rm)
+- [7.mv](#7mv)
+- [8.cp](#8cp)
+- [9.more](#9more)
+- [10.less](#10less)
+- [11.head](#11head)
+- [12.tail](#12tail)
+- [13.locate](#13locate)
+- [14.find](#14find)
+- [15.ps](#15ps)
+- [16.kill](#16kill)
+- [17.top](#17top)
+- [18.grep](#18grep)
+        - [option](#option)
+- [19.lsof](#19lsof)
+        - [详细链接](#详细链接)
+        - [例子](#例子)
+- [20. ln](#20-ln)
+- [21.telnet](#21telnet)
+- [22.free](#22free)
+- [23.tree](#23tree)
+- [24.wc](#24wc)
+
+<!-- /TOC -->
+
+### 1.ls
 
 列出当前目录下的清单.
 
@@ -22,7 +57,7 @@ ls -l
 ls -lh
 ```
 
-## 2.du
+### 2.du
 显示目录或文件的大小
 
 命令格式:
@@ -37,7 +72,7 @@ du -h
 du -h  --max-depth=1
 ```
 
-## 3.df
+### 3.df
 检查linux服务器的文件系统的磁盘空间占用情况
 
 命令格式:
@@ -49,7 +84,7 @@ du -h  --max-depth=1
 df -h
 ```
 
-## 4.touch
+### 4.touch
 创建一个文件
 
 命令格式:
@@ -62,7 +97,7 @@ df -h
 touch haha.log
 ```
 
-## 5.cat
+### 5.cat
 连接文件或标准输入并打印
 
 命令格式:
@@ -89,7 +124,7 @@ cat -n ha.log | grep test
 
 tac 可以反向排列显示文件内容哦,致敬vdog.
 
-## 6.rm
+### 6.rm
 删除文件及目录
 
 命令格式:
@@ -107,7 +142,7 @@ rm -f ha.log
 
 rm -rf 命令记住不要手抖啊...
 
-## 7.mv
+### 7.mv
 
 移动文件或者将文件改名
 
@@ -121,11 +156,11 @@ rm -rf 命令记住不要手抖啊...
 mv ha t1/
 # 将当前目录的ha文件改名为he
 mv ha he
-## 将多个文件移至父目录
+### 将多个文件移至父目录
 mv ha he ../
 ```
 
-## 8.cp
+### 8.cp
 
 复制文件或者目录
 
@@ -144,7 +179,7 @@ cp -r ~/dooo ./
 
 操作复制或者移动时,最好随时带上`-i` 参数,这样在覆盖前会询问,防止出错.
 
-## 9.more
+### 9.more
 
 更加方便的阅读文件
 
@@ -161,7 +196,7 @@ more -2 ha
 more +/pp ha
 ```
 
-## 10.less
+### 10.less
 
 可以向后翻页的阅读文件
 
@@ -186,7 +221,7 @@ space 向下一页
 / 搜索(同vim)
 ```
 
-## 11.head
+### 11.head
 
 显示某个文件开头一些数量的区域
 
@@ -202,7 +237,7 @@ head -n 5 ha.log
 head -n 1000 ha.log > hehe.me
 ```
 
-## 12.tail
+### 12.tail
 
 显示某个文件尾部一些数量的区域
 
@@ -218,7 +253,7 @@ tail -n 6 ha.log
 tail -f  ha.log
 ```
 
-## 13.locate
+### 13.locate
 
 查找文件
 
@@ -234,7 +269,7 @@ locate he
 locate /home/huyan
 ```
 
-## 14.find
+### 14.find
 
 功能更加丰富的查找文件.
 
@@ -252,7 +287,7 @@ find . -perm 777
 
 find 命令的功能十分强大,这里不多做介绍,具体使用时可以详细的学习.
 
-## 15.ps
+### 15.ps
 
 查看进程
 
@@ -275,7 +310,7 @@ ps -ef | grep tomcat
 ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' --sort -rsz | head -n 10
 ```
 
-## 16.kill
+### 16.kill
 
 杀死进程
 
@@ -291,7 +326,7 @@ kill 2334
 kill  -9 2334
 ```
 
-## 17.top
+### 17.top
 
 性能监测
 
@@ -304,13 +339,13 @@ kill  -9 2334
 top
 ```
 
-## 18.grep
+### 18.grep
 
 用于过滤/搜索的特定字符。可使用正则表达式能多种命令配合使用，使用上十分灵活。
 命令格式:
 `grep [option] pattern file`
 
-#### option
+##### option
 
 * -A number 显示目标之后的number行
 * -B 之前的x行
@@ -332,16 +367,16 @@ cat ha.log | grep -B 5 xixi
 cat ha.log | grep -v 'ha'
 ```
 
-## 19.lsof
+### 19.lsof
 
 lsof（list open files）是一个列出当前系统打开文件的工具。在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。所以如传输控制协议 (TCP) 和用户数据报协议 (UDP) 套接字等，系统在后台都为该应用程序分配了一个文件描述符，无论这个文件的本质如何，该文件描述符为应用程序与基础操作系统之间的交互提供了通用接口。因为应用程序打开文件的描述符列表提供了大量关于这个应用程序本身的信息，因此通过lsof工具能够查看这个列表对系统监测以及排错将是很有帮助的。
 
-#### 详细链接
+##### 详细链接
 
 http://www.cnblogs.com/peida/archive/2013/02/26/2932972.html
 
 
-#### 例子
+##### 例子
 
 ```bash
 #是否在被监听,这个用法比较奇怪,但是能用
@@ -351,7 +386,7 @@ lsof -i tcp:XXX
 lsof -i udp:XXX
 ```
 
-## 20. ln
+### 20. ln
 
 设置软连接和硬链接
 
@@ -362,13 +397,13 @@ lsof -i udp:XXX
 常用命令:
 
 ```bash
-#软连接
-ls -s a.txt b.txt
+#软连接,在当前目录下建立/dir的软连接.
+ln -s /dir
 #硬链接
-ls a.txt b.txt
+ln a.txt b.txt
 ```
 
-## 21.telnet
+### 21.telnet
 
 用于远程登录服务器,不过现在基本使用ssh了.
 
@@ -379,7 +414,7 @@ ls a.txt b.txt
 telnet 127.0.0.1 8888
 ```
 
-## 22.free
+### 22.free
 
 查看机器的内存.
 
@@ -392,7 +427,7 @@ free -h
 free -h -s 3
 ```
 
-## 23.tree
+### 23.tree
 
 以树状显示文件夹的结构.
 
@@ -410,11 +445,11 @@ sudo apt-get install tree
 ```bash
 # 当前目录
 tree
-## 某个目录
+### 某个目录
 tree /xxx
 ```
 
-## 24.wc
+### 24.wc
 
 这不是卧槽!是wordcount.
 
