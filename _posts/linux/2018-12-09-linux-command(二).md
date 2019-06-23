@@ -7,8 +7,6 @@ tags:
 
 ### 目录
 
-<!-- TOC -->
-
 - [目录](#目录)
 - [1.ls](#1ls)
 - [2.du](#2du)
@@ -37,8 +35,7 @@ tags:
 - [22.free](#22free)
 - [23.tree](#23tree)
 - [24.wc](#24wc)
-
-<!-- /TOC -->
+- [25.ulimit](#25ulimit)
 
 ### 1.ls
 
@@ -468,6 +465,12 @@ cat _config.yml | wc -l
 执行结果如下:
 
 ![2019-04-19-20-35-17](http://img.couplecoders.tech/2019-04-19-20-35-17.png)
+
+### 25.ulimit
+
+限制用户的一些资源数量.具体的如下(可以通过`help ulimit`进行查看):
+
+![2019-06-19-11-40-52](http://img.couplecoders.tech/2019-06-19-11-40-52.png)
 
 <br>
 完。

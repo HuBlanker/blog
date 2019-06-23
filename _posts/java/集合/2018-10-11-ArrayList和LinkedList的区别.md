@@ -90,7 +90,7 @@ add方法，直接调用了linklast方法，将传入的值作为最后一个节
 
 remove方法的思路是什么呢？从头开始遍历链表，当找到要删除的节点，将他删除。删除的方法呢？将该节点的前后节点链接起来，类似于下图：
 
-![链表删除.jpg](http://img.couplecoders.tech/链表删除.jpg)
+![](http://img.couplecoders.tech/链表删除.jpg)
 
 
 

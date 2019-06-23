@@ -73,6 +73,7 @@ command + F7 | 寻找使用者 
 command + F12 | 以弹窗的形式查看类的属性和方法
 ctrl + h | 查看类的继承关系
 ctrl + shift + n | 新建一个临时的文件
+command +  g |跳转到某一行
 
 ## 配置项
 
