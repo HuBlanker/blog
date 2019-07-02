@@ -120,7 +120,7 @@ A ^ 全集:
 
 他的优点有:
 
-1.  <font color="red">节省内存.</font>    -> 因此在大数据量的时候更加显著.
+1.  <font color="red">节省内存.</font> -> 因此在大数据量的时候更加显著.
 2. <font color="red">与或运算效率高.</font> ->可以快速求交集和并集.
 
 缺点有:
@@ -595,7 +595,8 @@ long |long |long |long |long |long |long |long |long | long | long | long
 --- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- | --- |
 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | ...1千万个0呢 | 0 | 0 | 2048 | 
 
-而在在EWAHCompressedBitmap中,则是类似下面这样:
+而在EWAHCompressedBitmap中,则是类似下面这样:
+
 long | long | long | 
 -- | --- | --- |
 2 | 一千万个0 | 2048
