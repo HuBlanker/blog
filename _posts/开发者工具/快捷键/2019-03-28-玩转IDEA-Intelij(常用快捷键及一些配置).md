@@ -5,6 +5,7 @@ tags:
   - 开发者工具
   - 效率编程
 ---
+
 ## 目录
 
 
@@ -73,7 +74,10 @@ command + F7 | 寻找使用者 
 command + F12 | 以弹窗的形式查看类的属性和方法
 ctrl + h | 查看类的继承关系
 ctrl + shift + n | 新建一个临时的文件
-command +  g |跳转到某一行
+command +  g | 跳转到某一行
+command + b | 进入方法等,等价于command + 鼠标左键
+command + e | 最近打开的文件列表
+command + j | 插入模板代码
 
 ## 配置项
 
