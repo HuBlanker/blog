@@ -349,7 +349,7 @@ top
 * -C 前后的x行
 * -i --ignore-case 忽略大小写
 * -v   --revert-match 显示不包含匹配文本的所有行。相当于反选的感觉
-
+* -o --only-match 仅显示匹配的内容
 常用命令:
 
 ```shell
@@ -362,6 +362,8 @@ cat ha.log | grep xix
 cat ha.log | grep -B 5 xixi
 # 显示没有命中的所有行
 cat ha.log | grep -v 'ha'
+# 直接搜索
+grep -v 'aa' a.txt
 ```
 
 ### 19.lsof
