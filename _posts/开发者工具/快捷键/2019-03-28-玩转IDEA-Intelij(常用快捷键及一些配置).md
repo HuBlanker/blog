@@ -78,6 +78,7 @@ command +  g | 跳转到某一行
 command + b | 进入方法等,等价于command + 鼠标左键
 command + e | 最近打开的文件列表
 command + j | 插入模板代码
+shift + ctrl + n | 新建scratches文件
 
 ## 配置项
 

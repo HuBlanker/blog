@@ -7,6 +7,10 @@ tags:
   - Linux
 ---
 
+## 目录
+
+
+
 ## 背景介绍
 
 总结记录几个shell小工具,都是很常用且很好用的东西.
@@ -16,6 +20,8 @@ tags:
 * htop : 上色增强版本的top
 * 软连接
 * z: 快速的cd
+* iotop: 查看服务器IO.
+* jq: 命令行格式化json.
 
 最终实现了,高效的登录至服务器,不用输入密码.以及使用ccat查看源码,使用htop观察机器内存等信息.
 
@@ -158,17 +164,20 @@ ln -s ~/jump /usr/local/bin/jump
 
 使用zsh的朋友,打开`~/.zshrc`,将其中的`plugins={git}` 添加z,变成`plugins={git z}`,然后执行`source ~/.zshrc`即可.
 
+使用bash的朋友, 可以首先创建一个目录,然后克隆仓库,之后将source命令加入.bashrc即可.如下放的命令:
+
+```shell
+mkdir ~/code
+cd ~/code && git clone https://github.com/rupa/z.git
+echo 'source ~/code/z/z.sh' >> ~/.bashrc
+source ~/.bashrc
+```
 #### 使用
 
 先瞎cd几下.然后`z`:
 
 ![2019-04-02-20-25-53](http://img.couplecoders.tech/2019-04-02-20-25-53.png)
 
-## 参考文章
-
-<a href="http://xstarcd.github.io/wiki/shell/expect.html"> 很不错的expect教程</a>
-
-<a href="http://xstarcd.github.io/wiki/shell/expect_handbook.html"> 中文版expect教程</a>
 
 
 
@@ -196,6 +205,43 @@ iotop -o
 iotop -p
 ```
 
+## jq
+
+作为后端开发,经常要接触到一些json格式的数据,想要肉眼可读需要将其格式化,一般情况下我都是用在线的格式化工具,比如 [json在线格式化](https://jsoneditoronline.org/),越来越觉得有点麻烦,且有时候在服务器上,还要copy下来,贼麻烦.就找到一个命令行工具来做.
+
+这就是jq,在mac上使用brew安装,`brew install jq`即可.在其他linux上需要自己找一个安装方式.
+
+安装完成之后, 使用-h参数来了解他都可以干什么?
+
+![2019-08-05-17-47-53](http://img.couplecoders.tech/2019-08-05-17-47-53.png)
+
+或者可以使用`man jq` 来查看.
+
+我们使用`{"name":"huyan", "url":"http://huyan.couplecoders.tech/", "age":18}`来测试一下:
+
+![2019-08-05-17-54-48](http://img.couplecoders.tech/2019-08-05-17-54-48.png)
+
+图中我们简单的操作了一下,可以将输入字符串进行格式化,获取其中某个键的值,获取全部的键.等等.
+
+其实`jq`的功能远比这个强大,它支持管道,过滤,切片,数组操作等等,但是对我个人来说,学习那些的成本高于我获得的收益,因为我只需要格式化和获取某个键的值就基本够用了.所以这里不再展开讲详细的高阶操作.需要进一步深入学习的朋友google或者在参考文章处有一篇不错的教程.
+
+这样使用,每次都要`echo`,太麻烦了,所以我们写一个小脚本,如下所示
+
+```shell
+#!/bin/bash
+
+echo $1 | jq .
+```
+
+然后将此文件软连接到`/usr/local/bin`目录下面,起名为`jqh`. 然后就可以愉快的`jqh 'content'`了.
+
+## 参考文章
+
+<a href="http://xstarcd.github.io/wiki/shell/expect.html"> 很不错的expect教程</a>
+
+<a href="http://xstarcd.github.io/wiki/shell/expect_handbook.html"> 中文版expect教程</a>
+
+<a href="https://mozillazg.com/2018/01/jq-use-examples-cookbook.html"> jq使用 </a>
 完.
 
 <br>
@@ -206,6 +252,7 @@ iotop -p
 2019-04-02      完成
 2019-04-03      添加Z
 2019-04-21      添加iotop
+2018-08-05      添加jq
 <br>
 <br>
 
