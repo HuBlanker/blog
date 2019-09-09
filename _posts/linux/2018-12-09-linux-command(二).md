@@ -350,10 +350,13 @@ top
 * -i --ignore-case 忽略大小写
 * -v   --revert-match 显示不包含匹配文本的所有行。相当于反选的感觉
 * -o --only-match 仅显示匹配的内容
+* -n --number 打印行号
+* -c 不打印匹配结果,统计匹配的行数
+* -e 匹配多个模式串
+* -f 使用模式文件匹配(在文件中可以提前编写多个模式)
 常用命令:
 
-```shell
-# 查找指定进程
+```shell # 查找指定进程
 ps -ef | grep tomcat
 # 查找文本中特定字符串
 cat ha.log | grep xixi
@@ -364,6 +367,14 @@ cat ha.log | grep -B 5 xixi
 cat ha.log | grep -v 'ha'
 # 直接搜索
 grep -v 'aa' a.txt
+# 仅显示匹配结果内容
+grep -o 'aa' a.txt
+# 匹配结果显示行号
+grep -n 'aaa' a.txt
+# 统计匹配结果行数
+grep -c 'aa' a.txt
+# 根据模式文件进行匹配
+grep -f pat.file a.txt
 ```
 
 ### 19.lsof
@@ -474,6 +485,20 @@ cat _config.yml | wc -l
 
 ![2019-06-19-11-40-52](http://img.couplecoders.tech/2019-06-19-11-40-52.png)
 
+### 26.date
+
+这里记录一下字符串->时间戳和时间戳->字符串.
+
+```shell
+# 直接获取日期
+date
+# 获取时间戳
+date +%s
+# 根据时间戳查到日期字符串 MAC
+date -r1566210477 
+# 根据时间戳拿到日期字符串 其他Linux系统
+date -d @ 1566210477
+```
 <br>
 完。
 
