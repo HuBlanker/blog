@@ -79,6 +79,12 @@ command + b | 进入方法等,等价于command + 鼠标左键
 command + e | 最近打开的文件列表
 command + j | 插入模板代码
 shift + ctrl + n | 新建scratches文件
+command + , | 打开设置面板
+alt + f1 | select in , 经常用来在project中选中文件.
+command + - | 折叠代码
+command + + | 打开折叠代码
+comand + shift + 8 | 进入列选择模式, 直接按住滚轮移动鼠标也可以按列选中.
+command + shift + i | 悬浮窗口显示方法的具体代码
 
 ## 配置项
 
