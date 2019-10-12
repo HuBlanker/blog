@@ -24,8 +24,6 @@ tags:
 
 ## 背景介绍
 
-我一直自诩干活效率高,但是最近见识了一些大佬,在编码过程中,基本不使用鼠标,效率高的飞起.
-
 工欲善其事必先利其器,不仅要用好的工具,也要用好工具.Intelij想要使用的好,没那么简单.
 
 比如查找文件,修改,删除,移动代码等等操作,用鼠标是一种比较简单的方式,但是也是一种较慢的方式,因此我决定学习且熟悉IDEA的一些常用的快捷键,相信在长期使用下,一定能提高效率.
@@ -34,9 +32,11 @@ PS:其实各种快捷键的使用,难的不在于了解和记忆,而在于`常�
 
 本文应该会分为几个小部分.
 1. 快捷键部分,会长期补充在第二小节`快捷键`中.
-2. 一些配置内容,会在后面逐渐添加小节
+2. 一些配置内容或者小技巧,会在后面逐渐添加小节
 
 ## 快捷键
+
+快捷键部分没有直接翻译官方文档,而是按照自己的使用习惯一个一个添加,基本都是自己工作中经常使用的.
 
 快捷键 | 作用 | 备注
 ---   | --- | ---
@@ -57,7 +57,7 @@ shift + f10 | run 启动 |
 ctrl + shift + f9 | debug 启动当前类|
 ctrl + shift + f10 | run 启动当前类 | 
 shift + command + a | find action,然后输入你想做的动作,很多常用功能都有 |  比如输入`opt`,提醒你优化import
-command + w | 选中光标所在的单词
+command + w | 选中光标所在的单词 | 改为Extend Selection, 多次按键,可以向高层逐渐选中.
 command + y | 删除光标所在行
 command + x | 剪切光标所在行
 command + shift + r | 全局查找和替换
@@ -100,12 +100,6 @@ command + shift + i | 悬浮窗口显示方法的具体代码
 
 功能很好使,快捷键仍有待测试.
 
-### mac 本身的光标移动速度
-
-这个不属于IDEA的配置,但是也写在这里吧.
-
-去设置中,keyboard,将按键重复和重复前延迟拉满.
-
 ### 自定义代码段及创建类注释
 
 #### 类注释
@@ -133,6 +127,8 @@ command + shift + i | 悬浮窗口显示方法的具体代码
 
 如果想控制自动生成代码之后的光标位置,可以在该位置加上`$END$`.
 
+更多的自定义代码段, 见我的配置仓库.[IDEA 配置仓库](https://github.com/HuBlanker/Intellij/blob/master/templates/huyanshi.xml).
+
 #### 2018 版本自动提示忽略大小写
 
 网上的忽略大小写基本都是以前的版本.
@@ -141,9 +137,44 @@ command + shift + i | 悬浮窗口显示方法的具体代码
 
 ![2019-04-16-11-02-10](http://img.couplecoders.tech/2019-04-16-11-02-10.png)
 
-#### 配置同步
+#### 配置同步(手动导出导入文件)
 
 配置的越多,换电脑越难受,幸好idea提供了导出导入配置,使用`File->Import Settings`和`File->Export Settings`即可.
+
+#### 配置同步(使用github仓库)
+
+此外还可以使用github仓库来进行同步,这种方法也比较适合一个团队使用相同的DIEA配置.
+
+首先打开IDEA,`File -> Settings Repository`,然后链接输入自己github的一个空仓库.
+
+![2019-09-22-23-01-59](http://img.couplecoders.tech/2019-09-22-23-01-59.png)
+
+之后,可以快吃根据需要进行配置的上传,下载以及合并.
+
+注意: 在使用过程中,需要填写github的Token.具体生成方法见 [github的Token使用](https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html#settings-repository).
+
+#### 双引号,括号等自动包括
+
+在idea的默认设置中,当我们选中一个单词,之后输入双引号,那么该单词会被替换为双引号,而很多时候我们是需要使用引号包含内容的.可以选中`Setting -> Editor ->Smart Keys -> Surround a selection with a quote or brace`来实现.
+
+#### 引号和括号自动跳出
+
+当我们在引号中输入完成,还需要按一下方向右键,来跳出括号,而右键又比较远,我们可以选中,`Setting -> Editor ->Smart Keys -> Jump outside the closing bracket or quote with Tab` 来达到这个目的.
+
+**对于上面两点, [此链接](https://studyidea.cn/articles/2019/06/02/1559465646386.html) 讲解的十分好且有丰富的截图, 大家没有明白的可以去看一下.**
+
+#### 流调试器
+
+Java 8引入的流（Stream）可谓是一个大杀器,极大的提高了对数据的处理效率.但是也有很多人吐槽,Stream降低了代码的可读性以及难以debug,作为最专业的的Java IDE, Intellij已经集成了流调试器.一起来看看.
+
+对以下代码,进行调试后点击debug栏中:
+
+![2019-09-22-23-32-46](http://img.couplecoders.tech/2019-09-22-23-32-46.png), 就会进入下面的页面,可以清晰的看到自己是哪一步出错了.
+
+![2019-09-22-23-33-31](http://img.couplecoders.tech/2019-09-22-23-33-31.png).
+
+这个功能十分强大, 但是个人不建议严重依赖于它,首先单步调试本来就是一个效率比较低的操作,其次,我们还是应该去了解Stream的代码,来理解他的功能,而不要仅仅停留在"看图看懂"的阶段(个人建议).
+
 
 <br>
 <br>
