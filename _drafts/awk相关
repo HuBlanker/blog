@@ -1,3 +1,0 @@
-awk  '{sum += $1};END {print sum}' resume_search_query_uv.new
-
-uv大于10的uv总和: awk  '{sum += $1};END {print sum}' resume_search_query_uv.new
