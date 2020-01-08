@@ -1,19 +1,19 @@
-1. 底层数据结构?
-2. 对象系统
-3. redis的数据类型及其底层实现原理.
-
-
-1. 挨个写底层数据结构原理
+1. 挨个写底层数据结构原理 done
 2. 整理的写一下每个数据类型具体在什么情况下会用某个数据结构.
 3. 单独写一下对象系统解决了什么问题, 做了什么事情.
 
-Redis系列
+
+# 底层数据结构
 
 1. SDS
-2. xxx
-3.
+2. 双端链表
+3. 压缩列表
+4. 快速列表
+5. 整数集合
+6. 字典
+7. 跳跃表
+8. 紧凑列表
 
-8. 
+# 一篇文章讲对象系统
 
-
-mvn install:install-file -Dfile=postgresql-9.3.jar -DgroupId=org.postgresql -DartifactId=postgresql -Dversion=9.3 -Dpackaging=jar
+# 一篇文章讲, 每种键, 底层用的什么数据结构, 编码转换的条件是什么呢?
