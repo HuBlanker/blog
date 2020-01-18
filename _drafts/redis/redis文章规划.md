@@ -11,13 +11,16 @@
 8. 紧凑列表
 9. 五种基础数据类型的底层数据结构
 
-done.
 
 # 对象系统
 # redis的指令大合集(一篇文章了解所有redis指令)
+
+done.
+
 # 特殊指令集(可能是一篇文章就搞定?)
 1. monitor
 2. info
+4. object 命令
 3. redis的scan, 从scan中我们可以想到什么?
 
 
@@ -57,3 +60,4 @@ done.
 
 
 
+redis大key的解决方案
