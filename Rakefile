@@ -18,7 +18,7 @@ task :d, :msg do |t, args|
       mm = args[:msg]
       sh "git add ."
       sh "git ci -am #{mm}"
-      sh 'git ps new master'
+      sh 'git ps origin master'
 end
 
 
