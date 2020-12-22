@@ -31,9 +31,11 @@
 1. pubsub
 2. hyperloglog
 
-done.
 
 3. bitmap 讲过
+
+done.
+
 4. 布隆过滤器 讲过
 5. GEOHASH
 6. 管道
