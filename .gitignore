@@ -4,3 +4,5 @@ _site/**
 .vscode
 .sass*
 .idea/**
+*.iml
+*.idea/**
