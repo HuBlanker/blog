@@ -38,3 +38,4 @@ Segment_N根据名字列出了所有的segment,还有一些编码的细节及gen
  当前我看的源码，是９.0.0，所以加载的是org.apache.lucene.codecs.lucene90.Lucene90Codec，　这个类里，直接对各种文件应该使用的Format进行了实例化，所以想知道某个文件应用的是哪个类定义的格式，直接来这里看，之后具体的Formater注释里就有详细的文件格式定义了。
 
  比如词向量的文件格式，用的依然是5.0之后的格式，Lucene50TermVectorsFormat, 这个类的注释里，详细定义了（.tvd）文件中的内容，及每一项内容的具体含义，还有(.tvx)文件的。他之后其实应用的是：org.apache.lucene.codecs.TermVectorsWriter。　这个的压缩版本，org.apache.lucene.codecs.compressing.CompressingTermVectorsWriter　比较麻烦，　暂时不细看了。
+
