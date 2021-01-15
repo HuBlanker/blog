@@ -16,7 +16,7 @@
 1. codec + -doc_ids. 
 2. codec + file_pointers.
 
-这两个都是tmp文件目录，后续可能会直接改名字或者删了.
+这两个都是tmp文件目录，后续直接删了
 
 构造函数，对这两个output进行了初始化，一人写了一个header进去。
 
