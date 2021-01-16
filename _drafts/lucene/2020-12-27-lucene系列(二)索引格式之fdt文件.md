@@ -17,7 +17,7 @@
 2. SegmentInfo-ID, 一个唯一的字符串序列，当前segment的唯一标示
 3. Segment-suffix. 传了个空进来。
 
-每次存储一个doc，现在内存中buffer，之后在触发flush之后，统一写入。
+每次存储一个doc，先在内存中buffer，之后在触发flush之后，统一写入。
 
 所以fdt文件每次flush时要写:
 
