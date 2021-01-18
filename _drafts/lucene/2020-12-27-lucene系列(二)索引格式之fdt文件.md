@@ -42,3 +42,9 @@
 1. Magic. header的magic的反码
 2. 0000
 3. CRC32
+
+
+
+
+
+![2021-01-18-21-38-12](http://img.couplecoders.tech/2021-01-18-21-38-12.png)
