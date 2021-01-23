@@ -6,3 +6,6 @@ _site/**
 .idea/**
 *.iml
 *.idea/**
+**/img/**
+**/.DS_Store
+
