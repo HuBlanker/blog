@@ -1,6 +1,6 @@
 ---
 layout: post
-category: [Lucene,搜索,整数编码]
+category: [Lucene, 搜索，整数编码]
 tags:  
     - Lucene
     - 搜索
@@ -249,6 +249,8 @@ DirectWriter 是按照位对数字进行存储，那就有所谓的`block`（块
 它使用数组中最大的数字需要的 bit 数量进行编码。因此在数组整体比较小，且标准差也很小的时候（就是最大的别太大）, 可以起到不错的压缩写入效果。
 
 阅读源码需要注意的是，DirectWriter 在内存中进行了 buffer. 不论你的数据集是什么，都使用固定的 1024byte 进行 buffer. 因此有一些针对 buffer 大小的计算需要了解下。
+
+此类为写入方，具体的读取方：`org.apache.lucene.util.packed.DirectReader`, 虽然有一些代码组织上的不同，但是底层思想是一样的，就不再赘述了。
 
 <br>
 
