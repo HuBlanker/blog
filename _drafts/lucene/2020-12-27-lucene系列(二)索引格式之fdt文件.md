@@ -16,7 +16,7 @@ fdt文件,以正排的方式, 存储了field的原始**真实**数据. 也就是
 
 ![2021-01-27-21-47-15](http://img.couplecoders.tech/2021-01-27-21-47-15.png)
 
-其中**Header**和**Footer**, 与其中文件并无差别. 详细的可以看 [Lucene系列(二)索引格式之fdm文件]()
+其中**Header**和**Footer**, 与其中文件并无差别. 详细字段解释可以看 [Lucene系列(二)索引格式之fdm文件](http://huyan.couplecoders.tech/lucene/%E6%90%9C%E7%B4%A2/2020/12/27/lucene%E7%B3%BB%E5%88%97(%E4%BA%94)%E7%B4%A2%E5%BC%95%E6%A0%BC%E5%BC%8F%E4%B9%8Bfd%EF%BD%8D%E6%96%87%E4%BB%B6/)
 
 
  # 这个文件存储了什么？
