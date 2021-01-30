@@ -1,8 +1,11 @@
 ---
 layout: post
-category: [Java]
+category: [Lucene,搜索,索引文件,Lucene工具]
 tags:
-  - Java
+  - Lucene
+  - 搜索
+  - 索引文件
+  - Lucene工具
 ---
 
 ## 前言
