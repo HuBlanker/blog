@@ -21,5 +21,9 @@ ArrayUtil 类的源码分析，整理，　但是不一样要写篇博客。
 
 fnm文件　fileNameMeta????
 
+done
+
+doc文件
+
 docValue模块
 分词模块
