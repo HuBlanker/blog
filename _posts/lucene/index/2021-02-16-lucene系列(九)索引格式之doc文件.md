@@ -20,6 +20,8 @@ doc文件中存储了每个term对应的所有docId,及词频信息.
 
 ![2021-03-09-16-42-50](http://img.couplecoders.tech/2021-03-09-16-42-50.png)
 
+*图片好像有点大，看不清，分块的图片放在文章最后*
+
 其中的字段解释：
 
 * IndexHeader: 索引头
@@ -113,6 +115,20 @@ https://www.amazingkoala.com.cn/Lucene/suoyinwenjian/2019/0324/42.html
 
 但是确实不是有心抄袭，而是我学习了博主的文章之后，怎么画图都有点像，也没有什么办法. 博主对于lucene理解比较清晰，但是文章十分简洁，大家互相参考着看，可能更有利于理解.
 
+## 图片分块
+
+### 整体图
+
+![2021-03-09-17-29-06](http://img.couplecoders.tech/2021-03-09-17-29-06.png)
+
+
+### TermFreqs模块
+
+![2021-03-09-17-29-19](http://img.couplecoders.tech/2021-03-09-17-29-19.png)
+
+### SkipData模块
+
+![2021-03-09-17-29-39](http://img.couplecoders.tech/2021-03-09-17-29-39.png)
 
 <br>
 
