@@ -15,13 +15,22 @@ pos
 pay
 
 
-
----
-
-write_lock
+Utils.kd tree
+kd tree , kdb tree . bkd tree. 
 
 nvd
 nvm
+
+
+
+---
+
+dii 
+dim 
+
+
+
+write_lock
 
 dvd
 dvm
