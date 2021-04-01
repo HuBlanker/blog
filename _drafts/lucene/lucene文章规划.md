@@ -8,58 +8,27 @@
 4. field相关的三个文件格式
 5. fnm文件
 
-ArrayUtil 类的源码分析，整理，　但是不一定要写篇博客。
 
 .doc 文件存了啥
 pos
 pay
-
---- 
-
-写给lucene的bug邮件
-
-`````text
-There is a param use error in org.apache.lucene.util.RadixSelector#select(int, int, int, int, int).
-
-What is we expected in this method is:
-
-if the range becomes narrow or when the maximum level of recursion has been exceeded, then we get a fall-back selector(it's a IntroSelector). 
-
-So, we should use the recursion level(param f)  compare to LEVEL_THRESHOLD. NOT the byte index of value(param d).
-
-effect: 
-
-This bug will not affect the correctness of the program. but affect performance in some bad case. In average, RadixSelector and IntroSelector are all in linear time. This bug will let we choose a fall-back selector too early, then the constant of O(n) will be bigger.
-
-
-
-other evidence:
-
-In comments, said we use recursion level (f) not byte index of value(d).
- if d is right, then the param f could be deleted because of it was not used by any method.
-verification:
-
-It also can select right value if i change d -> f.
-I did some benchmark works. but the result was unstable on random data.
-
-
-Thanks for your read. I'm new of lucene. So please reply me if I am wrong. Or fix it in future.
-
-
-
-I will do benchmark. But I can't promised the result is better. If you need the result. Ask for me.
-
-
-```
 
 Utils.kd tree
 kd tree , kdb tree . bkd tree. 
 introselector
 radixselector
 
+
+kdi/kdm/kdd, 这三个文件存储了PointValue. PointValue使用bkd, 所以这三个其实配合起来,就是BKD.
+--- 
+
+
+
+
 nvd
 nvm
 
+lucene脑图
 
 
 ---
