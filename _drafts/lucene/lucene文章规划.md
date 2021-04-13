@@ -19,9 +19,13 @@ introselector
 radixselector
 
 
-kdi/kdm/kdd, 这三个文件存储了PointValue. PointValue使用bkd, 所以这三个其实配合起来,就是BKD.
---- 
 
+kdi/kdm/kdd, 这三个文件存储了PointValue. PointValue使用bkd, 所以这三个其实配合起来,就是BKD.
+
+---
+
+
+每种类型的值， 如何被索引，如何被搜索
 
 
 
