@@ -18,9 +18,12 @@ kd tree , kdb tree . bkd tree.
 introselector
 radixselector
 
-
-
 kdi/kdm/kdd, 这三个文件存储了PointValue. PointValue使用bkd, 所以这三个其实配合起来,就是BKD.
+
+dii,dim
+
+nvd
+nvm
 
 ---
 
@@ -28,19 +31,17 @@ kdi/kdm/kdd, 这三个文件存储了PointValue. PointValue使用bkd, 所以这�
 每种类型的值， 如何被索引，如何被搜索
 
 
-
-nvd
-nvm
-
 lucene脑图
 
+```text 
+-rw-r--r-- 1 work work  63335214 Apr 14 00:49 _s_Lucene50_0.tim
+-rw-r--r-- 1 work work   1439876 Apr 14 00:49 _s_Lucene50_0.tip
+-rw-r--r-- 1 work work   4549546 Apr 14 00:49 _s_Lucene80_0.dvd
+-rw-r--r-- 1 work work       158 Apr 14 00:49 _s_Lucene80_0.dvm
+-rw-r--r-- 1 work work       582 Apr 14 00:49 _s.si
+```
 
 ---
-
-dii 
-dim 
-
-
 
 write_lock
 
