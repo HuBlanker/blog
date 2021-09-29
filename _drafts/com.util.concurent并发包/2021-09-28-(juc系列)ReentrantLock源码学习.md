@@ -164,7 +164,7 @@ public ReentrantLock(boolean fair) {
 
 加锁操作，调用链如下:
 
-# 这里差一张图.
+![2021-09-29-22-01-53](http://img.couplecoders.tech/2021-09-29-22-01-53.png)
 
 完全等同于AQS的`acquire`操作，只是在`tryAcquire`调用了ReentrantLock自己实现的方法.
 
