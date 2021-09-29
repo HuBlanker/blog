@@ -79,7 +79,7 @@ API出来了get和set外:
 
 ## AtomicIntegerArray
 
-int数字的原子类.
+int数组的原子类.
 
 和`AtomicInteger`并没有什么不同,只是对传入的数组下标进行了一下计算,来实现对数组的某个index上的值的原子更改.
 
