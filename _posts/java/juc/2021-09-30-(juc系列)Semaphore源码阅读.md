@@ -7,6 +7,7 @@ tags:
   - JUC
 ---
 
+本文源码基于: <font color='red'>JDK13</font>
 
 ## 前言
 

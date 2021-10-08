@@ -7,6 +7,8 @@ tags:
   - ReentrantLock
 ---
 
+本文源码基于: <font color='red'>JDK13</font>
+
 ## 前言
 
 上一篇文章讲了AQS的基本原理，其中两个关键的操作: 获取/释放.

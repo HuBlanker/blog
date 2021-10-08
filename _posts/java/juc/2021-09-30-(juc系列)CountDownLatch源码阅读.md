@@ -9,6 +9,8 @@ tags:
 
 ## 前言
 
+本文源码基于: <font color='red'>JDK13</font>
+
 为了巩固AQS.　看一下CountDownLatch的源码.
 
 
