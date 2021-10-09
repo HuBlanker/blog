@@ -793,14 +793,37 @@ read是一个实现了`Lock`接口的子类. 持有一个`Sync`同步器.
 
 ## 总结
 
+`ReentrantReadWriteLock`, 继承自AQS框架, 实现了读写锁，可重入特性.
+
+既然是继承自AQS框架. 那么主要工作仍然是对`State`的定义.
+
+1. State的低16位，保存独占锁的加锁信息及重入次数.
+2. State的高16位，保存共享锁的加锁信息，及加锁数量. 共享锁的重入次数，由单独的属性进行保存.
+
+* 读写锁
+
+读写锁功能由两个子类`ReadLock`和`WriteLock`实现，负责调用AQS的独占锁加解锁和共享锁的加解锁.
+
+* 公平锁/非公平锁
+
+由AQS的子类`Sync`及`NonfairSync``FairSync`实现，主要是控制新加入的加锁请求是否要排队来实现的.
+
+* 可重入性
+
+可重入锁，需要记录锁的持有线程，对当前线程持有的数量进行递增递减，而不是简单的是否为某个特定值. 
+
+写锁的重入数量保存在State的低16位. 读锁的重入数量保存在`readHolds`中. 由一个类似于`ThreadLocal`的结构进行保存线程->重入数量的对应关系.
+
+
+* 为什么需要单独保存第一个读锁的线程? `firstReader` 和 `firstReaderHoldCount`.
+
+总的说是为了减少ThreadLocal的数量，减少内存占用。详细分析看这里: https://www.mdnice.com/writing/f2beb7d9c58f43afbdeec9ce708d4582
 
 
 
 ## 参考文章
 
-问题:
-
-为啥要额外记录第一个读线程呢
+[关于ReentrantReadWriteLock，第一个获取读锁的线程单独记录问题讨论（firstReader和firstReaderHoldCount）](https://www.mdnice.com/writing/f2beb7d9c58f43afbdeec9ce708d4582)
 
 <br>
 
