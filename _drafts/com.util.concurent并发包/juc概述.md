@@ -10,12 +10,29 @@ tags:
 
 juc包下, 包含以下内容:
 
-atomic原子类:   
+* atomic原子类: 
+主要包含Integer,Long,Boolean,Double,Array等.  
 
-lock: AQS && 各种锁
+* lock及同步器:
+  * AQS
+      * CountDownLatch
+      * CyclicBarrier
+      * Semaphore
+      * ReentrantLock
+      * ReentrantReadWriteLock
+  * StampedLock
+  * Phaser
+  * Exchanger
 
 
 线程池调度.
+
+![2021-10-11-17-38-50](http://img.couplecoders.tech/2021-10-11-17-38-50.png)
+
+* ThreadPoolExecutor
+
+一些同步的集合.
+
 
 
 ## 参考文章

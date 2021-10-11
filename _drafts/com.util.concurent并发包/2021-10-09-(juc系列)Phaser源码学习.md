@@ -15,61 +15,82 @@ tags:
 
 ### 登记
 
-与其他同步屏障不同的是，`Phaser`的数量是可以各自不同的. 使用方应该使用`register`或者`bulkRegister`来进行注册.或者以构造方法的形式初始化数量。
-
-然后在一些节点到达后可以进行取消注册.
+与其他同步屏障不同的是，`Phaser`的数量是可以各自不同的. 使用方应该使用`register`或者`bulkRegister`来进行注册.或者以构造方法的形式初始化数量。 然后在一些节点到达后可以进行取消注册.
 
 与大多数基本的同步器构造方法一样，注册和取消注册仅影响内部计数. 他们不记录任何内部的名单，　任务无法查询他们是否已经登记了.
 
+`CountDownLatch`和`CyclicBarrier`,`Semaphore`等等都是指定数量后不能变化的，而`Phaser`的注册数量是可以随时变化的，因此更加灵活.
 
 ### 同步
 
 和`CyclicBarrier`一样，`Phaser`支持重复调用`awaited`. `arriveAndAwaitAdvance`和`CyclicBarrier.await`的作用类似.
 
-`Phaser`的每一代拥有一个关联的数量. Phaser的数量从零开始，所有的部分到达后，数量增加。到达int的最大值后，回归为0.
+`Phaser`的每一代拥有一个关联的编号. Phaser的阶段编号从零开始，所有的参与者到达后，阶段编号增加。到达int的最大值后，回归为0.
 
-phase的数量可以独立的控制到达行为和等待行为，任何注册方可以调用一下两种方法:
+阶段编号可以独立的控制到达行为和等待行为，任何注册方可以调用以下两种方法:
 
 * arrival
 
 `arrive`和`arriveAndDeregister`两个方法记录到达. 这两个方法不阻塞，但是返回关联的到达阶段编号.
 
-最后一个指定的阶段到达，　一个可选的行为会被执行，当前`phaser`结束之类的??
+指定阶段编号的最后一个参与者到达，一个可选的行为会被执行，然后Phaser进行升级.
 
-这些操作由触发阶段达成的最后一个触发，并由重写的`onAdvance`方法负责安排. 这个方法也负责控制终止，重写这个方法和`CyclicBarrier`的屏障行为很相似，但是更加灵活一些.
+这两个操作由`触发阶段升级的最后一个参与者触发`，并由重写的`onAdvance`方法负责控制. 这个方法也负责控制终止，
+重写这个方法和`CyclicBarrier`的屏障行为很相似，但是更加灵活一些.
 
 * waiting 等待
 
-`awaitAdvance`要求一个参数，表示到达阶段的编号，或者当一个阶段前进到另一个不同的阶段时返回.
-和`CyclicBarrier`的构造方法不一样,`awaitAdvance`方法继续等待,知道等待线程被中断. 可中断和带有超时的版本也是支持的. 但是超时或者中断了并不会影响Phaser的状态.
+`awaitAdvance`要求一个参数，表示到达阶段的编号，或者当一个阶段升级到另一个不同的阶段时返回.
+和`CyclicBarrier`的方法不一样,`awaitAdvance`方法继续等待,直到等待线程被中断. 可中断和带有超时的版本也是支持的. 但是超时或者中断了并不会影响Phaser的状态.
 
 如果必要,你可以自己执行相关的恢复操作, 在调用`forceTermination`之后. 阶段还被用来执行`ForkJoinPool`.
 
 ### 终止
 
-一个phaser将会进入终止状态, 可以使用`isTerminated`方法来检查. 如果装置了,所有的同步方法立即返回,不再等待. 返回一个负数值来表名.
+一个phaser可以进入终止状态, 使用`isTerminated`方法来检查. 如果终止了,所有的同步方法立即返回,不再等待. 返回一个负数值来表名这点.
 
-相似的,在终止后尝试进行注册,也不会有反应. 当调用`onAdvance`返回true时, 终止被处罚. 如果一个取消注册的行为,让注册数量为0了, 将会终止.
+相似的,在终止后尝试进行注册,也不会有反应. 当调用`onAdvance`返回true时, 终止被触发. 
+如果一个取消注册的行为,让注册数量为0了, 将会终止.
 
 ### 分层
 
-Phasers可以分层以减少竞争(比如以树状结构初始化). 设置有较大数量的Phasers将会有比较严重的同步竞争,可以使用一组子Phaser共享一个公共的负极,来避免这种情况.
-浙江大大的提升吞吐量即使会导致每一个操作的浪费变大.
+Phasers可以分层以减少竞争(比如以树状结构初始化). 设置有较大数量的Phasers将会有比较严重的同步竞争,可以使用一组子Phaser共享一个公共的父节点,
+来避免这种情况. 这将大大的提升吞吐量即使会导致每一个操作的浪费变大.
 
 在一个分层phaser的树中, 子节点的注册和取消注册是自动管理的, 如果注册的数量变为非零值,子节点将注册至其父节点, 如果注册数量变为0. 子节点将从其父节点取消注册.
 
+可以查看下方分层的示例来了解.
+
+因为支持分层，因此一个Phaser有三种形态.
+
+* 非树形，单个节点
+
+这是最简单的形态，只要自身的注册数等于到达数，就升级一次阶段编号即可.
+
+* 树形，叶子节点
+
+只要自身的注册数量等于到达数量，就代表自己这个节点“到达”了，向父节点的到达数+1.
+
+* 树形，非叶子节点
+
+自身到达数等于注册数，这里的到达数不是参与的任务数，而是自己的子节点的数量，自己的所有子节点全部到达，自己才算到达，向自己的父节点进行"到达"操作。
+如果这个节点是根节点，那么整个Phaser树才算是全部到达，进行升级操作.
+
 ### monitoring 监控
 
-因此同步方法只能由注册方进行调用,一个phaser的当前状态而已被任何调用方监控. 在一个给定的时间,`getRegisteredParties`返回总数,
+即使同步方法只能由注册方进行调用,一个phaser的当前状态可以被任何调用方监控. 在一个给定的时间,`getRegisteredParties`返回总数,
 `getArriveParties`返回到达的数量. `getUnarrivedParties`返回没有到达的数量. 这些方法返回值都是瞬态的,因此可能在同步控制中不是特别有用. `toString`方法返回这些状态的一个快照.
-
 
 ### 简单示例
 
-Phaser可以用来替换掉`CountDownLatch`. 控制一个行为, 服务于一些部分. 通常的操作是, 设置当前线程为第一个注册者, 然后启动所有的行为,之后取消注册当前线程.
+#### 代替`CountDownLatch`
+
+Phaser可以用来替换掉`CountDownLatch`. 控制一个行为, 服务于一些部分. 
+通常的操作是, 设置当前线程为第一个注册者, 然后启动所有的行为,之后取消注册当前线程.
 
 ```java
-void runTasks(List<Runnable> tasks) {
+void runTasks(List<Runnable> tasks) { 
+   // 此时注册数量为1
    Phaser startingGate = new Phaser(1); // "1" to register self
    // create and start threads
    for (Runnable task : tasks) {
@@ -85,40 +106,52 @@ void runTasks(List<Runnable> tasks) {
  }
 ```
 
-1. 注册当前线程
-2. 启动所有线程,并让他们发等待开始
-3. 取消注册当前线程
+1. 注册当前线程(此时注册数量为1)
+2. 启动所有线程,首先注册一次(全部完成后，此时注册数量为`tasks.size() + 1) ，之后让他们`arriveAndAwaitAdvance`. 到达并且等待升级(此时到达数量为`tasks.size()`.
+3. 取消注册当前线程(注册数量变成`tasks.size()`), Phaser的注册数量等于到达数量。因此进行升级，所有等待的线程唤醒，继续执行任务. 
+
+#### 重复执行一组任务指定次数
 
 让一组线程,重复执行某些行为一定的次数,可以重写`onAdvance`.
 
 ```java
  void startTasks(List<Runnable> tasks, int iterations) {
    Phaser phaser = new Phaser() {
+       // 终止条件, 阶段编号大于等于给定循环次数减1. 其实就是只能循环给定次数
      protected boolean onAdvance(int phase, int registeredParties) {
        return phase >= iterations - 1 || registeredParties == 0;
      }
    };
+   // 注册一个
    phaser.register();
    for (Runnable task : tasks) {
+     // 注册`tasks.size()`个
      phaser.register();
      new Thread(() -> {
        do {
          task.run();
+         // 等待升级
          phaser.arriveAndAwaitAdvance();
        } while (!phaser.isTerminated());
      }).start();
    }
    // allow threads to proceed; don't wait for them
+   // 取消注册，开始所有任务
    phaser.arriveAndDeregister();
  }
 ```
 
-1. 初始化一个Phaser,并重写`onAdvance`.
-2. 当前线程注册.
-3. 如果Phaser没有终止,其他所有线程执行任务, 然后等待.
-4. 当前线程取消注册,让其他线程结束.
+1. 初始化一个Phaser,并重写`onAdvance`. 让阶段编号大于给定次数时，Phaser进行终止.
+2. 当前线程注册. (此时注册数量为1)
+3. 每个任务线程，注册一次. (此时注册数量为`tasks.size() + 1`)
+3. 如果Phaser没有终止,其他所有线程执行任务, 然后等待 (此时到达数量为`tasks.size()`.
+4. 当前线程取消注册,让注册数等于等待数，其他线程等待结束，进行升级或者终止.
 
-如果主任务必须在终止后发生,他可以重复注册然后执行一个相似的循环.
+让所有任务互相等待，以完成一组任务，整体完成给定次数后，Phaser终止，程序结束.
+
+#### 等待终止
+
+如果主任务必须在终止后发生,他可以注册然后执行一个相似的循环.
 
 ```java
 // ...
@@ -127,29 +160,68 @@ void runTasks(List<Runnable> tasks) {
      phaser.arriveAndAwaitAdvance();
 ```
 
-如果你确定在你的上下文中,Phaser的数量不会超过int的最大值,你可以使用这些相关的构造器.
+首先进行注册，然后在Phaser没有终止前，不断的到达，等待升级.知道Phaser终止了，再进行主任务的执行.
+
+#### 等待特定的阶段编号
+
+如果你确定在你的上下文中,Phaser的数量不会超过int的最大值,你可以使用这些相关的构造器来等待特定的某个阶段编号.
 
 ```java
  void awaitPhase(Phaser phaser, int phase) {
+    // 注册一次
    int p = phaser.register(); // assumes caller not already registered
+        // 不断等待
    while (p < phase) {
      if (phaser.isTerminated())
        // ... deal with unexpected termination
      else
+         // 阶段升级
        p = phaser.arriveAndAwaitAdvance();
    }
+   // 到达指定编号，开始干活
    phaser.arriveAndDeregister();
  }
 ```
 
-## 源码阅读
+#### 分层的示例
 
-由于我确实不熟悉, 所以直接按照常见顺序来学习.
+上面讲到Phaser支持分层以获得更好的并发性,这是一个简单的例子.
+
+创建一组任务，使用一个树形的Phasers. 假设一个Task的类，他的构造参数接受一个Phaser. 在调用下方代码的`build`之后，这些任务会开始.
+
+```java
+ void build(Task[] tasks, int lo, int hi, Phaser ph) {
+    // 如果任务数量大于单个Phaser最大的任务数，说明需要拆分
+   if (hi - lo > TASKS_PER_PHASER) {
+     for (int i = lo; i < hi; i += TASKS_PER_PHASER) {
+       int j = Math.min(i + TASKS_PER_PHASER, hi);
+       // 递归调用build, 传入一个新的子Phaser.
+       build(tasks, i, j, new Phaser(ph));
+     }
+   } else {
+     // 任务数可以由一个Phaser控制
+     for (int i = lo; i < hi; ++i)
+         // 创建任务，绑定到当前的Phaser上
+       tasks[i] = new Task(ph);
+       // assumes new Task(ph) performs ph.register()
+   }
+ }
+```
+
+TASKS_PER_PHASER 的最佳值取决于你期望的同步效率. 越小的值，会让每个阶段的执行块变小，因此速率高. 如果需要更大的执行快，可以设置为高达几百.
+
+
+### 注意事项
+
+实现控制最大的参与者数量为65535.　如果尝试去注册更多，会导致错误.
+但是你可以通过使用树形的Phasers来实现更多的参与者.
+
+
+## 源码阅读
 
 ### 构造方法
 
 ```java
-
     /**
      * Creates a new phaser with no initially registered parties, no
      * parent, and initial phase number 0. Any thread using this
@@ -194,20 +266,20 @@ void runTasks(List<Runnable> tasks) {
      * or greater than the maximum number of parties supported
      */
     public Phaser(Phaser parent, int parties) {
-        // 高16位有值,异常
+        // 高16位有值,异常,初始化时不可以已有参与者
         if (parties >>> PARTIES_SHIFT != 0)
             throw new IllegalArgumentException("Illegal number of parties");
-        // 当前阶段置为0
+        // 当前阶段置为0.初始值
         int phase = 0;
         this.parent = parent;
         // 给定的父节点不为空, 是一个树形的Phaser.
         if (parent != null) {
-            // 共享同一个root节点,还有所有节点共享栈
+            // 共享同一个root节点,还有所有节点共享队列
             final Phaser root = parent.root;
             this.root = root;
             this.evenQ = root.evenQ;
             this.oddQ = root.oddQ;
-            // 如果参与者不为0,向当前节点的父节点,注册一个参与者,代表(当前节点需要父节点等待)
+            // 如果参与者不为0,当前节点是一个有效的节点，向当前节点的父节点,注册一个参与者,代表(当前节点需要父节点等待)
             if (parties != 0)
                 phase = parent.doRegister(1);
         }
@@ -219,7 +291,7 @@ void runTasks(List<Runnable> tasks) {
             this.oddQ = new AtomicReference<QNode>();
         }
         // 初始化状态,如果没有参与者,赋值为EMPTY=1
-        // 如果有, state=高32位记录阶段号3,16-32位记录参与者数量,低16记录没有到达的数量
+        // 如果有, state=高32位记录阶段号,16-32位记录参与者数量,低16记录没有到达的数量. 初始化的时候，参与者数量和没有到达的数量是一致的
         this.state = (parties == 0) ? (long)EMPTY :
             ((long)phase << PHASE_SHIFT) |
             ((long)parties << PARTIES_SHIFT) |
@@ -229,10 +301,12 @@ void runTasks(List<Runnable> tasks) {
 
 共提供了4个构造方法,本质上都是调用最后一个. 详情看注释.
 
+主要是区分是否是树形,然后对State，父节点，等待队列等进行初始化赋值.
+
 ### 变量
     
 ```java
-    // 内部的状态定义
+    // 内部的状态定义, 核心属性
     private volatile long state;
 
     // 一些常量
@@ -248,8 +322,8 @@ void runTasks(List<Runnable> tasks) {
     // some special values
     private static final int  ONE_ARRIVAL     = 1; // 到达的Unit值
     private static final int  ONE_PARTY       = 1 << PARTIES_SHIFT; // 一个参与者的unit值
-    private static final int  ONE_DEREGISTER  = ONE_ARRIVAL|ONE_PARTY; // 一个注销.
-    private static final int  EMPTY           = 1; // 空
+    private static final int  ONE_DEREGISTER  = ONE_ARRIVAL|ONE_PARTY; // 一个注销. 操作等于　“参与者减一，同时未到达树也减一”
+    private static final int  EMPTY           = 1; // 空, 参与者为0,未到达为1. 方便辨认
     
     // 当前Phaser的父节点
     private final Phaser parent;
@@ -291,7 +365,7 @@ void runTasks(List<Runnable> tasks) {
 
 #### isReleasable 是否可释放
 
-如果内部的信息有一些不对劲, 比软线程为空,或者被中断了, 或者Phaser被别人改了,等等, 都返回true. 否则返回false. 支持中断和超时.
+如果内部的信息有一些不对劲, 比如线程为空,或者被中断了, 或者Phaser被别人改了,等等, 都返回true. 否则返回false. 支持中断和超时.
 
 #### block 阻塞等待
 
@@ -355,14 +429,16 @@ void runTasks(List<Runnable> tasks) {
 
 ```
 
-
 ### register系列
 
-register系列提供了两个方法,`register`和`bulkRegister`两个方法,本质上都是说调用`doRegister`方法.
+用于向Phaser注册参与者.
+
+register系列提供了两个方法,`register`和`bulkRegister`两个方法,本质上都是调用`doRegister`方法.
 
 ```java
     private int doRegister(int registrations) {
         // adjustment to state
+        // 注册后的State值.
         long adjust = ((long)registrations << PARTIES_SHIFT) | registrations;
         // 父节点
         final Phaser parent = this.parent;
@@ -387,9 +463,10 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
             if (counts != EMPTY) {                  // not 1st registration
                 // 没有父节点,或者同步状态已经完成
                 if (parent == null || reconcileState() == s) {
-                    // 
+                    // 没有未到达的参与者了，　让根节点开始升级
                     if (unarrived == 0)             // wait out advance
                         root.internalAwaitAdvance(phase, null);
+                    // 有尚未到达的参与者，更新这次到达后的状态，返回
                     else if (STATE.compareAndSet(this, s, s + adjust))
                         break;
                 }
@@ -398,6 +475,7 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
             else if (parent == null) {              // 1st root registration
                 // 计算下一个状态值且CAS设置
                 long next = ((long)phase << PHASE_SHIFT) | adjust;
+                // 直接设置State，返回
                 if (STATE.compareAndSet(this, s, next))
                     break;
             }
@@ -406,14 +484,14 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
                 synchronized (this) {               // 1st sub registration
                     // 检查State
                     if (state == s) {               // recheck under lock
-                        // 当前节点注册一个
+                        // 把当前节点注册到其父节点上去.
                         phase = parent.doRegister(1);
                         if (phase < 0)
                             break;
                         // finish registration whenever parent registration
                         // succeeded, even when racing with termination,
                         // since these are part of the same "transaction".
-                        // 注册成功
+                        // 注册成功, 当前节点的参与者数量等值的设置
                         while (!STATE.weakCompareAndSet
                                (this, s,
                                 ((long)phase << PHASE_SHIFT) | adjust)) {
@@ -430,11 +508,24 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
     }
 ```
 
-主要的作用是, 根据注册的数量,更改State的值. 需要考虑是否为树形结构等来进行一些同步操作.
+这是核心的注册方法，主要有三个分支
+
+* 没有父节点，且第一次注册.
+
+这是最简单的，直接将注册后的State更新进去即可.
+
+* 有父节点，但是不是第一次注册
+
+检查下注册后，当前节点是否全部到达了，如果是, 当前节点升级，并且告诉父节点.
+
+* 有父节点，是第一次注册.
+
+首先将当前节点注册到父节点，之后更新当前节点的参与者信息等.
+
 
 ### arrive系列
 
-#### arrive 和 `arriveAndDeregister` 到达,不等待其他参与者
+#### `arrive` 和 `arriveAndDeregister` 到达,不等待其他参与者
 
 这两个方法都实现到达相关逻辑, 调用`doArrive`来实现.
 
@@ -507,11 +598,11 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
                 throw new IllegalStateException(badArrive(s));
             // 到达成功, 更改State成功.
             if (STATE.compareAndSet(this, s, s-=adjust)) {
-                // 只有一个未到达的了
+                // 当前是最后一个到达的
                 if (unarrived == 1) {
                     // 参数者数量
                     long n = s & PARTIES_MASK;  // base of next state
-                    // 
+                    // 下一个的未到达数量，　当前是最后一个，下一个其实是0
                     int nextUnarrived = (int)n >>> PARTIES_SHIFT;
                     
                     // 不是树形结构
@@ -519,27 +610,30 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
                         // 如果需要终止, 就终止
                         if (onAdvance(phase, nextUnarrived))
                             n |= TERMINATION_BIT;
-                        // 
+                        // 如果没有参与者，也没有到达的，Phaser置为空.
                         else if (nextUnarrived == 0)
                             n |= EMPTY;
                         else
+                            //　升级后应该的n
                             n |= nextUnarrived;
                         // 下一个阶段编号
                         int nextPhase = (phase + 1) & MAX_PHASE;
                         // 计算新的State并写入
                         n |= (long)nextPhase << PHASE_SHIFT;
                         STATE.compareAndSet(this, s, n);
-                        // 释放等待的
+                        // 释放等待的节点
                         releaseWaiters(phase);
                     }
-                    // 树形结构, 父节点进行到达行为, 然后当前节点跟进状态
+                    // 树形结构, 且当前节点全倒了，父节点进行到达行为, 然后当前节点跟进状态
                     else if (nextUnarrived == 0) { // propagate deregistration
                         phase = parent.doArrive(ONE_DEREGISTER);
                         STATE.compareAndSet(this, s, s | EMPTY);
                     }
                     else
+                        // 父节点到达
                         phase = parent.doArrive(ONE_ARRIVAL);
                 }
+                // 如果不是最后一个到达的，　直接返回就好了
                 return phase;
             }
         }
@@ -547,7 +641,21 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
 
 ```
 
-主要作用是对State中的未到达数量进行递减,之后根据是否完全到达,是否是树形结构, 做一些对应的操作.
+主要作用是对State中的未到达数量进行递减, 如果递减完，还有未到达的参与者，直接返回当前阶段，如果递减完，当前所有参与者都到达了.
+有三个分支:
+
+* 非树形结构
+
+直接计算下一个状态，进行写入.
+
+* 树形结构，且因为注销，没有参与者了.
+
+向父节点注销当前节点，　当前节点置为空.
+
+* 树形结构，且还有参与者
+
+向父节点传递当前节点完全到达的消息.
+
 
 #### arriveAndAwaitAdvance 到达然后等待其他参与者
 
@@ -572,7 +680,6 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
      * of unarrived parties would become negative
      */
     // 到达并等待其他参与者,等价于调用`awaitAdvance(arrive())`.
-    
     public int arriveAndAwaitAdvance() {
         // Specialization of doArrive+awaitAdvance eliminating some reads/paths
         final Phaser root = this.root;
@@ -588,11 +695,14 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
                 throw new IllegalStateException(badArrive(s));
             // 到达一个更新State成功
             if (STATE.compareAndSet(this, s, s -= ONE_ARRIVAL)) {
+                // 如果当前不是最后一个到达的参与者，阻塞等待
                 if (unarrived > 1)
                     return root.internalAwaitAdvance(phase, null);
-                // 父节点到达
+                // 如果当前节点是最后一个到达的参与者，向父节点进行“到达且等待”操作
                 if (root != this)
                     return parent.arriveAndAwaitAdvance();
+                // 这里是，当前节点是最后一个到达的参与者，且当前节点不是树形结构
+                // 计算新的State并设置State
                 long n = s & PARTIES_MASK;  // base of next state
                 int nextUnarrived = (int)n >>> PARTIES_SHIFT;
                 if (onAdvance(phase, nextUnarrived))
@@ -605,6 +715,7 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
                 n |= (long)nextPhase << PHASE_SHIFT;
                 if (!STATE.compareAndSet(this, s, n))
                     return (int)(state >>> PHASE_SHIFT); // terminated
+                // 唤醒等待者
                 releaseWaiters(phase);
                 return nextPhase;
             }
@@ -612,7 +723,20 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
     }
 ```
 
-等价于`awaitAdvance(arrive()))`.
+到达一个参与者，且阻塞等待Phaser的升级行为. 首先将当前Phaser的状态进行递减，之后主要有三个分支:
+
+* 不是最后一个到达的.
+
+从跟进点进行等待升级
+
+* 是最后一个到达的，且有父节点
+
+调用父节点的`arriveAndAwaitAdvance`,向父节点报告当前节点已经完全到达，开始等待升级.
+
+* 是最后一个到达的，且是根节点
+
+计算新的状态，设置状态然后唤醒等待者.
+
 
 ### await系列
 
@@ -659,10 +783,10 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
      * if null, denotes noninterruptible wait
      * @return current phase
      */
-    // 只有跟节点调用,可能会阻塞
+    // 只有根节点调用,可能会阻塞
     private int internalAwaitAdvance(int phase, QNode node) {
         // assert root == this;
-        // 释放等待者
+        // 奇偶队列交替使用，确保旧的是空的
         releaseWaiters(phase-1);          // ensure old queue clean
         boolean queued = false;           // true when node is enqueued
         int lastUnarrived = 0;            // to increase spins upon change
@@ -691,7 +815,7 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
             else if (node.isReleasable()) // done or aborted
                 break;
             else if (!queued) {           // push onto queue
-                // 入栈
+                // 入队
                 AtomicReference<QNode> head = (phase & 1) == 0 ? evenQ : oddQ;
                 QNode q = node.next = head.get();
                 if ((q == null || q.phase == phase) &&
@@ -720,6 +844,7 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
     }
 ```
 
+让当前线程自旋或者进入队列等待Phaser的升级，也就是等待其他所有参与者的到达.
 
 ### 强行终止
 
@@ -771,7 +896,36 @@ register系列提供了两个方法,`register`和`bulkRegister`两个方法,本�
 * isTerminated 是否被终止
 
 
-## 参考文章
+## 总结
+
+Phaser是一个用于多阶段任务的同步器，没有使用AQS框架来实现，而是自己实现的。
+
+内部的核心还是State的定义.
+
+高32位记录当前的阶段编号,16-32为记录共有多少个参与者, 低16位记录还有多少个参与者没有到达.
+
+提供三类方法:
+
+* 注册
+
+修改16-32位，与其他同步器相比，提供了更多的灵活性，可以修改参与者的数量
+
+* 到达
+
+修改低16位，当全部到达后，进行升级，升级通过修改高32位来记录阶段编号
+
+* 等待
+
+让先到达的线程，阻塞等待所有参与者的到达，也就是升级行为完成后，被唤醒.
+
+为了支持更大的并发度，Phaser支持以树结构创建，叶子节点接受所有参与者的到达，控制所有注册到自己的参与者. 父节点控制自己的子节点.
+根节点控制所有是否进行放行，唤醒所有等待线程.
+
+
+<br/>
+
+完.
+
 
 
 <br>
