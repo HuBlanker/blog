@@ -4,7 +4,7 @@ task :default => :push
 desc "ps"
 task :ps do
      sh 'git ps origin master'
-     sh 'git ps new master'
+     sh 'git ps origin2 master'
 end
 
 desc "commit"
@@ -18,7 +18,7 @@ task :d, :msg do |t, args|
       mm = args[:msg]
       sh "git add ."
       sh "git ci -am #{mm}"
-      sh 'git ps new master'
+      sh 'git ps origin2 master'
       sh 'git ps origin master'
 end
 
