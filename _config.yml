@@ -121,4 +121,9 @@ friends: [
         title: "周海铭",
         href: "https://timzhouyes.github.io/"
     }
+    ,
+    {
+        title: "Java基础知识总结",
+        href: "http://huyan-java.couplecoders.tech/"
+    }
 ]
