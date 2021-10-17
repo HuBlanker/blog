@@ -8,6 +8,8 @@ tags:
   - java.util.concurrent
 ---
 
+本文源码基于: <font color='red'>JDK13</font>
+
 ## 前言
 
 其实早在19年，就简单的写过`ThreadPoolExecutor`. 但是只涉及到了其中两个参数，理解也不深刻，今天重新看一下代码。
