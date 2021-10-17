@@ -8,4 +8,5 @@ _site/**
 *.idea/**
 **/img/**
 **/.DS_Store
+gitbook/java-base/_book/**
 
