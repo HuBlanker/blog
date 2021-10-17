@@ -6,7 +6,7 @@ tags:
 ---
 
 
-本文源码基于: <font color='red'>JDK13</font>
+本文源码基于: <font color='red'>JDK 13</font>
 
 ## 简介
 
