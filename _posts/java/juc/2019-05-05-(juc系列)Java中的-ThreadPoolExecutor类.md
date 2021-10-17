@@ -8,6 +8,8 @@ tags:
   - java.util.concurrent
 ---
 
+本文源码基于: <font color='red'>JDK13</font>
+
 ## 前言
 
 在之前的文章[Java中executors提供的的4种线程池](http://huyan.couplecoders.tech/java%E9%9D%A2%E8%AF%95/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/java.util.concurrent/2019/03/07/Java%E4%B8%ADExecutors%E6%8F%90%E4%BE%9B%E7%9A%84%E7%9A%844%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%B1%A0/)中,学习了一下Executors类中提供的四种线程池.
