@@ -1,0 +1,1581 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>(juc系列)AQS源码学习笔记 · Java基础学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="呼延十">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="2021-09-30-(juc系列)CountDownLatch源码阅读.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    集合类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                <a href="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                    
+                    简易却高效的HashMap实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../2019-09-09-多级-HashMap的优化.html">
+            
+                <a href="../2019-09-09-多级-HashMap的优化.html">
+            
+                    
+                    多级-HashMap的优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                <a href="../集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                    
+                    Java对阻塞队列的实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                <a href="../集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                    
+                    Guava中的一些增强集合类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                <a href="../集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                    
+                    Map接口在1.8版本新增的几个方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                <a href="../集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                    
+                    ArrayList和LinkedList的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                <a href="../集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                    
+                    Java中-Collections工具类的学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../集合/2018-12-23-Vector源码阅读.html">
+            
+                <a href="../集合/2018-12-23-Vector源码阅读.html">
+            
+                    
+                    Vector源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                <a href="../集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                    
+                    跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                <a href="../集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                    
+                    Java中-TreeMap和-TreeSet的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                <a href="../集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                    
+                    Concurrent-Hash-Map源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../集合/2018-10-16-HashMap源码阅读.html">
+            
+                <a href="../集合/2018-10-16-HashMap源码阅读.html">
+            
+                    
+                    HashMap源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="../集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                <a href="../集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                    
+                    HashTable和-HashMap的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="../集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                <a href="../集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                    
+                    LinkedHashMap源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    JUC并发包
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    Atomic原子类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                <a href="2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                    
+                    (juc系列)从-AtomicInteger来学习-Java的原子类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    线程池
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                <a href="2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                    
+                    (juc系列)Java中Executors提供的的4种线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                <a href="2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                    
+                    (juc系列)ForkJoin框架源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                <a href="2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                    
+                    Java中的-ThreadPoolExecutor类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                <a href="2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                    
+                    (juc系列)ThreadPoolExecutor源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                <a href="2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                    
+                    (juc系列)用线程池执行定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                <a href="2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                    
+                    (juc系列)Executors类的工厂方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <span>
+            
+                    
+                    Lock锁
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.3.1" data-path="2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                <a href="2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                    
+                    (juc系列)AQS源码学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                    
+                    (juc系列)CountDownLatch源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                    
+                    (juc系列)CyclicBarrier源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                <a href="2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                <a href="2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                    
+                    (juc系列)StampedLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                <a href="2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                    
+                    (juc系列)Exchanger源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                    
+                    (juc系列)Semaphore源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                <a href="2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantReadWriteLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.9" data-path="2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                <a href="2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                    
+                    (juc系列)Phaser源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM性能监控工具<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM数据区域与垃圾收集<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../2019-01-28-Java类加载的顺序.html">
+            
+                <a href="../2019-01-28-Java类加载的顺序.html">
+            
+                    
+                    Java类加载的顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    其他
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                <a href="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                    
+                    使用自定义注解实现接口参数校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                <a href="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                    
+                    String-StringBuilder-StringBuffer异同
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../2018-11-11-Java的键盘输入方法.html">
+            
+                <a href="../2018-11-11-Java的键盘输入方法.html">
+            
+                    
+                    Java的键盘输入方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="../2019-04-28-使用nio来读写文件.html">
+            
+                <a href="../2019-04-28-使用nio来读写文件.html">
+            
+                    
+                    使用nio来读写文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                <a href="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                    
+                    接口的静态方法和默认方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" data-path="../2019-05-11-用int来表示多个bool判断.html">
+            
+                <a href="../2019-05-11-用int来表示多个bool判断.html">
+            
+                    
+                    用int来表示多个bool判断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" data-path="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                <a href="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                    
+                    监听nginx日志实现博客访问计数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" data-path="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                <a href="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                    
+                    一致性hash算法及其Java实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" data-path="../2019-04-28-优雅的实现程序计时器.html">
+            
+                <a href="../2019-04-28-优雅的实现程序计时器.html">
+            
+                    
+                    优雅的实现程序计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.10" data-path="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                <a href="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                    
+                    Java中的常量类缓存机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                <a href="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                    
+                    Java中几个和时间有关的类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.12" data-path="../2018-03-13-java8-stream api 入门.html">
+            
+                <a href="../2018-03-13-java8-stream api 入门.html">
+            
+                    
+                    java8-stream api 入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.13" data-path="../2018-11-19-java的volatile关键字详解.html">
+            
+                <a href="../2018-11-19-java的volatile关键字详解.html">
+            
+                    
+                    java的volatile关键字详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.14" data-path="../2019-04-22-Java实现计数器-Counter.html">
+            
+                <a href="../2019-04-22-Java实现计数器-Counter.html">
+            
+                    
+                    Java实现计数器-Counter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.15" data-path="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                <a href="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                    
+                    Java8-Date-Time-使用案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.16" data-path="../2018-11-18-抽象类和接口的区别.html">
+            
+                <a href="../2018-11-18-抽象类和接口的区别.html">
+            
+                    
+                    抽象类和接口的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.17" data-path="../2018-03-31-java8-Date-Time-api.html">
+            
+                <a href="../2018-03-31-java8-Date-Time-api.html">
+            
+                    
+                    java8-Date-Time-api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.18" data-path="../2018-03-11-java8-Optional类初体验.html">
+            
+                <a href="../2018-03-11-java8-Optional类初体验.html">
+            
+                    
+                    java8-Optional类初体验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.19" data-path="../集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                <a href="../集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                    
+                    Java中-Comparable和-Comparator的区别及联系
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.20" data-path="../2019-01-29-Java的序列化与反序列化.html">
+            
+                <a href="../2019-01-29-Java的序列化与反序列化.html">
+            
+                    
+                    Java的序列化与反序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >(juc系列)AQS源码学习笔记</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="&#x524D;&#x8A00;">&#x524D;&#x8A00;</h2>
+<p>&#x672C;&#x6587;&#x6E90;&#x7801;&#x57FA;&#x4E8E;: <font color="red">JDK13</font></p>
+<p>JUC&#x662F;Java&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x5305;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x591A;&#x5E76;&#x53D1;&#x5DE5;&#x5177;.</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5C06;AQS.</p>
+<p>java.util.concurrent.locks.AbstractQueuedSynchronizer.</p>
+<p>&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x7C7B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x6846;&#x67B6;.</p>
+<p>&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x5BF9;&#x4E8E;&#x540C;&#x6B65;&#x72B6;&#x6001;&#x7684;&#x63A7;&#x5236;&#xFF0C;&#x4EE5;&#x524D;&#x7EBF;&#x7A0B;&#x7B49;&#x5F85;&#x65F6;&#x7684;FIFO&#x961F;&#x5217;.</p>
+<h2 id="fields">Fields</h2>
+<p>AQS&#x7684;&#x5C5E;&#x6027;.</p>
+<h3 id="state">state</h3>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+     * The synchronization state.
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> state;
+</code></pre>
+<p>&#x6838;&#x5FC3;&#x5C5E;&#x6027;&#xFF0C;&#x540C;&#x6B65;&#x72B6;&#x6001;. &#x4F7F;&#x7528;<code>volatile</code>&#x4FEE;&#x9970;.</p>
+<p>&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;:</p>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * Returns the current value of synchronization state.
+ * This operation has memory semantics of a {<span class="hljs-doctag">@code</span> volatile} read.
+ * <span class="hljs-doctag">@return</span> current state value
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getState</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> state;
+        }
+
+<span class="hljs-comment">/**
+ * Sets the value of synchronization state.
+ * This operation has memory semantics of a {<span class="hljs-doctag">@code</span> volatile} write.
+ * <span class="hljs-doctag">@param</span> newState the new state value
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setState</span><span class="hljs-params">(<span class="hljs-keyword">int</span> newState)</span></span>{
+        state=newState;
+        }
+
+<span class="hljs-comment">/**
+ * Atomically sets synchronization state to the given updated
+ * value if the current state value equals the expected value.
+ * This operation has memory semantics of a {<span class="hljs-doctag">@code</span> volatile} read
+ * and write.
+ *
+ * <span class="hljs-doctag">@param</span> expect the expected value
+ * <span class="hljs-doctag">@param</span> update the new value
+ * <span class="hljs-doctag">@return</span> {<span class="hljs-doctag">@code</span> true} if successful. False return indicates that the actual
+ *         value was not equal to the expected value.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">compareAndSetState</span><span class="hljs-params">(<span class="hljs-keyword">int</span> expect,<span class="hljs-keyword">int</span> update)</span></span>{
+        <span class="hljs-keyword">return</span> STATE.compareAndSet(<span class="hljs-keyword">this</span>,expect,update);
+        }
+</code></pre>
+<p>&#x5206;&#x522B;&#x63D0;&#x4F9B;&#x4E86;get/set&#x65B9;&#x6CD5;&#x53CA;CAS&#x7684;&#x8D4B;&#x503C;&#x65B9;&#x6CD5;.</p>
+<h3 id="head">head</h3>
+<p>&#x7B49;&#x5F85;&#x961F;&#x5217;&#x961F;&#x5934;.</p>
+<h3 id="tail">tail</h3>
+<p>&#x7B49;&#x5F85;&#x961F;&#x5217;&#x961F;&#x5C3E;.</p>
+<p>head &#x548C; tail &#x662F;<code>java.util.concurrent.locks.AbstractQueuedSynchronizer.Node</code>
+&#x7684;&#x5B9E;&#x4F8B;&#xFF0C; &#x6784;&#x6210;&#x4E86;&#x4E00;&#x4E2A;&#x53CC;&#x5411;&#x94FE;&#x8868;.</p>
+<h4 id="node">Node</h4>
+<p>Node&#x662F;&#x4E3A;&#x4E86;&#x8868;&#x8FBE;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x7EBF;&#x7A0B;&#x800C;&#x62BD;&#x8C61;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x4E3B;&#x8981;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;.</p>
+<pre><code class="lang-java">
+<span class="hljs-comment">// Node&#x8282;&#x70B9;&#x6240;&#x5728;&#x7684;&#x7B49;&#x5F85;&#x72B6;&#x6001;</span>
+<span class="hljs-keyword">volatile</span> <span class="hljs-keyword">int</span> waitStatus;
+
+<span class="hljs-comment">//&#x524D;&#x7F6E;&#x8282;&#x70B9;</span>
+<span class="hljs-keyword">volatile</span> Node prev;
+
+<span class="hljs-comment">// &#x540E;&#x7F6E;&#x8282;&#x70B9;</span>
+<span class="hljs-keyword">volatile</span> Node next;
+
+<span class="hljs-comment">// &#x5728;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x7EBF;&#x7A0B;</span>
+<span class="hljs-keyword">volatile</span> Thread thread;
+
+<span class="hljs-comment">// &#x4E0B;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x7684;&#x8282;&#x70B9;</span>
+        Node nextWaiter;
+</code></pre>
+<p>&#x4ED6;&#x6709;&#x4E24;&#x79CD;&#x6A21;&#x5F0F;&#xFF0C;&#x5206;&#x522B;&#x4E3A;&#x5171;&#x4EAB;&#x6A21;&#x5F0F;&#x53CA;&#x72EC;&#x5360;&#x6A21;&#x5F0F;. &#x5BF9;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;.</p>
+<p>&#x5176;&#x4E2D;<code>waitStatus</code>&#x4E3A;&#x679A;&#x4E3E;&#x503C;&#xFF0C;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x503C;.</p>
+<pre><code class="lang-java"><span class="hljs-comment">/** waitStatus value to indicate thread has cancelled. */</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CANCELLED=<span class="hljs-number">1</span>;
+<span class="hljs-comment">/** waitStatus value to indicate successor&apos;s thread needs unparking. */</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> SIGNAL=-<span class="hljs-number">1</span>;
+<span class="hljs-comment">/** waitStatus value to indicate thread is waiting on condition. */</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CONDITION=-<span class="hljs-number">2</span>;
+<span class="hljs-comment">/**
+ * waitStatus value to indicate the next acquireShared should
+ * unconditionally propagate.
+ */</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> PROPAGATE=-<span class="hljs-number">3</span>;
+</code></pre>
+<h2 id="public-methods">Public-Methods</h2>
+<p>AQS&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x592A;&#x591A;&#x4E86;. &#x5148;&#x770B;&#x4E00;&#x4E0B;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x7684;API&#x65B9;&#x6CD5;.</p>
+<p>&#x4F17;&#x6240;&#x5468;&#x77E5;&#xFF0C;AQS&#x662F;&#x4E3A;&#x4E86;&#x540C;&#x6B65;(&#x52A0;&#x9501;)&#x800C;&#x8BBE;&#x8BA1;&#x7684;. &#x90A3;&#x4E48;&#x4E00;&#x5B9A;&#x662F;&#x6709;&#x83B7;&#x53D6;&#x9501;,&#x91CA;&#x653E;&#x9501;&#x7684;&#x65B9;&#x6CD5;&#x7684;.&#x5148;&#x4ECE;&#x8FD9;&#x91CC;&#x5207;&#x5165;.</p>
+<h3 id="acquireint-arg">acquire(int arg)</h3>
+<p>&#x72EC;&#x5360;&#x5F0F;&#x5E94;&#x7528;&#xFF0C;&#x5178;&#x578B;&#x7684;&#x5C31;&#x662F;<code>ReentrantLock</code>. <a href="http://huyan.couplecoders.tech/java/juc/reentrantlock/2021/09/28/(juc%E7%B3%BB%E5%88%97" target="_blank">ReentrantLock&#x6E90;&#x7801;&#x5B66;&#x4E60;</a>ReentrantLock%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)</p>
+<p>&#x72EC;&#x5360;&#x6A21;&#x5F0F;&#x7684;&#x52A0;&#x9501;&#x4EE3;&#x7801;.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Acquires in exclusive mode, ignoring interrupts.  Implemented
+ * by invoking at least once {<span class="hljs-doctag">@link</span> #tryAcquire},
+ * returning on success.  Otherwise the thread is queued, possibly
+ * repeatedly blocking and unblocking, invoking {<span class="hljs-doctag">@link</span>
+ * #tryAcquire} until success.  This method can be used
+ * to implement method {<span class="hljs-doctag">@link</span> Lock#lock}.
+ *
+ * <span class="hljs-doctag">@param</span> arg the acquire argument.  This value is conveyed to
+ *        {<span class="hljs-doctag">@link</span> #tryAcquire} but is otherwise uninterpreted and
+ *        can represent anything you like.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquire</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>{
+        <span class="hljs-keyword">if</span>(!tryAcquire(arg)&amp;&amp;
+        acquireQueued(addWaiter(Node.EXCLUSIVE),arg))
+        selfInterrupt();
+        }
+</code></pre>
+<p>&#x72EC;&#x5360;&#x6A21;&#x5F0F;&#x7684;&#x83B7;&#x53D6;&#x9501;, &#x5E76;&#x4E14;&#x5FFD;&#x7565;&#x4E2D;&#x65AD;. &#x81F3;&#x5C11;&#x8C03;&#x7528;&#x4E00;&#x6B21;<code>tryAcquire</code>.&#x5982;&#x679C;&#x6210;&#x529F;&#x4E86;&#x5C31;&#x8FD4;&#x56DE;.</p>
+<p>&#x5426;&#x5219;&#x7684;&#x8BDD;&#x5C06;&#x7EBF;&#x7A0B;&#x52A0;&#x5165;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF0C;&#x91CD;&#x590D;&#x7684;&#x8FDB;&#x884C;<code>tryAcquire</code>. &#x76F4;&#x5230;&#x6210;&#x529F;&#x4E3A;&#x6B62;.</p>
+<h4 id="traacquireint-arg">traAcquire(int arg)</h4>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x5728;AQS&#x4E2D;&#x662F;&#x62BD;&#x8C61;&#x7684;, protected&#x4FEE;&#x9970;. &#x7531;&#x5B50;&#x7C7B;&#x5177;&#x4F53;&#x8FDB;&#x884C;&#x5B9E;&#x73B0;.</p>
+<p>&#x5B83;&#x5B9A;&#x4E49;&#x7684;:</p>
+<p>&#x72EC;&#x5360;&#x6A21;&#x5F0F;&#x7684;&#x83B7;&#x53D6;&#x9501;, &#x5982;&#x679C;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#xFF0C;&#x8FD4;&#x56DE;&#x6210;&#x529F;&#xFF0C;&#x5982;&#x679C;&#x83B7;&#x53D6;&#x5931;&#x8D25;&#xFF0C;&#x7EBF;&#x7A0B;&#x5E94;&#x8BE5;&#x88AB;&#x653E;&#x5165;&#x7B49;&#x5F85;&#x961F;&#x5217;.</p>
+<p>&#x5982;&#x679C;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x5728;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;, &#x5E94;&#x8BE5;&#x662F;&#x88AB;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x5524;&#x9192;&#x4E86;.</p>
+<p>&#x603B;&#x4E4B;: <code>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x975E;&#x963B;&#x585E;&#x7684;&#xFF0C;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;&#x7684;&#xFF0C;&#x8981;&#x4E48;&#x6210;&#x529F;&#x52A0;&#x9501;&#xFF0C;&#x8FD4;&#x56DE;true. &#x8981;&#x4E48;&#x52A0;&#x9501;&#x5931;&#x8D25;,&#x8FD4;&#x56DE;flase.</code> &#xFF0C;&#x4E4B;&#x540E;&#x7684;&#x64CD;&#x4F5C;&#x5C31;&#x4E0D;&#x5F52;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7BA1;&#x4E86;.</p>
+<h4 id="addwaiternode-node">addWaiter(Node node)</h4>
+<p>private&#x65B9;&#x6CD5;,<strong>&#x7ED9;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Node&#x5E76;&#x4E14;&#x653E;&#x5165;&#x7B49;&#x5F85;&#x961F;&#x5217;</strong>.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Creates and enqueues node for current thread and given mode.
+ *
+ * <span class="hljs-doctag">@param</span> mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
+ * <span class="hljs-doctag">@return</span> the new node
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> Node <span class="hljs-title">addWaiter</span><span class="hljs-params">(Node mode)</span></span>{
+        Node node=<span class="hljs-keyword">new</span> Node(mode);
+
+        <span class="hljs-keyword">for</span>(;;){
+        Node oldTail=tail;
+        <span class="hljs-keyword">if</span>(oldTail!=<span class="hljs-keyword">null</span>){
+        node.setPrevRelaxed(oldTail);
+        <span class="hljs-keyword">if</span>(compareAndSetTail(oldTail,node)){
+        oldTail.next=node;
+        <span class="hljs-keyword">return</span> node;
+        }
+        }<span class="hljs-keyword">else</span>{
+        initializeSyncQueue();
+        }
+        }
+        }
+</code></pre>
+<ol>
+<li>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Node.</li>
+<li>&#x5982;&#x679C;&#x961F;&#x5C3E;&#x4E3A;&#x7A7A;&#xFF0C;&#x8BF4;&#x660E;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;,&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;.</li>
+<li>&#x5C06;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x8BBE;&#x7F6E;&#x4E3A;&#x65B0;&#x7684;&#x961F;&#x5C3E;.</li>
+</ol>
+<h4 id="acquirequeuednode-node-int-arg">acquireQueued(Node node, int arg)</h4>
+<p>&#x4E00;&#x4E2A;final&#x65B9;&#x6CD5;&#xFF0C;&#x5B50;&#x7C7B;&#x65E0;&#x6CD5;&#x91CD;&#x5199;.</p>
+<p>&#x5C06;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FDB;&#x884C;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x884C;&#x4E3A;.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Acquires in exclusive uninterruptible mode for thread already in
+ * queue. Used by condition wait methods as well as acquire.
+ *
+ * <span class="hljs-doctag">@param</span> node the node
+ * <span class="hljs-doctag">@param</span> arg the acquire argument
+ * <span class="hljs-doctag">@return</span> {<span class="hljs-doctag">@code</span> true} if interrupted while waiting
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">acquireQueued</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Node node,<span class="hljs-keyword">int</span> arg)</span></span>{
+        <span class="hljs-keyword">boolean</span> interrupted=<span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">try</span>{
+        <span class="hljs-keyword">for</span>(;;){
+<span class="hljs-keyword">final</span> Node p=node.predecessor();
+        <span class="hljs-keyword">if</span>(p==head&amp;&amp;tryAcquire(arg)){
+        setHead(node);
+        p.next=<span class="hljs-keyword">null</span>; <span class="hljs-comment">// help GC</span>
+        <span class="hljs-keyword">return</span> interrupted;
+        }
+        <span class="hljs-keyword">if</span>(shouldParkAfterFailedAcquire(p,node))
+        interrupted|=parkAndCheckInterrupt();
+        }
+        }<span class="hljs-keyword">catch</span>(Throwable t){
+        cancelAcquire(node);
+        <span class="hljs-keyword">if</span>(interrupted)
+        selfInterrupt();
+        <span class="hljs-keyword">throw</span> t;
+        }
+        }
+</code></pre>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x662F;&#x5934;&#x7ED3;&#x70B9;&#xFF0C;&#x8BF4;&#x660E;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x662F;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;&#x7684;&#x90A3;&#x4E2A;.&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;.</p>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0D;&#x662F;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;&#x7684;&#xFF0C;&#x6216;&#x8005;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#x4E86;. &#x8C03;&#x7528;<code>shouldParkAfterFailedAcquire</code>.</p>
+<h5 id="shouldparkafterfailedacquire">shouldParkAfterFailedAcquire</h5>
+<pre><code class="lang-java">
+<span class="hljs-comment">/**
+ * Checks and updates status for a node that failed to acquire.
+ * Returns true if thread should block. This is the main signal
+ * control in all acquire loops.  Requires that pred == node.prev.
+ *
+ * <span class="hljs-doctag">@param</span> pred node&apos;s predecessor holding status
+ * <span class="hljs-doctag">@param</span> node the node
+ * <span class="hljs-doctag">@return</span> {<span class="hljs-doctag">@code</span> true} if thread should block
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">shouldParkAfterFailedAcquire</span><span class="hljs-params">(Node pred,Node node)</span></span>{
+        <span class="hljs-keyword">int</span> ws=pred.waitStatus;
+        <span class="hljs-keyword">if</span>(ws==Node.SIGNAL)
+        <span class="hljs-comment">/*
+         * This node has already set status asking a release
+         * to signal it, so it can safely park.
+         */</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">if</span>(ws&gt;<span class="hljs-number">0</span>){
+        <span class="hljs-comment">/*
+         * Predecessor was cancelled. Skip over predecessors and
+         * indicate retry.
+         */</span>
+        do{
+        node.prev=pred=pred.prev;
+        }<span class="hljs-keyword">while</span>(pred.waitStatus&gt;<span class="hljs-number">0</span>);
+        pred.next=node;
+        }<span class="hljs-keyword">else</span>{
+        <span class="hljs-comment">/*
+         * waitStatus must be 0 or PROPAGATE.  Indicate that we
+         * need a signal, but don&apos;t park yet.  Caller will need to
+         * retry to make sure it cannot acquire before parking.
+         */</span>
+        pred.compareAndSetWaitStatus(ws,Node.SIGNAL);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+</code></pre>
+<p>&#x5982;&#x679C;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x662F;SIGNAL.&#x8BF4;&#x660E;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x4F18;&#x5148;&#x7EA7;&#x66F4;&#x9AD8;&#xFF0C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5E94;&#x8BE5;park.</p>
+<p>&#x5982;&#x679C;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x88AB;&#x53D6;&#x6D88;&#x4E86;&#xFF0C;&#x6254;&#x6389;&#x4E2D;&#x95F4;&#x7684;&#x53D6;&#x6D88;&#x8282;&#x70B9;. &#x4E0D;park.</p>
+<p>&#x5982;&#x679C;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x662F;&#x5176;&#x4ED6;&#x72B6;&#x6001;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E3A;SIGNAL. &#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;. &#x4E0D;park.</p>
+<p>&#x4E0D;park&#x7684;&#x539F;&#x56E0;&#x662F;&#x518D;&#x6765;&#x4E00;&#x6B21;. &#x68C0;&#x6D4B;&#x4E00;&#x904D;.</p>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x9700;&#x8981;&#x88AB;park.&#x5219;park&#x4E14;&#x68C0;&#x67E5;&#x4E0B;&#x662F;&#x5426;&#x4E2D;&#x65AD;&#x4E86;.</p>
+<h5 id="parkandcheckinterrupt">parkAndCheckInterrupt</h5>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * Convenience method to park and then check if interrupted.
+ *
+ * <span class="hljs-doctag">@return</span> {<span class="hljs-doctag">@code</span> true} if interrupted
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">parkAndCheckInterrupt</span><span class="hljs-params">()</span></span>{
+        LockSupport.park(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">return</span> Thread.interrupted();
+        }
+</code></pre>
+<p>&#x5982;&#x679C;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x53D6;&#x6D88;&#x6389;&#x8FD9;&#x6B21;&#x83B7;&#x53D6;&#x9501;.</p>
+<h5 id="cancelacquirenode-node">cancelAcquire(Node node)</h5>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Cancels an ongoing attempt to acquire.
+ *
+ * <span class="hljs-doctag">@param</span> node the node
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cancelAcquire</span><span class="hljs-params">(Node node)</span></span>{
+        <span class="hljs-comment">// Ignore if node doesn&apos;t exist</span>
+        <span class="hljs-keyword">if</span>(node==<span class="hljs-keyword">null</span>)
+        <span class="hljs-keyword">return</span>;
+
+        node.thread=<span class="hljs-keyword">null</span>;
+
+        <span class="hljs-comment">// Skip cancelled predecessors</span>
+        Node pred=node.prev;
+        <span class="hljs-keyword">while</span>(pred.waitStatus&gt;<span class="hljs-number">0</span>)
+        node.prev=pred=pred.prev;
+
+        <span class="hljs-comment">// predNext is the apparent node to unsplice. CASes below will</span>
+        <span class="hljs-comment">// fail if not, in which case, we lost race vs another cancel</span>
+        <span class="hljs-comment">// or signal, so no further action is necessary, although with</span>
+        <span class="hljs-comment">// a possibility that a cancelled node may transiently remain</span>
+        <span class="hljs-comment">// reachable.</span>
+        Node predNext=pred.next;
+
+        <span class="hljs-comment">// Can use unconditional write instead of CAS here.</span>
+        <span class="hljs-comment">// After this atomic step, other Nodes can skip past us.</span>
+        <span class="hljs-comment">// Before, we are free of interference from other threads.</span>
+        node.waitStatus=Node.CANCELLED;
+
+        <span class="hljs-comment">// If we are the tail, remove ourselves.</span>
+        <span class="hljs-keyword">if</span>(node==tail&amp;&amp;compareAndSetTail(node,pred)){
+        pred.compareAndSetNext(predNext,<span class="hljs-keyword">null</span>);
+        }<span class="hljs-keyword">else</span>{
+        <span class="hljs-comment">// If successor needs signal, try to set pred&apos;s next-link</span>
+        <span class="hljs-comment">// so it will get one. Otherwise wake it up to propagate.</span>
+        <span class="hljs-keyword">int</span> ws;
+        <span class="hljs-keyword">if</span>(pred!=head&amp;&amp;
+        ((ws=pred.waitStatus)==Node.SIGNAL||
+        (ws&lt;=<span class="hljs-number">0</span>&amp;&amp;pred.compareAndSetWaitStatus(ws,Node.SIGNAL)))&amp;&amp;
+        pred.thread!=<span class="hljs-keyword">null</span>){
+        Node next=node.next;
+        <span class="hljs-keyword">if</span>(next!=<span class="hljs-keyword">null</span>&amp;&amp;next.waitStatus&lt;=<span class="hljs-number">0</span>)
+        pred.compareAndSetNext(predNext,next);
+        }<span class="hljs-keyword">else</span>{
+        unparkSuccessor(node);
+        }
+
+        node.next=node; <span class="hljs-comment">// help GC</span>
+        }
+        }
+</code></pre>
+<ol>
+<li>&#x5F53;&#x524D;node&#x7684;thread&#x8BBE;&#x7F6E;&#x4E3A;null.</li>
+<li>&#x6254;&#x6389;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E4B;&#x524D;&#x7684;&#x6240;&#x6709;&#x88AB;&#x53D6;&#x6D88;&#x4E86;&#x7684;&#x8282;&#x70B9;.</li>
+<li>&#x53D6;&#x6D88;&#x6389;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x8BBE;&#x7F6E;&#x5C3E;&#x8282;&#x70B9;&#x4E3A;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;.</li>
+</ol>
+<h2 id="releaseint-arg">release(int arg)</h2>
+<p>&#x72EC;&#x5360;&#x5F0F;&#x7684;&#x89E3;&#x9501;.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Releases in exclusive mode.  Implemented by unblocking one or
+ * more threads if {<span class="hljs-doctag">@link</span> #tryRelease} returns true.
+ * This method can be used to implement method {<span class="hljs-doctag">@link</span> Lock#unlock}.
+ *
+ * <span class="hljs-doctag">@param</span> arg the release argument.  This value is conveyed to
+ *        {<span class="hljs-doctag">@link</span> #tryRelease} but is otherwise uninterpreted and
+ *        can represent anything you like.
+ * <span class="hljs-doctag">@return</span> the value returned from {<span class="hljs-doctag">@link</span> #tryRelease}
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">release</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>{
+        <span class="hljs-keyword">if</span>(tryRelease(arg)){
+        Node h=head;
+        <span class="hljs-keyword">if</span>(h!=<span class="hljs-keyword">null</span>&amp;&amp;h.waitStatus!=<span class="hljs-number">0</span>)
+        unparkSuccessor(h);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+</code></pre>
+<p>&#x8C03;&#x7528;<code>tryRelease(int arg)</code>. &#x5982;&#x679C;&#x89E3;&#x9501;&#x6210;&#x529F;&#xFF0C;&#x5524;&#x9192;&#x5934;&#x7ED3;&#x70B9;&#x7684;&#x540E;&#x7EE7;&#x8282;&#x70B9;. &#x5982;&#x679C;&#x89E3;&#x9501;&#x5931;&#x8D25;&#xFF0C; &#x8FD4;&#x56DE;false.</p>
+<h3 id="tryreleaseint-arg">tryRelease(int arg)</h3>
+<p>&#x89E3;&#x9501;&#x64CD;&#x4F5C;&#xFF0C;&#x7531;&#x5B50;&#x7C7B;&#x8D1F;&#x8D23;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x540E;&#x671F;&#x9488;&#x5BF9;ReentrantLock&#x5B66;&#x4E60;.</p>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x975E;&#x963B;&#x585E;&#x5F0F;&#xFF0C; &#x5373;&#x65F6;&#x8FD4;&#x56DE;true/false. &#x4EE3;&#x8868;&#x662F;&#x5426;&#x91CA;&#x653E;&#x6210;&#x529F;.</p>
+<h3 id="unparksuccessornode-node">unparkSuccessor(Node node)</h3>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Wakes up node&apos;s successor, if one exists.
+ *
+ * <span class="hljs-doctag">@param</span> node the node
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unparkSuccessor</span><span class="hljs-params">(Node node)</span></span>{
+        <span class="hljs-comment">/*
+         * If status is negative (i.e., possibly needing signal) try
+         * to clear in anticipation of signalling.  It is OK if this
+         * fails or if status is changed by waiting thread.
+         */</span>
+        <span class="hljs-keyword">int</span> ws=node.waitStatus;
+        <span class="hljs-keyword">if</span>(ws&lt; <span class="hljs-number">0</span>)
+        node.compareAndSetWaitStatus(ws,<span class="hljs-number">0</span>);
+
+        <span class="hljs-comment">/*
+         * Thread to unpark is held in successor, which is normally
+         * just the next node.  But if cancelled or apparently null,
+         * traverse backwards from tail to find the actual
+         * non-cancelled successor.
+         */</span>
+        Node s=node.next;
+        <span class="hljs-keyword">if</span>(s==<span class="hljs-keyword">null</span>||s.waitStatus&gt;<span class="hljs-number">0</span>){
+        s=<span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">for</span>(Node p=tail;p!=node&amp;&amp;p!=<span class="hljs-keyword">null</span>;p=p.prev)
+        <span class="hljs-keyword">if</span>(p.waitStatus&lt;=<span class="hljs-number">0</span>)
+        s=p;
+        }
+        <span class="hljs-keyword">if</span>(s!=<span class="hljs-keyword">null</span>)
+        LockSupport.unpark(s.thread);
+        }
+</code></pre>
+<p>&#x5728;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x4ECE;&#x540E;&#x5411;&#x524D;&#x627E;&#x5230;&#x6B63;&#x5E8F;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x5524;&#x9192;&#x7684;Node. &#x6267;&#x884C;unpark&#x64CD;&#x4F5C;.</p>
+<h2 id="acquiresharedint-arg">acquireShared(int arg)</h2>
+<p>&#x5171;&#x4EAB;&#x9501;&#x7684;&#x76F8;&#x5173;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x770B;<code>CountDownLatch</code>&#x7684;&#x76F8;&#x5173;&#x4EE3;&#x7801;. <a href="http://huyan.couplecoders.tech/java/juc/countdownlatch/2021/09/30/(juc%E7%B3%BB%E5%88%97" target="_blank">CountDownLatch&#x6E90;&#x7801;&#x89E3;&#x6790;</a>CountDownLatch%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/)</p>
+<p>&#x5171;&#x4EAB;&#x6A21;&#x5F0F;&#x7684;&#x83B7;&#x53D6;&#x9501;.&#x5FFD;&#x7565;&#x4E2D;&#x65AD;.</p>
+<p>&#x81F3;&#x5C11;&#x8C03;&#x7528;&#x4E00;&#x6B21;<code>TryAcquireShared</code>, &#x5982;&#x679C;&#x6210;&#x529F;&#x5C31;&#x8FD4;&#x56DE;&#xFF0C;&#x5931;&#x8D25;&#x5C31;&#x5C06;&#x7EBF;&#x7A0B;&#x52A0;&#x5165;&#x7B49;&#x5F85;&#x961F;&#x5217;. &#x91CD;&#x590D;&#x8C03;&#x7528;<code>TryAcquireShared</code>&#x77E5;&#x9053;&#x6210;&#x529F;.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Acquires in shared mode, ignoring interrupts.  Implemented by
+ * first invoking at least once {<span class="hljs-doctag">@link</span> #tryAcquireShared},
+ * returning on success.  Otherwise the thread is queued, possibly
+ * repeatedly blocking and unblocking, invoking {<span class="hljs-doctag">@link</span>
+ * #tryAcquireShared} until success.
+ *
+ * <span class="hljs-doctag">@param</span> arg the acquire argument.  This value is conveyed to
+ *        {<span class="hljs-doctag">@link</span> #tryAcquireShared} but is otherwise uninterpreted
+ *        and can represent anything you like.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">acquireShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>{
+        <span class="hljs-keyword">if</span>(tryAcquireShared(arg)&lt; <span class="hljs-number">0</span>)
+        doAcquireShared(arg);
+        }
+</code></pre>
+<h3 id="tryacquiresharedint-arg">tryAcquireShared(int arg)</h3>
+<p>&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x7531;&#x5B50;&#x7C7B;&#x8D1F;&#x8D23;&#x5B9E;&#x73B0;.</p>
+<p>&#x5982;&#x679C;&#x83B7;&#x53D6;&#x9501;&#x6210;&#x529F;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;. &#x5982;&#x679C;&#x83B7;&#x53D6;&#x5931;&#x8D25;&#xFF0C;&#x7EBF;&#x7A0B;&#x52A0;&#x5165;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF0C;&#x5982;&#x679C;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x52A0;&#x5165;&#xFF0C;&#x7B49;&#x5F85;&#x88AB;&#x5176;&#x4ED6;&#x4EBA;&#x91CA;&#x653E;&#x9501;&#x7684;&#x52A8;&#x4F5C;&#x5524;&#x9192;.</p>
+<h3 id="doacquiresharedint-arg">doAcquireShared(int arg)</h3>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Acquires in shared uninterruptible mode.
+ * <span class="hljs-doctag">@param</span> arg the acquire argument
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doAcquireShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>{
+<span class="hljs-keyword">final</span> Node node=addWaiter(Node.SHARED);
+        <span class="hljs-keyword">boolean</span> interrupted=<span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">try</span>{
+        <span class="hljs-keyword">for</span>(;;){
+<span class="hljs-keyword">final</span> Node p=node.predecessor();
+        <span class="hljs-keyword">if</span>(p==head){
+        <span class="hljs-keyword">int</span> r=tryAcquireShared(arg);
+        <span class="hljs-keyword">if</span>(r&gt;=<span class="hljs-number">0</span>){
+        setHeadAndPropagate(node,r);
+        p.next=<span class="hljs-keyword">null</span>; <span class="hljs-comment">// help GC</span>
+        <span class="hljs-keyword">return</span>;
+        }
+        }
+        <span class="hljs-keyword">if</span>(shouldParkAfterFailedAcquire(p,node))
+        interrupted|=parkAndCheckInterrupt();
+        }
+        }<span class="hljs-keyword">catch</span>(Throwable t){
+        cancelAcquire(node);
+        <span class="hljs-keyword">throw</span> t;
+        }<span class="hljs-keyword">finally</span>{
+        <span class="hljs-keyword">if</span>(interrupted)
+        selfInterrupt();
+        }
+        }
+</code></pre>
+<ol>
+<li>&#x9996;&#x5148;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;SHARED&#x6A21;&#x5F0F;&#x7684;&#x8282;&#x70B9;&#x5230;&#x7B49;&#x5F85;&#x961F;&#x5217;.</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x524D;&#x7F6E;&#x8282;&#x70B9;&#x662F;head. &#x8BF4;&#x660E;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;&#xFF0C;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;. &#x5982;&#x679C;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;.</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0D;&#x662F;&#x4F18;&#x5148;&#x7EA7;&#x6700;&#x9AD8;&#x7684;&#xFF0C;&#x6216;&#x8005;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#x4E86;&#xFF0C;&#x8C03;&#x7528;<code>shouldParkAfterFailedAcquire</code>&#x5224;&#x65AD;&#x662F;&#x5426;&#x9700;&#x8981;&#x8FDB;&#x884C;park. &#x5982;&#x679C;&#x9700;&#x8981;,&#x5219;park&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5E76;&#x68C0;&#x67E5;&#x4E2D;&#x65AD;.</li>
+<li>&#x5982;&#x679C;&#x4E0D;&#x9700;&#x8981;park.&#x5219;&#x81EA;&#x65CB;. &#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x5224;&#x65AD;&#xFF0C;&#x662F;&#x5426;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x9501;.</li>
+<li>&#x5982;&#x679C;catch&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x53D6;&#x6D88;&#x8FD9;&#x6B21;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x6D41;&#x7A0B;&#x540C;&#x4E0A;&#x9762;&#x72EC;&#x5360;&#x6A21;&#x5F0F;&#x53D6;&#x6D88;.</li>
+</ol>
+<h2 id="releasesharedint-arg">releaseShared(int arg)</h2>
+<p>&#x5171;&#x4EAB;&#x6A21;&#x5F0F;&#x7684;&#x91CA;&#x653E;&#x9501;.</p>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Releases in shared mode.  Implemented by unblocking one or more
+ * threads if {<span class="hljs-doctag">@link</span> #tryReleaseShared} returns true.
+ *
+ * <span class="hljs-doctag">@param</span> arg the release argument.  This value is conveyed to
+ *        {<span class="hljs-doctag">@link</span> #tryReleaseShared} but is otherwise uninterpreted
+ *        and can represent anything you like.
+ * <span class="hljs-doctag">@return</span> the value returned from {<span class="hljs-doctag">@link</span> #tryReleaseShared}
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">releaseShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arg)</span></span>{
+        <span class="hljs-keyword">if</span>(tryReleaseShared(arg)){
+        doReleaseShared();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+</code></pre>
+<p>&#x975E;&#x963B;&#x585E;&#x5F0F;&#x7684;&#x91CA;&#x653E;&#x9501;.&#x8C03;&#x7528;<code>tryReleaseShared</code>.</p>
+<p>&#x5982;&#x679C;&#x91CA;&#x653E;&#x6210;&#x529F;&#xFF0C;&#x8C03;&#x7528;<code>doReleaseShared</code>.&#x5982;&#x679C;&#x5931;&#x8D25;&#xFF0C;&#x8FD4;&#x56DE;false.</p>
+<h3 id="tryreleasesharedint-arg">tryReleaseShared(int arg)</h3>
+<p>&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;&#x5177;&#x4F53;&#x7531;&#x5B50;&#x7C7B;&#x8FDB;&#x884C;&#x5B9E;&#x73B0;.</p>
+<p>&#x975E;&#x963B;&#x585E;&#x5F0F;&#x7684;&#xFF0C;&#x8FD4;&#x56DE;&#x91CA;&#x653E;&#x7684;&#x7ED3;&#x679C;.</p>
+<h3 id="doreleaseshared">doReleaseShared()</h3>
+<pre><code class="lang-java">    <span class="hljs-comment">/**
+ * Release action for shared mode -- signals successor and ensures
+ * propagation. (Note: For exclusive mode, release just amounts
+ * to calling unparkSuccessor of head if it needs signal.)
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doReleaseShared</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-comment">/*
+         * Ensure that a release propagates, even if there are other
+         * in-progress acquires/releases.  This proceeds in the usual
+         * way of trying to unparkSuccessor of head if it needs
+         * signal. But if it does not, status is set to PROPAGATE to
+         * ensure that upon release, propagation continues.
+         * Additionally, we must loop in case a new node is added
+         * while we are doing this. Also, unlike other uses of
+         * unparkSuccessor, we need to know if CAS to reset status
+         * fails, if so rechecking.
+         */</span>
+        <span class="hljs-keyword">for</span>(;;){
+        Node h=head;
+        <span class="hljs-keyword">if</span>(h!=<span class="hljs-keyword">null</span>&amp;&amp;h!=tail){
+        <span class="hljs-keyword">int</span> ws=h.waitStatus;
+        <span class="hljs-keyword">if</span>(ws==Node.SIGNAL){
+        <span class="hljs-keyword">if</span>(!h.compareAndSetWaitStatus(Node.SIGNAL,<span class="hljs-number">0</span>))
+        <span class="hljs-keyword">continue</span>;            <span class="hljs-comment">// loop to recheck cases</span>
+        unparkSuccessor(h);
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ws==<span class="hljs-number">0</span>&amp;&amp;
+        !h.compareAndSetWaitStatus(<span class="hljs-number">0</span>,Node.PROPAGATE))
+        <span class="hljs-keyword">continue</span>;                <span class="hljs-comment">// loop on failed CAS</span>
+        }
+        <span class="hljs-keyword">if</span>(h==head)                   <span class="hljs-comment">// loop if head changed</span>
+        <span class="hljs-keyword">break</span>;
+        }
+        }
+</code></pre>
+<p>&#x5171;&#x4EAB;&#x6A21;&#x5F0F;&#x7684;&#x91CA;&#x653E;&#x9501;&#x64CD;&#x4F5C;. &#x901A;&#x77E5;&#x540E;&#x7EE7;&#x8005;&#x5E76;&#x4E14;&#x786E;&#x4FDD;&#x4F20;&#x64AD;.</p>
+<p>&#x72EC;&#x5360;&#x5F0F;&#x7684;&#x89E3;&#x9501;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5524;&#x9192;&#x4E0B;&#x4E00;&#x4E2A;&#x5373;&#x53EF;&#x3002;&#x800C;&#x5171;&#x4EAB;&#x5F0F;&#x7684;&#x89E3;&#x9501;&#xFF0C;&#x9700;&#x8981;&#x5E7F;&#x64AD;&#x89E3;&#x9501;&#x6D88;&#x606F;.</p>
+<p>&#x904D;&#x5386;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF0C;&#x5C06;SIGNAL&#x7684;&#x8282;&#x70B9;&#x7EE7;&#x4EFB;&#x8005;&#x5168;&#x90E8;&#x5524;&#x9192;.</p>
+<p>&#x5B8C;.</p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x7AE0;">&#x53C2;&#x8003;&#x6587;&#x7AE0;</h2>
+<p><br></p>
+<p>&#x5B8C;&#x3002;
+<br>
+<br>
+<br></p>
+<h2 id="&#x8054;&#x7CFB;&#x6211;">&#x8054;&#x7CFB;&#x6211;</h2>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;&#x6211;&#x7684;&#x4E2A;&#x4EBA;&#x516C;&#x4F17;&#x53F7;&#x3010; &#x547C;&#x5EF6;&#x5341; &#x3011;&#xFF0C;&#x4F1A;&#x4E0D;&#x5B9A;&#x671F;&#x66F4;&#x65B0;&#x5F88;&#x591A;&#x540E;&#x7AEF;&#x5DE5;&#x7A0B;&#x5E08;&#x7684;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x3002; &#x4E5F;&#x6B22;&#x8FCE;&#x76F4;&#x63A5;&#x516C;&#x4F17;&#x53F7;&#x79C1;&#x4FE1;&#x6216;&#x8005;&#x90AE;&#x7BB1;&#x8054;&#x7CFB;&#x6211;&#xFF0C;&#x4E00;&#x5B9A;&#x77E5;&#x65E0;&#x4E0D;&#x8A00;&#xFF0C;&#x8A00;&#x65E0;&#x4E0D;&#x5C3D;&#x3002;
+<img src="http://img.couplecoders.tech/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88.png" alt=""></p>
+<p><br>
+<br></p>
+<p><strong>&#x4EE5;&#x4E0A;&#x7686;&#x4E3A;&#x4E2A;&#x4EBA;&#x6240;&#x601D;&#x6240;&#x5F97;&#xFF0C;&#x5982;&#x6709;&#x9519;&#x8BEF;&#x6B22;&#x8FCE;&#x8BC4;&#x8BBA;&#x533A;&#x6307;&#x6B63;&#x3002;</strong></p>
+<p><strong>&#x6B22;&#x8FCE;&#x8F6C;&#x8F7D;&#xFF0C;&#x70E6;&#x8BF7;&#x7F72;&#x540D;&#x5E76;&#x4FDD;&#x7559;&#x539F;&#x6587;&#x94FE;&#x63A5;&#x3002;</strong></p>
+<p><strong>&#x8054;&#x7CFB;&#x90AE;&#x7BB1;&#xFF1A;huyanshi2580@gmail.com</strong></p>
+<p><strong>&#x66F4;&#x591A;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x89C1;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;&#x6216;&#x5173;&#x6CE8;&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7; &lt;&#x547C;&#x5EF6;&#x5341; &gt;------&gt;<a href="../..">&#x547C;&#x5EF6;&#x5341;</a></strong> </p>
+<footer class="page-footer"><span class="copyright">&#x7248;&#x6743;&#x6240;&#x6709;&#xFF0C;&#x76D7;&#x7248;&#x5FC5;&#x7A76; all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last Modified On&#xFF1A;
+2021-10-05 17:45:13
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="2021-09-30-(juc系列)CountDownLatch源码阅读.html" class="navigation navigation-next navigation-unique" aria-label="Next page: (juc系列)CountDownLatch源码阅读">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"layout":"post","category":["Java","JUC","AQS"],"tags":["Java","JUC","AQS"],"title":"(juc系列)AQS源码学习笔记","level":"1.3.3.1","depth":3,"next":{"title":"(juc系列)CountDownLatch源码阅读","level":"1.3.3.2","depth":3,"path":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","articles":[]},"previous":{"title":"Lock锁","level":"1.3.3","depth":2,"ref":"","articles":[{"title":"(juc系列)AQS源码学习笔记","level":"1.3.3.1","depth":3,"path":"java/juc/2021-09-28-(juc系列)AQS源码学习笔记.md","ref":"java/juc/2021-09-28-(juc系列)AQS源码学习笔记.md","articles":[]},{"title":"(juc系列)CountDownLatch源码阅读","level":"1.3.3.2","depth":3,"path":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","articles":[]},{"title":"(juc系列)CyclicBarrier源码阅读","level":"1.3.3.3","depth":3,"path":"java/juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.md","articles":[]},{"title":"(juc系列)ReentrantLock源码学习","level":"1.3.3.4","depth":3,"path":"java/juc/2021-09-28-(juc系列)ReentrantLock源码学习.md","ref":"java/juc/2021-09-28-(juc系列)ReentrantLock源码学习.md","articles":[]},{"title":"(juc系列)StampedLock源码学习","level":"1.3.3.5","depth":3,"path":"java/juc/2021-10-06-(juc系列)StampedLock源码学习.md","ref":"java/juc/2021-10-06-(juc系列)StampedLock源码学习.md","articles":[]},{"title":"(juc系列)Exchanger源码阅读","level":"1.3.3.6","depth":3,"path":"java/juc/2021-10-12-(juc系列)Exchanger源码阅读.md","ref":"java/juc/2021-10-12-(juc系列)Exchanger源码阅读.md","articles":[]},{"title":"(juc系列)Semaphore源码阅读","level":"1.3.3.7","depth":3,"path":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","articles":[]},{"title":"(juc系列)ReentrantReadWriteLock源码学习","level":"1.3.3.8","depth":3,"path":"java/juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.md","ref":"java/juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.md","articles":[]},{"title":"(juc系列)Phaser源码学习","level":"1.3.3.9","depth":3,"path":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","ref":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","expandable-chapters","splitter","-lunr","-search","search-pro","copy-code-button","back-to-top-button","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"版权所有，盗版必究","modify_label":"Last Modified On：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/HuBlanker"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"呼延十","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java基础学习笔记","language":"zh-hans","gitbook":"*","description":"java-base"},"file":{"path":"java/juc/2021-09-28-(juc系列)AQS源码学习笔记.md","mtime":"2021-10-05T09:45:13.186Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-17T10:55:34.051Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

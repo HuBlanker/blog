@@ -1,0 +1,1185 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Java中的常量类缓存机制 · Java基础学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="呼延十">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="2019-07-21-Java中几个和时间有关的类.html" />
+    
+    
+    <link rel="prev" href="2019-04-28-优雅的实现程序计时器.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    集合类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="2019-08-12-简易却高效的HashMap实现.html">
+            
+                <a href="2019-08-12-简易却高效的HashMap实现.html">
+            
+                    
+                    简易却高效的HashMap实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="2019-09-09-多级-HashMap的优化.html">
+            
+                <a href="2019-09-09-多级-HashMap的优化.html">
+            
+                    
+                    多级-HashMap的优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                <a href="集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                    
+                    Java对阻塞队列的实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                <a href="集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                    
+                    Guava中的一些增强集合类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                <a href="集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                    
+                    Map接口在1.8版本新增的几个方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                <a href="集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                    
+                    ArrayList和LinkedList的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                <a href="集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                    
+                    Java中-Collections工具类的学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="集合/2018-12-23-Vector源码阅读.html">
+            
+                <a href="集合/2018-12-23-Vector源码阅读.html">
+            
+                    
+                    Vector源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                <a href="集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                    
+                    跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                <a href="集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                    
+                    Java中-TreeMap和-TreeSet的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                <a href="集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                    
+                    Concurrent-Hash-Map源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="集合/2018-10-16-HashMap源码阅读.html">
+            
+                <a href="集合/2018-10-16-HashMap源码阅读.html">
+            
+                    
+                    HashMap源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                <a href="集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                    
+                    HashTable和-HashMap的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                <a href="集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                    
+                    LinkedHashMap源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    JUC并发包
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    Atomic原子类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                <a href="juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                    
+                    (juc系列)从-AtomicInteger来学习-Java的原子类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    线程池
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                <a href="juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                    
+                    (juc系列)Java中Executors提供的的4种线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="juc/2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                <a href="juc/2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                    
+                    (juc系列)ForkJoin框架源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                <a href="juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                    
+                    Java中的-ThreadPoolExecutor类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                <a href="juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                    
+                    (juc系列)ThreadPoolExecutor源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="juc/2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                <a href="juc/2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                    
+                    (juc系列)用线程池执行定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="juc/2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                <a href="juc/2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                    
+                    (juc系列)Executors类的工厂方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <span>
+            
+                    
+                    Lock锁
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="juc/2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                <a href="juc/2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                    
+                    (juc系列)AQS源码学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="juc/2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                <a href="juc/2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                    
+                    (juc系列)CountDownLatch源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                <a href="juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                    
+                    (juc系列)CyclicBarrier源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="juc/2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                <a href="juc/2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="juc/2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                <a href="juc/2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                    
+                    (juc系列)StampedLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="juc/2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                <a href="juc/2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                    
+                    (juc系列)Exchanger源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="juc/2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                <a href="juc/2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                    
+                    (juc系列)Semaphore源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                <a href="juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantReadWriteLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.9" data-path="juc/2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                <a href="juc/2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                    
+                    (juc系列)Phaser源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                <a href="JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM性能监控工具<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                <a href="JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM数据区域与垃圾收集<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="2019-01-28-Java类加载的顺序.html">
+            
+                <a href="2019-01-28-Java类加载的顺序.html">
+            
+                    
+                    Java类加载的顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    其他
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                <a href="2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                    
+                    使用自定义注解实现接口参数校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                <a href="2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                    
+                    String-StringBuilder-StringBuffer异同
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="2018-11-11-Java的键盘输入方法.html">
+            
+                <a href="2018-11-11-Java的键盘输入方法.html">
+            
+                    
+                    Java的键盘输入方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="2019-04-28-使用nio来读写文件.html">
+            
+                <a href="2019-04-28-使用nio来读写文件.html">
+            
+                    
+                    使用nio来读写文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                <a href="2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                    
+                    接口的静态方法和默认方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" data-path="2019-05-11-用int来表示多个bool判断.html">
+            
+                <a href="2019-05-11-用int来表示多个bool判断.html">
+            
+                    
+                    用int来表示多个bool判断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" data-path="2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                <a href="2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                    
+                    监听nginx日志实现博客访问计数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" data-path="2019-05-19-一致性hash算法及其Java实现.html">
+            
+                <a href="2019-05-19-一致性hash算法及其Java实现.html">
+            
+                    
+                    一致性hash算法及其Java实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" data-path="2019-04-28-优雅的实现程序计时器.html">
+            
+                <a href="2019-04-28-优雅的实现程序计时器.html">
+            
+                    
+                    优雅的实现程序计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.1.10" data-path="2019-05-12-Java中的常量类缓存机制.html">
+            
+                <a href="2019-05-12-Java中的常量类缓存机制.html">
+            
+                    
+                    Java中的常量类缓存机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="2019-07-21-Java中几个和时间有关的类.html">
+            
+                <a href="2019-07-21-Java中几个和时间有关的类.html">
+            
+                    
+                    Java中几个和时间有关的类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.12" data-path="2018-03-13-java8-stream api 入门.html">
+            
+                <a href="2018-03-13-java8-stream api 入门.html">
+            
+                    
+                    java8-stream api 入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.13" data-path="2018-11-19-java的volatile关键字详解.html">
+            
+                <a href="2018-11-19-java的volatile关键字详解.html">
+            
+                    
+                    java的volatile关键字详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.14" data-path="2019-04-22-Java实现计数器-Counter.html">
+            
+                <a href="2019-04-22-Java实现计数器-Counter.html">
+            
+                    
+                    Java实现计数器-Counter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.15" data-path="2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                <a href="2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                    
+                    Java8-Date-Time-使用案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.16" data-path="2018-11-18-抽象类和接口的区别.html">
+            
+                <a href="2018-11-18-抽象类和接口的区别.html">
+            
+                    
+                    抽象类和接口的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.17" data-path="2018-03-31-java8-Date-Time-api.html">
+            
+                <a href="2018-03-31-java8-Date-Time-api.html">
+            
+                    
+                    java8-Date-Time-api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.18" data-path="2018-03-11-java8-Optional类初体验.html">
+            
+                <a href="2018-03-11-java8-Optional类初体验.html">
+            
+                    
+                    java8-Optional类初体验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.19" data-path="集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                <a href="集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                    
+                    Java中-Comparable和-Comparator的区别及联系
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.20" data-path="2019-01-29-Java的序列化与反序列化.html">
+            
+                <a href="2019-01-29-Java的序列化与反序列化.html">
+            
+                    
+                    Java的序列化与反序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Java中的常量类缓存机制</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x8FD8;&#x8BB0;&#x5F97;&#x88AB;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5224;&#x65AD;<code>==</code>/<code>equals</code>&#x652F;&#x914D;&#x7684;&#x6050;&#x60E7;&#x5417;?</p>
+<p>&#x968F;&#x4FBF;&#x6765;&#x4E00;&#x4E2A;,</p>
+<pre><code class="lang-java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        Integer i  = <span class="hljs-number">12</span>; <span class="hljs-comment">//1</span>
+        Integer i1  = <span class="hljs-number">12</span>; <span class="hljs-comment">//2</span>
+
+        Integer i2  = <span class="hljs-number">129</span>; <span class="hljs-comment">//3</span>
+        Integer i3  = <span class="hljs-number">129</span>; <span class="hljs-comment">//4</span>
+
+        System.out.println(i == i1); <span class="hljs-comment">// 5</span>
+        System.out.println(i2 == i3); <span class="hljs-comment">//6</span>
+
+    }
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x7684;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x662F;&#x4EC0;&#x4E48;&#x5462;?</p>
+<p>&#x76F4;&#x63A5;&#x5C55;&#x793A;&#x7B54;&#x6848;&#x5427;,&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x662F;:</p>
+<pre><code>true
+false
+</code></pre><p>&#x6211;&#x4EEC;&#x6765;&#x7814;&#x7A76;&#x4E00;&#x4E0B;&#x4E3A;&#x4EC0;&#x4E48;.</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x8981;&#x77E5;&#x9053;,&#x5728;1.5&#x4E4B;&#x540E;&#x7684;JDK&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x4E0E;&#x62C6;&#x7BB1;,&#x7528;&#x6765;&#x89E3;&#x51B3;8&#x4E2D;&#x57FA;&#x672C;&#x7C7B;&#x578B;-&gt;&#x5BF9;&#x8C61;&#x7684;&#x8F6C;&#x6362;&#x95EE;&#x9898;,&#x8FD9;&#x4E00;&#x70B9;&#x5982;&#x679C;&#x4E0D;&#x662F;&#x5F88;&#x6E05;&#x695A;&#x4E86;&#x8BDD;&#x53EF;&#x4EE5;&#x5148;google&#x4E86;&#x89E3;&#x4E00;&#x4E0B;.</p>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x4E2D;&#x7684;&#x8BED;&#x53E5;1-4&#x65E0;&#x7591;&#x90FD;&#x662F;&#x53D1;&#x751F;&#x4E86;&#x88C5;&#x7BB1;&#x7684;,&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53CD;&#x7F16;&#x8BD1;&#x4E00;&#x4E0B;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;,&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x5728;&#x88C5;&#x7BB1;&#x8FC7;&#x7A0B;&#x4E2D;&#x5230;&#x5E95;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;.</p>
+<p>&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E2D;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;:</p>
+<pre><code class="lang-shell">javac IntegerTest.java
+javap -v -c -s -l IntegerTest
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x5982;&#x4E0B;:</p>
+<p><img src="http://img.couplecoders.tech/2019-05-12-23-51-36.png" alt="2019-05-12-23-51-36"></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x7684;&#x65F6;&#x5019;&#x8C03;&#x7528;&#x7684;&#x662F;<code>Integer.valueOf()</code>&#x65B9;&#x6CD5;,&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x770B;&#x4E00;&#x4E0B;&#x4ED6;&#x7684;&#x5B9E;&#x73B0;:</p>
+<pre><code class="lang-java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Integer <span class="hljs-title">valueOf</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>{
+        <span class="hljs-keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
+            <span class="hljs-keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Integer(i);
+    }
+</code></pre>
+<p>&#x5F53;&#x4F20;&#x5165;&#x7684;&#x6570;&#x5B57;&#x5728;&#x67D0;&#x4E2A;&#x8303;&#x56F4;(&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x9ED8;&#x8BA4;&#x662F;-128&#x5230;127)&#x4E4B;&#x95F4;&#x65F6;,&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x7F13;&#x5B58;&#x7684;&#x4E00;&#x4E2A;&#x5217;&#x8868;,&#x627E;&#x4E00;&#x4E0B;&#x7F13;&#x5B58;&#x5217;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5730;&#x65B9;:</p>
+<pre><code class="lang-java">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerCache</span> </span>{
+        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> low = -<span class="hljs-number">128</span>;
+        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> high;
+        <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Integer cache[];
+
+        <span class="hljs-keyword">static</span> {
+            <span class="hljs-comment">// high value may be configured by property</span>
+            <span class="hljs-keyword">int</span> h = <span class="hljs-number">127</span>;
+            String integerCacheHighPropValue =
+                sun.misc.VM.getSavedProperty(<span class="hljs-string">&quot;java.lang.Integer.IntegerCache.high&quot;</span>);
+            <span class="hljs-keyword">if</span> (integerCacheHighPropValue != <span class="hljs-keyword">null</span>) {
+                <span class="hljs-keyword">try</span> {
+                    <span class="hljs-keyword">int</span> i = parseInt(integerCacheHighPropValue);
+                    i = Math.max(i, <span class="hljs-number">127</span>);
+                    <span class="hljs-comment">// Maximum array size is Integer.MAX_VALUE</span>
+                    h = Math.min(i, Integer.MAX_VALUE - (-low) -<span class="hljs-number">1</span>);
+                } <span class="hljs-keyword">catch</span>( NumberFormatException nfe) {
+                    <span class="hljs-comment">// If the property cannot be parsed into an int, ignore it.</span>
+                }
+            }
+            high = h;
+
+            cache = <span class="hljs-keyword">new</span> Integer[(high - low) + <span class="hljs-number">1</span>];
+            <span class="hljs-keyword">int</span> j = low;
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; cache.length; k++)
+                cache[k] = <span class="hljs-keyword">new</span> Integer(j++);
+
+            <span class="hljs-comment">// range [-128, 127] must be interned (JLS7 5.1.7)</span>
+            <span class="hljs-keyword">assert</span> IntegerCache.high &gt;= <span class="hljs-number">127</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">IntegerCache</span><span class="hljs-params">()</span> </span>{}
+    }
+</code></pre>
+<p>&#x8FD9;&#x662F;<code>IntegerCache</code>&#x7F13;&#x5B58;&#x7C7B;&#x7684;&#x5B9E;&#x73B0;,&#x5728;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x65F6;&#x5019;&#x7528;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x5FEB;&#x8FDB;&#x884C;&#x4E86;&#x521D;&#x59CB;&#x5316;,&#x5C06;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x5185;&#x7684;&#x503C;&#x9884;&#x5148;&#x52A0;&#x8F7D;&#x597D;&#x653E;&#x5728;&#x6570;&#x7EC4;&#x4E2D;.</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5BF9;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x7684;&#x4E0A;&#x9650;&#x6570;&#x5B57;&#x662F;&#x901A;&#x8FC7;&#x8BFB;&#x53D6;&#x914D;&#x7F6E;&#x6765;&#x8BBE;&#x7F6E;&#x7684;,&#x56E0;&#x6B64;,Integer&#x7684;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>-XX:AutoBoxCacheMax=size</code>&#x6765;&#x8BBE;&#x7F6E;&#x7684;.</p>
+<h2 id="&#x5176;&#x4ED6;&#x5E38;&#x91CF;&#x7C7B;&#x7684;&#x7F13;&#x5B58;">&#x5176;&#x4ED6;&#x5E38;&#x91CF;&#x7C7B;&#x7684;&#x7F13;&#x5B58;</h2>
+<p>&#x8FD9;&#x79CD;&#x7F13;&#x5B58;&#x884C;&#x4E3A;&#x4E0D;&#x4EC5;&#x9002;&#x7528;&#x4E8E;Integer&#x5BF9;&#x8C61;&#x3002;&#x9488;&#x5BF9;&#x6240;&#x6709;&#x6574;&#x6570;&#x7C7B;&#x578B;&#x7684;&#x7C7B;&#x90FD;&#x6709;&#x7C7B;&#x4F3C;&#x7684;&#x7F13;&#x5B58;&#x673A;&#x5236;&#x3002;</p>
+<ol>
+<li>ByteCache &#x7528;&#x4E8E;&#x7F13;&#x5B58; Byte &#x5BF9;&#x8C61;, &#x56FA;&#x5B9A;&#x8303;&#x56F4;[-128-127].</li>
+</ol>
+<ol>
+<li><p>ShortCache &#x7528;&#x4E8E;&#x7F13;&#x5B58; Short &#x5BF9;&#x8C61;,&#x56FA;&#x5B9A;&#x8303;&#x56F4;[-128-127].</p>
+</li>
+<li><p>LongCache &#x7528;&#x4E8E;&#x7F13;&#x5B58; Long &#x5BF9;&#x8C61;,&#x56FA;&#x5B9A;&#x8303;&#x56F4;[-128-127].</p>
+</li>
+<li><p>CharacterCache &#x7528;&#x4E8E;&#x7F13;&#x5B58; Character &#x5BF9;&#x8C61;, &#x56FA;&#x5B9A;&#x8303;&#x56F4;[0-127].</p>
+</li>
+</ol>
+<p>&#x800C;&#x901A;&#x8FC7;&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x7F13;&#x5B58;&#x8303;&#x56F4;,&#x53EA;&#x6709;Integer&#x53EF;&#x4EE5;.&#x5176;&#x4ED6;&#x7684;&#x90FD;&#x4E0D;&#x5141;&#x8BB8;.</p>
+<p><br>
+<br>
+<br>
+<br></p>
+<p></p><h4 id="changelog">ChangeLog</h4>
+2019-05-10    &#x5B8C;&#x6210;
+<br>
+<br><p></p>
+<p><strong>&#x4EE5;&#x4E0A;&#x7686;&#x4E3A;&#x4E2A;&#x4EBA;&#x6240;&#x601D;&#x6240;&#x5F97;&#xFF0C;&#x5982;&#x6709;&#x9519;&#x8BEF;&#x6B22;&#x8FCE;&#x8BC4;&#x8BBA;&#x533A;&#x6307;&#x6B63;&#x3002;</strong></p>
+<p><strong>&#x6B22;&#x8FCE;&#x8F6C;&#x8F7D;&#xFF0C;&#x70E6;&#x8BF7;&#x7F72;&#x540D;&#x5E76;&#x4FDD;&#x7559;&#x539F;&#x6587;&#x94FE;&#x63A5;&#x3002;</strong></p>
+<p><strong>&#x8054;&#x7CFB;&#x90AE;&#x7BB1;&#xFF1A;huyanshi2580@gmail.com</strong></p>
+<p><strong>&#x66F4;&#x591A;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x89C1;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;------&gt;<a href="..">&#x547C;&#x5EF6;&#x5341;</a></strong></p>
+<footer class="page-footer"><span class="copyright">&#x7248;&#x6743;&#x6240;&#x6709;&#xFF0C;&#x76D7;&#x7248;&#x5FC5;&#x7A76; all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last Modified On&#xFF1A;
+2019-05-13 00:00:25
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2019-04-28-优雅的实现程序计时器.html" class="navigation navigation-prev " aria-label="Previous page: 优雅的实现程序计时器">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="2019-07-21-Java中几个和时间有关的类.html" class="navigation navigation-next " aria-label="Next page: Java中几个和时间有关的类">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"layout":"post","category":["Java","源码阅读"],"tags":["Java","源码阅读"],"title":"Java中的常量类缓存机制","level":"2.1.10","depth":2,"next":{"title":"Java中几个和时间有关的类","level":"2.1.11","depth":2,"path":"java/2019-07-21-Java中几个和时间有关的类.md","ref":"java/2019-07-21-Java中几个和时间有关的类.md","articles":[]},"previous":{"title":"优雅的实现程序计时器","level":"2.1.9","depth":2,"path":"java/2019-04-28-优雅的实现程序计时器.md","ref":"java/2019-04-28-优雅的实现程序计时器.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","expandable-chapters","splitter","-lunr","-search","search-pro","copy-code-button","back-to-top-button","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"版权所有，盗版必究","modify_label":"Last Modified On：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/HuBlanker"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"呼延十","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java基础学习笔记","language":"zh-hans","gitbook":"*","description":"java-base"},"file":{"path":"java/2019-05-12-Java中的常量类缓存机制.md","mtime":"2019-05-12T16:00:25.962Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-17T10:55:34.051Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

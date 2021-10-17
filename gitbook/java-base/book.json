@@ -1,0 +1,27 @@
+{
+    "title" : "Java基础学习笔记",
+    "author" : "呼延十",
+    "description" : "java-base",
+    "language" : "zh-hans",
+    "plugins": [
+            "github",
+            "expandable-chapters",
+            "splitter",
+            "-lunr",
+            "-search",
+            "search-pro",
+            "copy-code-button",
+            "back-to-top-button",
+            "tbfed-pagefooter"
+    ],
+    "pluginsConfig": {
+            "github": {
+                "url": "https://github.com/HuBlanker"
+            },
+            "tbfed-pagefooter": {
+                "copyright":"版权所有，盗版必究",
+                "modify_label": "Last Modified On：",
+                "modify_format": "YYYY-MM-DD HH:mm:ss"
+            }
+    }
+}

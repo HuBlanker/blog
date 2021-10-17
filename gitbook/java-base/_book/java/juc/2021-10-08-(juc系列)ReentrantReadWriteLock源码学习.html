@@ -1,0 +1,1785 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>(juc系列)ReentrantReadWriteLock源码学习 · Java基础学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="呼延十">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="2021-10-09-(juc系列)Phaser源码学习.html" />
+    
+    
+    <link rel="prev" href="2021-09-30-(juc系列)Semaphore源码阅读.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    集合类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                <a href="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                    
+                    简易却高效的HashMap实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../2019-09-09-多级-HashMap的优化.html">
+            
+                <a href="../2019-09-09-多级-HashMap的优化.html">
+            
+                    
+                    多级-HashMap的优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                <a href="../集合/2019-04-27-Java对阻塞队列的实现.html">
+            
+                    
+                    Java对阻塞队列的实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                <a href="../集合/2019-05-01-Guava中的一些增强集合类.html">
+            
+                    
+                    Guava中的一些增强集合类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                <a href="../集合/2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                    
+                    Map接口在1.8版本新增的几个方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                <a href="../集合/2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                    
+                    ArrayList和LinkedList的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                <a href="../集合/2019-05-01-Java中-Collections工具类的学习.html">
+            
+                    
+                    Java中-Collections工具类的学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../集合/2018-12-23-Vector源码阅读.html">
+            
+                <a href="../集合/2018-12-23-Vector源码阅读.html">
+            
+                    
+                    Vector源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                <a href="../集合/2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                    
+                    跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                <a href="../集合/2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                    
+                    Java中-TreeMap和-TreeSet的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                <a href="../集合/2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                    
+                    Concurrent-Hash-Map源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../集合/2018-10-16-HashMap源码阅读.html">
+            
+                <a href="../集合/2018-10-16-HashMap源码阅读.html">
+            
+                    
+                    HashMap源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="../集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                <a href="../集合/2018-11-03-HashTable和-HashMap的区别.html">
+            
+                    
+                    HashTable和-HashMap的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="../集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                <a href="../集合/2018-12-16-LinkedHashMap源码分析.html">
+            
+                    
+                    LinkedHashMap源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    JUC并发包
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    Atomic原子类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                <a href="2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                    
+                    (juc系列)从-AtomicInteger来学习-Java的原子类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    线程池
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                <a href="2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                    
+                    (juc系列)Java中Executors提供的的4种线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                <a href="2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                    
+                    (juc系列)ForkJoin框架源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                <a href="2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                    
+                    Java中的-ThreadPoolExecutor类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                <a href="2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                    
+                    (juc系列)ThreadPoolExecutor源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                <a href="2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                    
+                    (juc系列)用线程池执行定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                <a href="2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                    
+                    (juc系列)Executors类的工厂方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <span>
+            
+                    
+                    Lock锁
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                <a href="2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                    
+                    (juc系列)AQS源码学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                    
+                    (juc系列)CountDownLatch源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                    
+                    (juc系列)CyclicBarrier源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                <a href="2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                <a href="2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                    
+                    (juc系列)StampedLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                <a href="2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                    
+                    (juc系列)Exchanger源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                <a href="2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                    
+                    (juc系列)Semaphore源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3.8" data-path="2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                <a href="2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantReadWriteLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.9" data-path="2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                <a href="2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                    
+                    (juc系列)Phaser源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM性能监控工具<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM数据区域与垃圾收集<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../2019-01-28-Java类加载的顺序.html">
+            
+                <a href="../2019-01-28-Java类加载的顺序.html">
+            
+                    
+                    Java类加载的顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    其他
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                <a href="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                    
+                    使用自定义注解实现接口参数校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                <a href="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                    
+                    String-StringBuilder-StringBuffer异同
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../2018-11-11-Java的键盘输入方法.html">
+            
+                <a href="../2018-11-11-Java的键盘输入方法.html">
+            
+                    
+                    Java的键盘输入方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="../2019-04-28-使用nio来读写文件.html">
+            
+                <a href="../2019-04-28-使用nio来读写文件.html">
+            
+                    
+                    使用nio来读写文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                <a href="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                    
+                    接口的静态方法和默认方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" data-path="../2019-05-11-用int来表示多个bool判断.html">
+            
+                <a href="../2019-05-11-用int来表示多个bool判断.html">
+            
+                    
+                    用int来表示多个bool判断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" data-path="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                <a href="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                    
+                    监听nginx日志实现博客访问计数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" data-path="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                <a href="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                    
+                    一致性hash算法及其Java实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" data-path="../2019-04-28-优雅的实现程序计时器.html">
+            
+                <a href="../2019-04-28-优雅的实现程序计时器.html">
+            
+                    
+                    优雅的实现程序计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.10" data-path="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                <a href="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                    
+                    Java中的常量类缓存机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                <a href="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                    
+                    Java中几个和时间有关的类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.12" data-path="../2018-03-13-java8-stream api 入门.html">
+            
+                <a href="../2018-03-13-java8-stream api 入门.html">
+            
+                    
+                    java8-stream api 入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.13" data-path="../2018-11-19-java的volatile关键字详解.html">
+            
+                <a href="../2018-11-19-java的volatile关键字详解.html">
+            
+                    
+                    java的volatile关键字详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.14" data-path="../2019-04-22-Java实现计数器-Counter.html">
+            
+                <a href="../2019-04-22-Java实现计数器-Counter.html">
+            
+                    
+                    Java实现计数器-Counter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.15" data-path="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                <a href="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                    
+                    Java8-Date-Time-使用案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.16" data-path="../2018-11-18-抽象类和接口的区别.html">
+            
+                <a href="../2018-11-18-抽象类和接口的区别.html">
+            
+                    
+                    抽象类和接口的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.17" data-path="../2018-03-31-java8-Date-Time-api.html">
+            
+                <a href="../2018-03-31-java8-Date-Time-api.html">
+            
+                    
+                    java8-Date-Time-api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.18" data-path="../2018-03-11-java8-Optional类初体验.html">
+            
+                <a href="../2018-03-11-java8-Optional类初体验.html">
+            
+                    
+                    java8-Optional类初体验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.19" data-path="../集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                <a href="../集合/2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                    
+                    Java中-Comparable和-Comparator的区别及联系
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.20" data-path="../2019-01-29-Java的序列化与反序列化.html">
+            
+                <a href="../2019-01-29-Java的序列化与反序列化.html">
+            
+                    
+                    Java的序列化与反序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >(juc系列)ReentrantReadWriteLock源码学习</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>&#x672C;&#x6587;&#x6E90;&#x7801;&#x57FA;&#x4E8E;: <font color="red">JDK13</font></p>
+<h2 id="&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</h2>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x662F;&#x4E00;&#x4E2A;<code>ReadWriteLock</code>&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x7C7B;&#x4F3C;&#x4E8E;<code>ReentrantLock</code>&#x7684;&#x8BED;&#x4E49;.</p>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x6027;:</p>
+<h3 id="&#x83B7;&#x53D6;&#x987A;&#x5E8F;">&#x83B7;&#x53D6;&#x987A;&#x5E8F;</h3>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x6CA1;&#x6709;&#x7ED9;&#x8BFB;&#x5199;&#x8005;&#x5F3A;&#x52A0;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x516C;&#x5E73;&#x7B56;&#x7565;&#x3002;</p>
+<ul>
+<li>&#x975E;&#x516C;&#x5E73;&#x6A21;&#x5F0F;(&#x9ED8;&#x8BA4;&#x6A21;&#x5F0F;
+&#x5F53;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x975E;&#x516C;&#x5E73;&#x7684;&#x9501;&#xFF0C;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#xFF0C;&#x5199;&#x9501;&#x7684;&#x987A;&#x5E8F;&#x662F;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x7684;. &#x6EE1;&#x8DB3;&#x53EF;&#x91CD;&#x5165;&#x6027;&#x7684;&#x7EA6;&#x675F;.</li>
+</ul>
+<p>&#x4E00;&#x4E2A;&#x975E;&#x516C;&#x5E73;&#x9501;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x56E0;&#x4E3A;&#x4E0D;&#x65AD;&#x7684;&#x4E89;&#x6267;&#xFF0C;&#x800C;&#x65E0;&#x9650;&#x671F;&#x7684;&#x63A8;&#x8FDF;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x8BFB;&#x9501;/&#x5199;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F46;&#x662F;&#x901A;&#x5E38;&#x6765;&#x8BB2;&#x62E5;&#x6709;&#x66F4;&#x597D;&#x7684;&#x541E;&#x5410;&#x91CF;.</p>
+<ul>
+<li>&#x516C;&#x5E73;&#x6A21;&#x5F0F;</li>
+</ul>
+<p>&#x5F53;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x516C;&#x5E73;&#x6240;&#xFF0C;&#x7EBF;&#x7A0B;&#x7ADE;&#x4E89;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5230;&#x8FBE;&#x5E8F;&#x7684;&#x7B56;&#x7565;. &#x5F53;&#x524D;&#x6301;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x7B49;&#x5F85;&#x65F6;&#x95F4;&#x6700;&#x957F;&#x7684;&#x5355;&#x4E2A;&#x5199;&#x5165;&#x7EBF;&#x7A0B;&#x5C31;&#x62FF;&#x5230;&#x5199;&#x9501;&#xFF0C;&#x3000;&#x6216;&#x8005;&#x5982;&#x679C;&#x6709;&#x4E00;&#x7EC4;&#x8BFB;&#x7EBF;&#x7A0B;&#xFF0C;
+&#x7B49;&#x5F85;&#x7684;&#x65F6;&#x95F4;&#x6BD4;&#x6240;&#x6709;&#x7684;&#x5199;&#x7EBF;&#x7A0B;&#x90FD;&#x957F;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x7EC4;&#x8BFB;&#x7EBF;&#x7A0B;&#x5C06;&#x62FF;&#x5230;&#x8BFB;&#x9501;.</p>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x9501;&#x6B63;&#x5728;&#x88AB;&#x5199;&#x9501;&#x6301;&#x6709;&#xFF0C;&#x6216;&#x8005;&#x6709;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x7684;&#x5199;&#x7EBF;&#x7A0B;&#xFF0C;&#x516C;&#x5E73;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#x7684;&#x8BF7;&#x6C42;&#x5C06;&#x4F1A;&#x88AB;&#x963B;&#x585E;. &#x76F4;&#x5230;&#x7B49;&#x5F85;&#x65F6;&#x95F4;&#x6700;&#x957F;&#x7684;&#x5199;&#x7EBF;&#x7A0B;&#x62FF;&#x5230;&#x9501;&#x5E76;&#x91CA;&#x653E;.</p>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x4E2D;&#x7684;&#x5199;&#x7EBF;&#x7A0B;&#x653E;&#x5F03;&#x4E86;&#xFF0C;&#x8BA9;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x5C11;&#x8BFB;&#x7EBF;&#x7A0B;&#x6210;&#x4E3A;&#x4E86;&#x961F;&#x5217;&#x4E2D;&#x7B49;&#x5F85;&#x6700;&#x4E45;&#x7684;&#xFF0C;&#x3000;&#x8FD9;&#x4E9B;&#x8BFB;&#x7EBF;&#x7A0B;&#x5C06;&#x62FF;&#x5230;&#x8BFB;&#x9501;.</p>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5199;&#x7EBF;&#x7A0B;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x9664;&#x975E;&#x5F53;&#x524D;&#x6240;&#x6709;&#x7684;&#x8BFB;&#x9501;&#x548C;&#x5199;&#x9501;&#x90FD;&#x662F;&#x7A7A;&#x95F2;&#x7684;&#xFF0C;&#x3000;&#x624D;&#x80FD;&#x62FF;&#x5230;&#x9501;&#xFF0C;&#x610F;&#x5473;&#x7740;&#x5F53;&#x524D;&#x4E0D;&#x80FD;&#x6709;&#x4EFB;&#x4F55;&#x7684;&#x7B49;&#x5F85;&#x7EBF;&#x7A0B;.</p>
+<h3 id="&#x53EF;&#x91CD;&#x5165;&#x6027;">&#x53EF;&#x91CD;&#x5165;&#x6027;</h3>
+<p>&#x8FD9;&#x4E2A;&#x9501;&#x5141;&#x8BB8;&#x6240;&#x6709;&#x7684;&#x8BFB;&#x7EBF;&#x7A0B;&#x548C;&#x5199;&#x7EBF;&#x7A0B;&#x91CD;&#x590D;&#x7684;&#x7533;&#x8BF7;&#x5BF9;&#x5E94;&#x7684;&#x9501;&#xFF0C;&#x5C31;&#x50CF;<code>ReentrantLock</code>&#x4E00;&#x6837;. &#x4E0D;&#x662F;&#x91CD;&#x5165;&#x7684;&#x8BFB;&#x7EBF;&#x7A0B;&#x5C06;&#x88AB;&#x6B63;&#x5728;&#x6301;&#x6709;&#x9501;&#x7684;&#x5199;&#x7EBF;&#x7A0B;&#x963B;&#x585E;.</p>
+<p>&#x4E00;&#x4E2A;&#x5199;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x8BFB;&#x9501;. &#x5728;&#x5F88;&#x591A;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x53EF;&#x91CD;&#x5165;&#x6027;&#x5F88;&#x6709;&#x7528;&#xFF0C;&#x5F53;&#x5199;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x5199;&#x9501;&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x8C03;&#x7528;&#x6216;&#x8005;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x8BFB;&#x64CD;&#x4F5C;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;&#x5C1D;&#x8BD5;&#x53BB;&#x7533;&#x8BF7;&#x5199;&#x9501;&#xFF0C;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x6210;&#x529F;.</p>
+<h3 id="&#x9501;&#x964D;&#x7EA7;">&#x9501;&#x964D;&#x7EA7;</h3>
+<p>&#x652F;&#x6301;&#x4ECE;&#x5199;&#x9501;&#x964D;&#x7EA7;&#x5230;&#x8BFB;&#x9501;&#xFF0C;&#x4F46;&#x662F;&#x4ECE;&#x8BFB;&#x9501;&#x5347;&#x7EA7;&#x5230;&#x5199;&#x9501;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x7684;.</p>
+<h3 id="&#x652F;&#x6301;condition">&#x652F;&#x6301;Condition</h3>
+<p>&#x5199;&#x9501;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<code>Condition</code>&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4ED6;&#x7684;&#x884C;&#x4E3A;&#x6A21;&#x5F0F;&#x548C;&#x5199;&#x9501;&#x4E00;&#x6837;. &#x5C31;&#x50CF;<code>ReentrantLock</code>&#x4E2D;&#x7684;Condition&#x4E00;&#x6837;.&#x8BFB;&#x9501;&#x4E0D;&#x652F;&#x6301;<code>Condition</code>.</p>
+<h3 id="&#x4EEA;&#x8868;&#x76D8;">&#x4EEA;&#x8868;&#x76D8;</h3>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x652F;&#x6301;&#x67E5;&#x770B;&#x9501;&#x88AB;&#x6301;&#x6709;&#x8FD8;&#x662F;&#x7ADE;&#x4E89;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x76D1;&#x89C6;&#x7CFB;&#x7EDF;&#x72B6;&#x6001;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7528;&#x4E8E;&#x540C;&#x6B65;&#x63A7;&#x5236;.</p>
+<p>&#x8FD9;&#x4E2A;&#x9501;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x5185;&#x7F6E;&#x9501;&#x7684;&#x884C;&#x4E3A;&#x65B9;&#x5F0F;&#x76F8;&#x540C;&#xFF0C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x9501;&#x5904;&#x4E8E;&#x89E3;&#x9501;&#x72B6;&#x6001;&#xFF0C;&#x65E0;&#x8BBA;&#x5E8F;&#x5217;&#x5316;&#x65F6;&#x72B6;&#x6001;&#x5982;&#x4F55;.</p>
+<h3 id="&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#x6848;&#x4F8B;">&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#x6848;&#x4F8B;.</h3>
+<p>&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x7B80;&#x5355;&#x7684;&#x5C55;&#x793A;&#x4E86;&#x5728;&#x66F4;&#x65B0;cache&#x4E4B;&#x540E;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x9501;&#x7684;&#x964D;&#x7EA7;.</p>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CachedData</span> </span>{
+   Object data;
+   <span class="hljs-keyword">boolean</span> cacheValid;
+   <span class="hljs-keyword">final</span> ReentrantReadWriteLock rwl = <span class="hljs-keyword">new</span> ReentrantReadWriteLock();
+
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">processCachedData</span><span class="hljs-params">()</span> </span>{
+       <span class="hljs-comment">// &#x8BFB;&#x9501;</span>
+     rwl.readLock().lock();
+
+     <span class="hljs-keyword">if</span> (!cacheValid) {
+       <span class="hljs-comment">// Must release read lock before acquiring write lock</span>
+         <span class="hljs-comment">// &#x91CA;&#x653E;&#x8BFB;&#x9501;</span>
+       rwl.readLock().unlock();
+       <span class="hljs-comment">// &#x7533;&#x8BF7;&#x5199;&#x9501;</span>
+       rwl.writeLock().lock();
+       <span class="hljs-keyword">try</span> {
+         <span class="hljs-comment">// Recheck state because another thread might have</span>
+         <span class="hljs-comment">// acquired write lock and changed state before we did.</span>
+         <span class="hljs-keyword">if</span> (!cacheValid) {
+             <span class="hljs-comment">// &#x65B0;&#x6570;&#x636E;&#x7684;&#x8D4B;&#x503C;</span>
+           data = ...
+           cacheValid = <span class="hljs-keyword">true</span>;
+         }
+         <span class="hljs-comment">// Downgrade by acquiring read lock before releasing write lock</span>
+           <span class="hljs-comment">// &#x964D;&#x7EA7;&#x6210;&#x8BFB;&#x9501;</span>
+         rwl.readLock().lock();
+       } <span class="hljs-keyword">finally</span> {
+           <span class="hljs-comment">// &#x91CA;&#x653E;&#x5199;&#x9501;&#xFF0C;&#x8FD8;&#x6301;&#x6709;&#x8BFB;&#x9501;</span>
+         rwl.writeLock().unlock(); <span class="hljs-comment">// Unlock write, still hold read</span>
+       }
+     }
+
+     <span class="hljs-keyword">try</span> {
+       use(data);
+     } <span class="hljs-keyword">finally</span> {
+       rwl.readLock().unlock();
+     }
+   }
+ }
+</code></pre>
+<ol>
+<li>&#x9996;&#x5148;&#x83B7;&#x53D6;&#x8BFB;&#x9501;.</li>
+<li>&#x91CA;&#x653E;&#x8BFB;&#x9501;&#xFF0C;&#x540C;&#x65F6;&#x7533;&#x8BF7;&#x5199;&#x9501;.</li>
+<li>&#x5B8C;&#x6210;&#x5199;&#x64CD;&#x4F5C;&#x540E;&#xFF0C;&#x7533;&#x8BF7;&#x8BFB;&#x9501;.</li>
+<li>&#x91CA;&#x653E;&#x5199;&#x9501;&#xFF0C;&#x6301;&#x6709;&#x8BFB;&#x9501;</li>
+<li>&#x5B8C;&#x5168;&#x4F7F;&#x7528;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x91CA;&#x653E;&#x8BFB;&#x9501;&#x3002;</li>
+</ol>
+<p><code>ReentrantReadWriteLock</code>&#x53EF;&#x4EE5;&#x7528;&#x5728;&#x4E00;&#x4E9B;&#x96C6;&#x5408;&#x7C7B;&#x4E2D;&#xFF0C;&#x7528;&#x6765;&#x63D0;&#x5347;&#x5E76;&#x53D1;&#x6027;. &#x53EA;&#x6709;&#x5F53;&#x96C6;&#x5408;&#x9884;&#x671F;&#x5F88;&#x5927;&#xFF0C;&#x4E14;&#x88AB;&#x5F88;&#x591A;&#x6B4C;&#x8BFB;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#xFF0C;&#x6570;&#x91CF;&#x8FDC;&#x591A;&#x4F59;&#x5199;&#x7EBF;&#x7A0B;&#x65F6;&#x662F;&#x503C;&#x5F97;&#x7684;.</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528;<code>TreeMap</code>&#x7684;&#x7C7B;&#xFF0C;&#x9884;&#x671F;&#x5F88;&#x5927;&#x4E14;&#x4F1A;&#x6709;&#x5E76;&#x53D1;&#x7684;&#x8BBF;&#x95EE;.</p>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RWDictionary</span> </span>{
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, Data&gt; m = <span class="hljs-keyword">new</span> TreeMap&lt;&gt;();
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ReentrantReadWriteLock rwl = <span class="hljs-keyword">new</span> ReentrantReadWriteLock();
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Lock r = rwl.readLock();
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Lock w = rwl.writeLock();
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Data <span class="hljs-title">get</span><span class="hljs-params">(String key)</span> </span>{
+     r.lock();
+     <span class="hljs-keyword">try</span> { <span class="hljs-keyword">return</span> m.get(key); }
+     <span class="hljs-keyword">finally</span> { r.unlock(); }
+   }
+   <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">allKeys</span><span class="hljs-params">()</span> </span>{
+     r.lock();
+     <span class="hljs-keyword">try</span> { <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(m.keySet()); }
+     <span class="hljs-keyword">finally</span> { r.unlock(); }
+   }
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Data <span class="hljs-title">put</span><span class="hljs-params">(String key, Data value)</span> </span>{
+     w.lock();
+     <span class="hljs-keyword">try</span> { <span class="hljs-keyword">return</span> m.put(key, value); }
+     <span class="hljs-keyword">finally</span> { w.unlock(); }
+   }
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span> </span>{
+     w.lock();
+     <span class="hljs-keyword">try</span> { m.clear(); }
+     <span class="hljs-keyword">finally</span> { w.unlock(); }
+   }
+ }
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x5BF9;TreeMap&#x8FDB;&#x884C;&#x4E86;&#x5C01;&#x88C5;&#xFF0C;&#x4F7F;&#x7528;<code>TreeMap+ReentrantReadWriteLock</code>&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;<code>TreeMap</code>.</p>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x652F;&#x6301;&#x6700;&#x5927;65535&#x4E2A;&#x91CD;&#x5165;&#x7684;&#x5199;&#x5165;&#x6240;&#x548C;65535&#x4E2A;&#x8BFB;&#x9501;.&#x8D85;&#x8FC7;&#x8FD9;&#x4E2A;&#x9650;&#x5236;&#xFF0C;&#x4F1A;&#x8FD4;&#x56DE;Error.</p>
+<h2 id="&#x6E90;&#x7801;&#x9605;&#x8BFB;">&#x6E90;&#x7801;&#x9605;&#x8BFB;</h2>
+<p>&#x8FD9;&#x4E2A;&#x7C7B;&#x4F7F;&#x7528;AQS&#x6846;&#x67B6;&#x5B9E;&#x73B0;&#xFF0C;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;AQS&#x7684;&#x5B50;&#x7C7B;<code>Sync</code>.</p>
+<h3 id="sync">Sync</h3>
+<h4 id="&#x53D8;&#x91CF;">&#x53D8;&#x91CF;</h4>
+<p>&#x9996;&#x5148;&#x662F;&#x51E0;&#x4E2A;&#x5C5E;&#x6027;.</p>
+<pre><code class="lang-java"><span class="hljs-comment">/*
+ * Read vs write count extraction constants and functions.
+ * Lock state is logically divided into two unsigned shorts:
+ * The lower one representing the exclusive (writer) lock hold count,
+ * and the upper the shared (reader) hold count.
+ */</span>
+
+<span class="hljs-comment">// &#x5171;&#x4EAB;&#x9501;&#x7684;&#x4F4D;&#x6570;</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> SHARED_SHIFT   = <span class="hljs-number">16</span>;
+<span class="hljs-comment">// &#x5171;&#x4EAB;&#x9501;unit</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> SHARED_UNIT    = (<span class="hljs-number">1</span> &lt;&lt; SHARED_SHIFT);
+<span class="hljs-comment">// &#x6700;&#x5927;&#x6570;&#x91CF;</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_COUNT      = (<span class="hljs-number">1</span> &lt;&lt; SHARED_SHIFT) - <span class="hljs-number">1</span>;
+<span class="hljs-comment">// &#x72EC;&#x5360;&#x9501;&#x7684;mask.</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> EXCLUSIVE_MASK = (<span class="hljs-number">1</span> &lt;&lt; SHARED_SHIFT) - <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">/**
+ * A counter for per-thread read hold counts.
+ * Maintained as a ThreadLocal; cached in cachedHoldCounter.
+ */</span>
+<span class="hljs-comment">// &#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x7684;&#x8BFB;&#x9501;&#x7684;&#x6570;&#x91CF;</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HoldCounter</span> </span>{
+    <span class="hljs-keyword">int</span> count;          <span class="hljs-comment">// initially 0</span>
+    <span class="hljs-comment">// Use id, not reference, to avoid garbage retention</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> tid = LockSupport.getThreadId(Thread.currentThread());
+}
+
+<span class="hljs-comment">/**
+ * ThreadLocal subclass. Easiest to explicitly define for sake
+ * of deserialization mechanics.
+ */</span>
+<span class="hljs-comment">// &#x7528;ThreadLocal&#x8BB0;&#x5F55;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x7684;&#x8BFB;&#x9501;&#x7684;&#x6570;&#x91CF;</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalHoldCounter</span>
+        <span class="hljs-keyword">extends</span> <span class="hljs-title">ThreadLocal</span>&lt;<span class="hljs-title">HoldCounter</span>&gt; </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> HoldCounter <span class="hljs-title">initialValue</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HoldCounter();
+    }
+}
+
+    <span class="hljs-comment">/**
+     * The number of reentrant read locks held by current thread.
+     * Initialized only in constructor and readObject.
+     * Removed whenever a thread&apos;s read hold count drops to 0.
+     */</span>
+    <span class="hljs-comment">// &#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x8BFB;&#x9501;&#x6301;&#x6709;&#x6570;&#x91CF;</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> ThreadLocalHoldCounter readHolds;
+
+    <span class="hljs-comment">/**
+     * The hold count of the last thread to successfully acquire
+     * readLock. This saves ThreadLocal lookup in the common case
+     * where the next thread to release is the last one to
+     * acquire. This is non-volatile since it is just used
+     * as a heuristic, and would be great for threads to cache.
+     *
+     * &lt;p&gt;Can outlive the Thread for which it is caching the read
+     * hold count, but avoids garbage retention by not retaining a
+     * reference to the Thread.
+     *
+     * &lt;p&gt;Accessed via a benign data race; relies on the memory
+     * model&apos;s final field and out-of-thin-air guarantees.
+     */</span>
+    <span class="hljs-comment">// &#x4E0A;&#x4E00;&#x4E2A;&#x6210;&#x529F;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x7684;&#x6570;&#x91CF;</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> HoldCounter cachedHoldCounter;
+
+    <span class="hljs-comment">/**
+     * firstReader is the first thread to have acquired the read lock.
+     * firstReaderHoldCount is firstReader&apos;s hold count.
+     *
+     * &lt;p&gt;More precisely, firstReader is the unique thread that last
+     * changed the shared count from 0 to 1, and has not released the
+     * read lock since then; null if there is no such thread.
+     *
+     * &lt;p&gt;Cannot cause garbage retention unless the thread terminated
+     * without relinquishing its read locks, since tryReleaseShared
+     * sets it to null.
+     *
+     * &lt;p&gt;Accessed via a benign data race; relies on the memory
+     * model&apos;s out-of-thin-air guarantees for references.
+     *
+     * &lt;p&gt;This allows tracking of read holds for uncontended read
+     * locks to be very cheap.
+     */</span>
+    <span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x7533;&#x8BF7;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</span>
+    <span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x7533;&#x8BF7;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x73B0;&#x5728;&#x6301;&#x6709;&#x7684;&#x8BFB;&#x9501;&#x6570;&#x91CF;.</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> Thread firstReader;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> firstReaderHoldCount;
+</code></pre>
+<p>&#x9996;&#x5148;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E9B;&#x5E38;&#x91CF;&#xFF0C;&#x7528;&#x6765;&#x6307;&#x793A;&#x5728;State&#x72B6;&#x6001;&#x7684;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x8BFB;&#x5199;&#x9501;&#x7684;&#x8868;&#x793A;&#x65B9;&#x6CD5;&#x7B49;. &#x4EE5;&#x53CA;&#x5185;&#x90E8;&#x7684;&#x8BFB;&#x9501;&#x8BA1;&#x6570;&#x7684;&#x4FDD;&#x5B58;&#x300B;</p>
+<h4 id="&#x6784;&#x9020;&#x65B9;&#x6CD5;">&#x6784;&#x9020;&#x65B9;&#x6CD5;</h4>
+<pre><code class="lang-java">
+Sync() {
+        readHolds = <span class="hljs-keyword">new</span> ThreadLocalHoldCounter();
+        setState(getState()); <span class="hljs-comment">// ensures visibility of readHolds</span>
+}
+</code></pre>
+<p>&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x4E86;&#x4E00;&#x4E2A;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x7136;&#x540E;&#x68C0;&#x67E5;&#x4E86;&#x4E00;&#x4E0B;&#x521D;&#x59CB;&#x72B6;&#x6001;.</p>
+<h4 id="tryrelease">tryRelease</h4>
+<p>&#x8FD9;&#x662F;AQS&#x4E2D;&#x91CA;&#x653E;&#x72EC;&#x5360;&#x9501;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-java">        <span class="hljs-comment">/*
+         * Note that tryRelease and tryAcquire can be called by
+         * Conditions. So it is possible that their arguments contain
+         * both read and write holds that are all released during a
+         * condition wait and re-established in tryAcquire.
+         */</span>
+        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryRelease</span><span class="hljs-params">(<span class="hljs-keyword">int</span> releases)</span> </span>{
+            <span class="hljs-keyword">if</span> (!isHeldExclusively())
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalMonitorStateException();
+            <span class="hljs-keyword">int</span> nextc = getState() - releases;
+            <span class="hljs-keyword">boolean</span> free = exclusiveCount(nextc) == <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">if</span> (free)
+                setExclusiveOwnerThread(<span class="hljs-keyword">null</span>);
+            setState(nextc);
+            <span class="hljs-keyword">return</span> free;
+        }
+</code></pre>
+<p>&#x9996;&#x5148;&#x5224;&#x65AD;&#x662F;&#x5426;&#x72EC;&#x5360;&#x9501;&#xFF0C;&#x4E0D;&#x662F;&#x7684;&#x8BDD;&#x629B;&#x51FA;&#x5F02;&#x5E38;.</p>
+<ol>
+<li>&#x7528;&#x5F53;&#x524D;State&#x51CF;&#x53BB;&#x8981;&#x91CA;&#x653E;&#x7684;&#x6570;&#x91CF;. </li>
+<li>&#x5982;&#x679C;&#x91CA;&#x653E;&#x540E;&#xFF0C;&#x72EC;&#x5360;&#x9501;&#x7684;&#x6570;&#x91CF;&#x4E3A;0. &#x5219;&#x9501;&#x91CA;&#x653E;&#x6210;&#x529F;.&#x5C06;&#x9501;&#x7684;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x8BBE;&#x7F6E;&#x4E3A;null.</li>
+<li>&#x5982;&#x679C;&#x72EC;&#x5360;&#x9501;&#x7684;&#x6570;&#x91CF;&#x4ECD;&#x4E0D;&#x4E3A;0(&#x53EF;&#x91CD;&#x5165;&#x9501;),&#x5219;&#x91CA;&#x653E;&#x8FD4;&#x56DE;&#x4ECD;&#x672A;&#x91CA;&#x653E;.</li>
+</ol>
+<h4 id="tryacquire">tryAcquire</h4>
+<p>&#x8FD9;&#x662F;AQS&#x4E2D;&#x83B7;&#x53D6;&#x72EC;&#x5360;&#x9501;&#x7684;&#x65B9;&#x6CD5;:</p>
+<pre><code class="lang-java">        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryAcquire</span><span class="hljs-params">(<span class="hljs-keyword">int</span> acquires)</span> </span>{
+            <span class="hljs-comment">/*
+             * Walkthrough:
+             * 1. If read count nonzero or write count nonzero
+             *    and owner is a different thread, fail.
+             * 2. If count would saturate, fail. (This can only
+             *    happen if count is already nonzero.)
+             * 3. Otherwise, this thread is eligible for lock if
+             *    it is either a reentrant acquire or
+             *    queue policy allows it. If so, update state
+             *    and set owner.
+             */</span>
+            Thread current = Thread.currentThread();
+            <span class="hljs-keyword">int</span> c = getState();
+            <span class="hljs-keyword">int</span> w = exclusiveCount(c);
+            <span class="hljs-keyword">if</span> (c != <span class="hljs-number">0</span>) {
+                <span class="hljs-comment">// (Note: if c != 0 and w == 0 then shared count != 0)</span>
+                <span class="hljs-keyword">if</span> (w == <span class="hljs-number">0</span> || current != getExclusiveOwnerThread())
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+                <span class="hljs-keyword">if</span> (w + exclusiveCount(acquires) &gt; MAX_COUNT)
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error(<span class="hljs-string">&quot;Maximum lock count exceeded&quot;</span>);
+                <span class="hljs-comment">// Reentrant acquire</span>
+                setState(c + acquires);
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            }
+            <span class="hljs-keyword">if</span> (writerShouldBlock() ||
+                !compareAndSetState(c, c + acquires))
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            setExclusiveOwnerThread(current);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+</code></pre>
+<ol>
+<li>&#x9996;&#x5148;&#x62FF;&#x5230;&#x5F53;&#x524D;&#x7684;&#x7EBF;&#x7A0B;&#x4EE5;&#x53CA;&#x5F53;&#x524D;&#x9501;&#x7684;State.</li>
+<li>&#x5982;&#x679C;&#x9501;&#x7684;&#x72B6;&#x6001;&#x4E0D;&#x4E3A;0, &#x610F;&#x5473;&#x7740;&#x5F53;&#x524D;&#x6709;&#x9501;&#x88AB;&#x6301;&#x6709;. &#x4F46;&#x662F;&#x72EC;&#x5360;&#x9501;&#x7684;&#x6570;&#x91CF;&#x4E3A;0. &#x610F;&#x5473;&#x7740;&#x5F53;&#x524D;&#x9501;&#x5728;&#x88AB;shared&#x6A21;&#x5F0F;&#x6301;&#x6709;. &#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x52A0;&#x9501;&#x5931;&#x8D25;.</li>
+<li>&#x5BF9;&#x9501;&#x7684;&#x72B6;&#x6001;&#x9012;&#x589E;&#x6B64;&#x6B21;&#x7533;&#x8BF7;&#x7684;&#x6570;&#x91CF;. &#x5982;&#x679C;&#x8D85;&#x8FC7;&#x6700;&#x5927;&#x6570;&#x91CF;&#xFF0C;&#x629B;&#x51FA;&#x5F02;&#x5E38;. &#x672A;&#x8D85;&#x8FC7;&#xFF0C;&#x8BBE;&#x7F6E;&#x72B6;&#x6001;. &#x52A0;&#x9501;&#x6210;&#x529F;.</li>
+<li>&#x5982;&#x679C;&#x9501;&#x7684;&#x72B6;&#x6001;&#x4E3A;0. &#x4E14;&#x5F53;&#x524D;&#x5199;&#x9501;&#x5E94;&#x8BE5;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x6216;&#x8005;&#x8BBE;&#x7F6E;&#x72B6;&#x6001;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#xFF0C;&#x90FD;&#x8FD4;&#x56DE;&#x52A0;&#x9501;&#x5931;&#x8D25;. &#x5426;&#x5219;&#x52A0;&#x9501;&#x6210;&#x529F;&#xFF0C;&#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x6301;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;.</li>
+</ol>
+<h4 id="tryreleaseshared-&#x91CA;&#x653E;&#x5171;&#x4EAB;&#x9501;">tryReleaseShared &#x91CA;&#x653E;&#x5171;&#x4EAB;&#x9501;</h4>
+<pre><code class="lang-java">        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryReleaseShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> unused)</span> </span>{
+            Thread current = Thread.currentThread();
+            <span class="hljs-comment">// &#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;</span>
+            <span class="hljs-keyword">if</span> (firstReader == current) {
+                <span class="hljs-comment">// assert firstReaderHoldCount &gt; 0;</span>
+                <span class="hljs-keyword">if</span> (firstReaderHoldCount == <span class="hljs-number">1</span>)
+                    firstReader = <span class="hljs-keyword">null</span>;
+                <span class="hljs-keyword">else</span>
+                    firstReaderHoldCount--;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">// &#x62FF;&#x5230;&#x7F13;&#x5B58;&#x7684;holder.&#x6216;&#x8005;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;holder.</span>
+                HoldCounter rh = cachedHoldCounter;
+                <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span> ||
+                    rh.tid != LockSupport.getThreadId(current))
+                    rh = readHolds.get();
+                <span class="hljs-keyword">int</span> count = rh.count;
+                <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">1</span>) {
+                    readHolds.remove();
+                    <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">0</span>)
+                        <span class="hljs-keyword">throw</span> unmatchedUnlockException();
+                }
+                --rh.count;
+            }
+            <span class="hljs-comment">// &#x81EA;&#x9009;&#xFF0C;&#x8FDB;&#x884C;&#x72B6;&#x6001;&#x7684;&#x9012;&#x51CF;</span>
+            <span class="hljs-keyword">for</span> (;;) {
+                <span class="hljs-keyword">int</span> c = getState();
+                <span class="hljs-keyword">int</span> nextc = c - SHARED_UNIT;
+                <span class="hljs-keyword">if</span> (compareAndSetState(c, nextc))
+                    <span class="hljs-comment">// Releasing the read lock has no effect on readers,</span>
+                    <span class="hljs-comment">// but it may allow waiting writers to proceed if</span>
+                    <span class="hljs-comment">// both read and write locks are now free.</span>
+                    <span class="hljs-keyword">return</span> nextc == <span class="hljs-number">0</span>;
+            }
+        }
+</code></pre>
+<p>&#x8FD9;&#x662F;AQS&#x4E2D;&#x91CA;&#x653E;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x64CD;&#x4F5C;:</p>
+<ol>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;: &#x5C06;&#x5F53;&#x524D;&#x7C7B;&#x6301;&#x6709;&#x7684;<code>firstReader</code>&#x548C;<code>firstReaderHoldCount</code>&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x8D4B;&#x503C;.&#x9012;&#x51CF;/&#x7F6E;&#x4E3A;null.</li>
+<li>&#x62FF;&#x5230;&#x4E0A;&#x4E00;&#x4E2A;&#x6301;&#x6709;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x8BFB;&#x7EBF;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x4E0D;&#x662F;&#x4E0A;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;. &#x5C31;&#x62FF;&#x5230;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;holder.</li>
+<li>&#x5BF9;&#x62FF;&#x5230;&#x7684;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x6570;&#x91CF;&#x7684;holder&#x8FDB;&#x884C;&#x9012;&#x51CF;.</li>
+<li>&#x5BF9;&#x5171;&#x4EAB;&#x9501;&#x8FDB;&#x884C;&#x9012;&#x51CF;&#xFF0C;&#x6CE8;&#x610F;: &#x5171;&#x4EAB;&#x9501;&#x4F7F;&#x7528;&#x7684;&#x662F;State&#x7684;&#x9AD8;&#x4F4D;&#x90E8;&#x5206;, &#x56E0;&#x6B64;&#x6BCF;&#x6B21;&#x51CF;&#x53BB;&#x7684;&#x503C;&#x662F;: <code>SHARED_UNIT</code>.</li>
+<li>&#x8BBE;&#x7F6E;&#x72B6;&#x6001;&#x6210;&#x529F;&#xFF0C;&#x8FD4;&#x56DE;&#x91CA;&#x653E;&#x540E;&#x7684;state&#x662F;&#x5426;&#x4E3A;0.</li>
+</ol>
+<h4 id="tryacquireshared-&#x83B7;&#x53D6;&#x5171;&#x4EAB;&#x9501;">tryAcquireShared &#x83B7;&#x53D6;&#x5171;&#x4EAB;&#x9501;</h4>
+<pre><code class="lang-java">        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">tryAcquireShared</span><span class="hljs-params">(<span class="hljs-keyword">int</span> unused)</span> </span>{
+            <span class="hljs-comment">/*
+             * Walkthrough:
+             * 1. If write lock held by another thread, fail.
+             * 2. Otherwise, this thread is eligible for
+             *    lock wrt state, so ask if it should block
+             *    because of queue policy. If not, try
+             *    to grant by CASing state and updating count.
+             *    Note that step does not check for reentrant
+             *    acquires, which is postponed to full version
+             *    to avoid having to check hold count in
+             *    the more typical non-reentrant case.
+             * 3. If step 2 fails either because thread
+             *    apparently not eligible or CAS fails or count
+             *    saturated, chain to version with full retry loop.
+             */</span>
+            Thread current = Thread.currentThread();
+            <span class="hljs-comment">// &#x5F53;&#x524D;&#x72B6;&#x6001;</span>
+            <span class="hljs-keyword">int</span> c = getState();
+            <span class="hljs-comment">// &#x72EC;&#x5360;&#x9501;&#x88AB;&#x6301;&#x6709;&#xFF0C;&#x5E76;&#x4E14;&#x72EC;&#x5360;&#x7684;&#x7EBF;&#x7A0B;&#x4E0D;&#x662F;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#xFF0C;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#x5931;&#x8D25;&#x5931;&#x8D25;</span>
+            <span class="hljs-keyword">if</span> (exclusiveCount(c) != <span class="hljs-number">0</span> &amp;&amp;
+                getExclusiveOwnerThread() != current)
+                <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+            <span class="hljs-comment">// &#x5F53;&#x524D;&#x6301;&#x6709;&#x7684;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x6570;&#x91CF;</span>
+            <span class="hljs-keyword">int</span> r = sharedCount(c);
+            <span class="hljs-comment">// &#x83B7;&#x53D6;&#x5171;&#x4EAB;&#x9501;&#x662F;&#x5426;&#x5E94;&#x8BE5;&#x88AB;&#x963B;&#x585E;&amp;&amp;&#x5171;&#x4EAB;&#x9501;&#x6570;&#x91CF;&#x5C0F;&#x4E8E;&#x6700;&#x5927;&#x503C;&amp;&amp;&#x9012;&#x589E;&#x72B6;&#x6001;State&#x6210;&#x529F;.</span>
+            <span class="hljs-comment">// &#x610F;&#x5473;&#x7740;&#x52A0;&#x9501;&#x6210;&#x529F;&#x4E86;.</span>
+            <span class="hljs-keyword">if</span> (!readerShouldBlock() &amp;&amp;
+                r &lt; MAX_COUNT &amp;&amp;
+                compareAndSetState(c, c + SHARED_UNIT)) {
+                <span class="hljs-comment">// r==0&#x610F;&#x5473;&#x7740;&#x5F53;&#x524D;&#x6CA1;&#x6709;&#x5171;&#x4EAB;&#x9501;&#xFF0C;&#x90A3;&#x4E48;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C31;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FDB;&#x884C;&#x8D4B;&#x503C;</span>
+                <span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) {
+                    firstReader = current;
+                    firstReaderHoldCount = <span class="hljs-number">1</span>;
+
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (firstReader == current) {
+                    <span class="hljs-comment">// &#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;&#x4E86;&#xFF0C;&#x5BF9;&#x76F8;&#x5173;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x9012;&#x589E;</span>
+                    firstReaderHoldCount++;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x4E0A;&#x4E00;&#x4E2A;&#x8BFB;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x8005;</span>
+                    HoldCounter rh = cachedHoldCounter;
+                    <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span> ||
+                        rh.tid != LockSupport.getThreadId(current))
+                        <span class="hljs-comment">// &#x5982;&#x679C;&#x7EBF;&#x7A0B;&#x4E0D;&#x662F;&#x4E0A;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x6216;&#x8005;&#x4E0A;&#x4E00;&#x4E2A;&#x7F13;&#x5B58;&#x7684;&#x4E3A;&#x7A7A;</span>
+                        <span class="hljs-comment">// &#x5C06;&#x5F53;&#x524D;&#x7684;&#x7EBF;&#x7A0B;&#x7F13;&#x5B58;&#x8D77;&#x6765;</span>
+                        cachedHoldCounter = rh = readHolds.get();
+                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rh.count == <span class="hljs-number">0</span>)
+                        <span class="hljs-comment">// &#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C31;&#x662F;&#x7F13;&#x5B58;&#x7684;&#x4E0A;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F46;&#x662F;&#x6570;&#x91CF;&#x4E3A;0. &#x5C31;&#x8BBE;&#x7F6E;&#x4E3A;readHold</span>
+                        readHolds.set(rh);
+                    <span class="hljs-comment">// &#x83B7;&#x53D6;&#x7684;&#x8BFB;&#x9501;&#x6570;&#x91CF;+1.</span>
+                    rh.count++;
+                }
+                <span class="hljs-comment">// &#x4EE3;&#x8868;&#x6210;&#x529F;&#x4E86;.</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+            }
+            <span class="hljs-keyword">return</span> fullTryAcquireShared(current);
+        }
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x5171;&#x4EAB;&#x9501;:&#x6574;&#x4F53;&#x7684;&#x6D41;&#x7A0B;&#x5982;&#x5907;&#x6CE8;&#x4E2D;&#x6240;&#x8FF0;&#xFF0C;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x5904;&#x7406;&#x4E86;:</p>
+<ol>
+<li>&#x5F53;&#x524D;&#x83B7;&#x53D6;&#x4E0D;&#x963B;&#x585E;.</li>
+<li>&#x5171;&#x4EAB;&#x9501;&#x6570;&#x91CF;&#x672A;&#x8D85;&#x8FC7;&#x6700;&#x5927;&#x503C;</li>
+<li>CAS&#x80FD;&#x6210;&#x529F;.</li>
+</ol>
+<p>&#x8FD9;&#x4E09;&#x4E2A;&#x6761;&#x4EF6;&#x5747;&#x6EE1;&#x8DB3;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x8C03;&#x7528;&#x4E86;<code>fullTryAcquireShared</code>&#x6765;&#x5904;&#x7406;.</p>
+<pre><code class="lang-java">
+        <span class="hljs-comment">/**
+         * Full version of acquire for reads, that handles CAS misses
+         * and reentrant reads not dealt with in tryAcquireShared.
+         */</span>
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">fullTryAcquireShared</span><span class="hljs-params">(Thread current)</span> </span>{
+            <span class="hljs-comment">/*
+             * This code is in part redundant with that in
+             * tryAcquireShared but is simpler overall by not
+             * complicating tryAcquireShared with interactions between
+             * retries and lazily reading hold counts.
+             */</span>
+            HoldCounter rh = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">for</span> (;;) {
+                <span class="hljs-comment">// &#x5F53;&#x524D;&#x72B6;&#x6001;</span>
+                <span class="hljs-keyword">int</span> c = getState();
+                <span class="hljs-comment">// &#x6709;&#x72EC;&#x5360;&#x9501;&#xFF0C;&#x76F4;&#x63A5;&#x5931;&#x8D25;</span>
+                <span class="hljs-keyword">if</span> (exclusiveCount(c) != <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">if</span> (getExclusiveOwnerThread() != current)
+                        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+                    <span class="hljs-comment">// else we hold the exclusive lock; blocking here</span>
+                    <span class="hljs-comment">// would cause deadlock.</span>
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (readerShouldBlock()) {
+                    <span class="hljs-comment">// &#x5F53;&#x524D;&#x5E94;&#x8BE5;&#x88AB;&#x963B;&#x585E;.</span>
+                    <span class="hljs-comment">// Make sure we&apos;re not acquiring read lock reentrantly</span>
+                <span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E0D;&#x5E72;&#x5565;</span>
+                    <span class="hljs-keyword">if</span> (firstReader == current) {
+                        <span class="hljs-comment">// assert firstReaderHoldCount &gt; 0;</span>
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-comment">// &#x8BFB;&#x53D6;&#x7F13;&#x5B58;&#x7684;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x9501;&#x6570;&#x91CF;.</span>
+                        <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span>) {
+                            rh = cachedHoldCounter;
+                            <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span> ||
+                                rh.tid != LockSupport.getThreadId(current)) {
+                                <span class="hljs-comment">// &#x7F13;&#x5B58;&#x7684;&#x4E0D;&#x662F;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#xFF0C;&#x53D6;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;.</span>
+                                rh = readHolds.get();
+                                <span class="hljs-comment">// &#x6301;&#x6709;&#x9501;&#x6570;&#x91CF;&#x4E3A;0. &#x5220;&#x6389;</span>
+                                <span class="hljs-keyword">if</span> (rh.count == <span class="hljs-number">0</span>)
+                                    readHolds.remove();
+                            }
+                        }
+                        <span class="hljs-comment">// &#x6CA1;&#x770B;&#x61C2;&#xFF0C;&#x4E3A;&#x5565;&#x7F13;&#x5B58;&#x7684;&#x6216;&#x8005;&#x5F53;&#x524D;&#x7684;&#x4E3A;0. &#x8981;&#x8FD4;&#x56DE;-1</span>
+                        <span class="hljs-keyword">if</span> (rh.count == <span class="hljs-number">0</span>)
+                            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+                    }
+                }
+                <span class="hljs-comment">// &#x5F53;&#x524D;&#x8BFB;&#x9501;&#x6570;&#x91CF;&#x5230;&#x8FBE;&#x6700;&#x5927;&#x4E86;&#xFF0C;&#x629B;&#x51FA;&#x5F02;&#x5E38;</span>
+                <span class="hljs-keyword">if</span> (sharedCount(c) == MAX_COUNT)
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error(<span class="hljs-string">&quot;Maximum lock count exceeded&quot;</span>);
+                <span class="hljs-comment">// &#x5982;&#x679C;&#x8BBE;&#x7F6E;+1&#x4E2A;&#x8BFB;&#x9501;&#x6210;&#x529F;</span>
+                <span class="hljs-keyword">if</span> (compareAndSetState(c, c + SHARED_UNIT)) {
+                    <span class="hljs-comment">// &#x5982;&#x679C;&#x8BFB;&#x9501;&#x4E3A;0.&#x90A3;&#x4E48;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C31;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x9501;</span>
+                    <span class="hljs-keyword">if</span> (sharedCount(c) == <span class="hljs-number">0</span>) {
+                        firstReader = current;
+                        firstReaderHoldCount = <span class="hljs-number">1</span>;
+                        <span class="hljs-comment">// &#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x9501;&#x91CD;&#x5165;</span>
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (firstReader == current) {
+                        firstReaderHoldCount++;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-comment">// &#x7F13;&#x5B58;&#x4E0A;&#x4E00;&#x4E2A;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</span>
+                        <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span>)
+                            rh = cachedHoldCounter;
+                        <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span> ||
+                            rh.tid != LockSupport.getThreadId(current))
+                            rh = readHolds.get();
+                        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rh.count == <span class="hljs-number">0</span>)
+                            readHolds.set(rh);
+                        rh.count++;
+                        cachedHoldCounter = rh; <span class="hljs-comment">// cache for release</span>
+                    }
+                    <span class="hljs-comment">// &#x6210;&#x529F;</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+                }
+                <span class="hljs-comment">// &#x5982;&#x679C;CAS&#x8BBE;&#x7F6E;&#x72B6;&#x6001;&#x5931;&#x8D25;&#xFF0C;&#x7EE7;&#x7EED;&#x81EA;&#x65CB;</span>
+            }
+        }
+</code></pre>
+<p>&#x5176;&#x5B9E;&#x548C;<code>tryAcquireShared</code>&#x5F88;&#x50CF;&#xFF0C;&#x53EA;&#x662F;&#x901A;&#x8FC7;&#x5206;&#x79BB;&#x4EE3;&#x7801;&#x5904;&#x7406;&#x4E86;&#x989D;&#x5916;&#x7684;&#x51E0;&#x79CD;&#x60C5;&#x51B5;.</p>
+<h4 id="trywritelock-&#x83B7;&#x53D6;&#x5199;&#x9501;">tryWriteLock &#x83B7;&#x53D6;&#x5199;&#x9501;</h4>
+<pre><code class="lang-java">
+        <span class="hljs-comment">/**
+         * Performs tryLock for write, enabling barging in both modes.
+         * This is identical in effect to tryAcquire except for lack
+         * of calls to writerShouldBlock.
+         */</span>
+        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryWriteLock</span><span class="hljs-params">()</span> </span>{
+            Thread current = Thread.currentThread();
+            <span class="hljs-keyword">int</span> c = getState();
+            <span class="hljs-keyword">if</span> (c != <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">int</span> w = exclusiveCount(c);
+                <span class="hljs-keyword">if</span> (w == <span class="hljs-number">0</span> || current != getExclusiveOwnerThread())
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+                <span class="hljs-keyword">if</span> (w == MAX_COUNT)
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error(<span class="hljs-string">&quot;Maximum lock count exceeded&quot;</span>);
+            }
+            <span class="hljs-keyword">if</span> (!compareAndSetState(c, c + <span class="hljs-number">1</span>))
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            setExclusiveOwnerThread(current);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+</code></pre>
+<p>&#x548C;<code>tryAcquire</code>&#x6548;&#x679C;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x4E0D;&#x8003;&#x8651;<code>writerShouldBlock</code>.</p>
+<h4 id="tryreadlock">tryReadLock</h4>
+<pre><code class="lang-java">
+        <span class="hljs-comment">/**
+         * Performs tryLock for read, enabling barging in both modes.
+         * This is identical in effect to tryAcquireShared except for
+         * lack of calls to readerShouldBlock.
+         */</span>
+        <span class="hljs-meta">@ReservedStackAccess</span>
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryReadLock</span><span class="hljs-params">()</span> </span>{
+            Thread current = Thread.currentThread();
+            <span class="hljs-keyword">for</span> (;;) {
+                <span class="hljs-keyword">int</span> c = getState();
+                <span class="hljs-keyword">if</span> (exclusiveCount(c) != <span class="hljs-number">0</span> &amp;&amp;
+                    getExclusiveOwnerThread() != current)
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+                <span class="hljs-keyword">int</span> r = sharedCount(c);
+                <span class="hljs-keyword">if</span> (r == MAX_COUNT)
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error(<span class="hljs-string">&quot;Maximum lock count exceeded&quot;</span>);
+                <span class="hljs-keyword">if</span> (compareAndSetState(c, c + SHARED_UNIT)) {
+                    <span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) {
+                        firstReader = current;
+                        firstReaderHoldCount = <span class="hljs-number">1</span>;
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (firstReader == current) {
+                        firstReaderHoldCount++;
+                    } <span class="hljs-keyword">else</span> {
+                        HoldCounter rh = cachedHoldCounter;
+                        <span class="hljs-keyword">if</span> (rh == <span class="hljs-keyword">null</span> ||
+                            rh.tid != LockSupport.getThreadId(current))
+                            cachedHoldCounter = rh = readHolds.get();
+                        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (rh.count == <span class="hljs-number">0</span>)
+                            readHolds.set(rh);
+                        rh.count++;
+                    }
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+                }
+            }
+        }
+</code></pre>
+<p>&#x548C;<code>tryAcquireShared</code>&#x6548;&#x679C;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x4E0D;&#x8003;&#x8651;<code>readerShouldBlock</code>.</p>
+<h3 id="nonfairsync-&#x975E;&#x516C;&#x5E73;&#x72B6;&#x6001;&#x4E0B;&#x7684;sync">NonfairSync &#x975E;&#x516C;&#x5E73;&#x72B6;&#x6001;&#x4E0B;&#x7684;Sync</h3>
+<pre><code class="lang-java">
+    <span class="hljs-comment">/**
+     * Nonfair version of Sync
+     */</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NonfairSync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sync</span> </span>{
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">8159625535654395037L</span>;
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">writerShouldBlock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>; <span class="hljs-comment">// writers can always barge</span>
+        }
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">readerShouldBlock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-comment">/* As a heuristic to avoid indefinite writer starvation,
+             * block if the thread that momentarily appears to be head
+             * of queue, if one exists, is a waiting writer.  This is
+             * only a probabilistic effect since a new reader will not
+             * block if there is a waiting writer behind other enabled
+             * readers that have not yet drained from the queue.
+             */</span>
+            <span class="hljs-keyword">return</span> apparentlyFirstQueuedIsExclusive();
+        }
+    }
+</code></pre>
+<p>&#x4E3B;&#x8981;&#x662F;&#x5B9A;&#x4E49;&#x4E86;&#x7236;&#x7C7B;&#x4E2D;&#x7684;&#x4E24;&#x4E2A;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;.</p>
+<ul>
+<li>writerShouldBlock. &#x5199;&#x9501;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4EFB;&#x4F55;&#x65F6;&#x5019;&#x90FD;&#x53EF;&#x4EE5;&#x7533;&#x8BF7;.</li>
+<li>readerShouldBlock . &#x8BFB;&#x9501;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x80FD;&#x4E0D;&#x80FD;&#x7533;&#x8BF7;&#xFF0C;&#x8981;&#x770B;&#x60C5;&#x51B5;&#x54AF;.</li>
+</ul>
+<pre><code class="lang-java">
+    <span class="hljs-comment">/**
+     * Returns {<span class="hljs-doctag">@code</span> true} if the apparent first queued thread, if one
+     * exists, is waiting in exclusive mode.  If this method returns
+     * {<span class="hljs-doctag">@code</span> true}, and the current thread is attempting to acquire in
+     * shared mode (that is, this method is invoked from {<span class="hljs-doctag">@link</span>
+     * #tryAcquireShared}) then it is guaranteed that the current thread
+     * is not the first queued thread.  Used only as a heuristic in
+     * ReentrantReadWriteLock.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">apparentlyFirstQueuedIsExclusive</span><span class="hljs-params">()</span> </span>{
+        Node h, s;
+        <span class="hljs-keyword">return</span> (h = head) != <span class="hljs-keyword">null</span> &amp;&amp;
+            (s = h.next)  != <span class="hljs-keyword">null</span> &amp;&amp;
+            !s.isShared()         &amp;&amp;
+            s.thread != <span class="hljs-keyword">null</span>;
+    }
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x56E0;&#x4E3A;&#x975E;&#x516C;&#x5E73;&#x7684;&#x7ADE;&#x4E89;&#xFF0C;&#x800C;&#x628A;&#x5199;&#x9501;&#x997F;&#x6B7B;&#x7684;&#x60C5;&#x51B5;&#x5B9E;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;:</p>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#x6709;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x4E14;&#x7B2C;&#x4E8C;&#x4E2A;&#x8FD8;&#x662F;&#x72EC;&#x5360;&#x7684;&#x5199;&#x9501;&#x7B49;&#x5F85;&#xFF0C;&#x5F53;&#x524D;&#x7684;&#x8BFB;&#x9501;&#x8BF7;&#x6C42;&#x5C31;&#x4E0D;&#x5141;&#x8BB8;&#x63D0;&#x4EA4;&#x4E86;.</p>
+<p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x6982;&#x7387;&#x4E0A;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x91CC;&#x9762;&#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x4E2A;&#x5199;&#x9501;&#x6392;&#x5728;&#x8BFB;&#x9501;&#x540E;&#x9762;&#x4E86;&#xFF0C;&#x5BB3;&#x6015;&#x628A;&#x5199;&#x9501;&#x997F;&#x6B7B;&#xFF0C;&#x5C31;&#x5728;&#x8FD9;&#x91CC;&#x4E0D;&#x8BA9;&#x522B;&#x7684;&#x8BFB;&#x9501;&#x6765;&#x7ADE;&#x4E89;&#xFF0C;&#x77E5;&#x9053;&#x524D;&#x9762;&#x7684;&#x9501;&#x8D70;&#x5B8C;.</p>
+<h3 id="fairsync-&#x516C;&#x5E73;&#x6A21;&#x5F0F;">FairSync &#x516C;&#x5E73;&#x6A21;&#x5F0F;</h3>
+<pre><code class="lang-java">
+    <span class="hljs-comment">/**
+     * Fair version of Sync
+     */</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FairSync</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sync</span> </span>{
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">2274990926593161451L</span>;
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">writerShouldBlock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> hasQueuedPredecessors();
+        }
+        <span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">readerShouldBlock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> hasQueuedPredecessors();
+        }
+    }
+</code></pre>
+<p>&#x516C;&#x5E73;&#x9501;&#xFF0C;&#x5BF9;&#x4E8E;&#x8BFB;&#x5199;&#x9501;&#x662F;&#x516C;&#x5E73;&#x7684;&#xFF0C;&#x90FD;&#x662F;&#x770B;&#x961F;&#x5217;&#x4E2D;&#x6709;&#x6CA1;&#x6709;&#x5DF2;&#x7ECF;&#x5728;&#x7B49;&#x5F85;&#x7684;&#x8282;&#x70B9;&#x4E86;.(&#x8FD9;&#x90E8;&#x5206;&#x662F;&#x5728;AQS&#x5B9E;&#x73B0;&#x7684;)</p>
+<pre><code class="lang-java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasQueuedPredecessors</span><span class="hljs-params">()</span> </span>{
+        Node h, s;
+        <span class="hljs-keyword">if</span> ((h = head) != <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">if</span> ((s = h.next) == <span class="hljs-keyword">null</span> || s.waitStatus &gt; <span class="hljs-number">0</span>) {
+                s = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// traverse in case of concurrent cancellation</span>
+                <span class="hljs-keyword">for</span> (Node p = tail; p != h &amp;&amp; p != <span class="hljs-keyword">null</span>; p = p.prev) {
+                    <span class="hljs-keyword">if</span> (p.waitStatus &lt;= <span class="hljs-number">0</span>)
+                        s = p;
+                }
+            }
+            <span class="hljs-comment">// &#x961F;&#x5217;&#x4E2D;&#x7B2C;&#x4E00;&#x4E2A;&#x5728;&#x7B49;&#x5F85;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x4E0D;&#x662F;&#x5F53;&#x524D;&#x8282;&#x70B9;&#xFF0C;&#x90A3;&#x4E48;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C31;&#x4E0D;&#x8981;&#x63D0;&#x4EA4;&#x4E86;</span>
+            <span class="hljs-keyword">if</span> (s != <span class="hljs-keyword">null</span> &amp;&amp; s.thread != Thread.currentThread())
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-comment">// &#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x8BF7;&#x6C42;&#x53EF;&#x4EE5;&#x63D0;&#x4EA4;.</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+</code></pre>
+<h3 id="readlock">ReadLock</h3>
+<p>read&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x4E86;<code>Lock</code>&#x63A5;&#x53E3;&#x7684;&#x5B50;&#x7C7B;. &#x6301;&#x6709;&#x4E00;&#x4E2A;<code>Sync</code>&#x540C;&#x6B65;&#x5668;.</p>
+<h4 id="lock">lock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>{
+            sync.acquireShared(<span class="hljs-number">1</span>);
+        }
+</code></pre>
+<p>&#x8BFB;&#x9501;&#x7684;&#x52A0;&#x9501;&#xFF0C;&#x8C03;&#x7528;&#x4E86;AQS&#x7684;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x5171;&#x4EAB;&#x9501;.</p>
+<h4 id="trylock">tryLock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> sync.tryReadLock();
+        }
+</code></pre>
+<p>&#x8BFB;&#x9501;&#x7684;<strong>&#x5C1D;&#x8BD5;&#x52A0;&#x9501;</strong>. &#x8C03;&#x7528;&#x7684;&#x662F;&#x540C;&#x6B65;&#x5668;&#x7684;<code>tryReadLock</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E0D;&#x8003;&#x8651;<code>readerShouldBlock</code>,&#x800C;&#x5F3A;&#x884C;&#x8FDB;&#x884C;&#x7684;&#x4E00;&#x6B21;&#x52A0;&#x9501;&#x884C;&#x4E3A;.</p>
+<h4 id="unlock">unlock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>{
+            sync.releaseShared(<span class="hljs-number">1</span>);
+        }
+</code></pre>
+<p>&#x8BFB;&#x9501;&#x7684;&#x89E3;&#x9501;&#xFF0C;&#x662F;&#x8C03;&#x7528;AQS&#x7684;&#x91CA;&#x653E;&#x4E00;&#x6B21;&#x5171;&#x4EAB;&#x9501;.</p>
+<h3 id="writelock">WriteLock</h3>
+<p>&#x5199;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4E5F;&#x662F;&#x5B9E;&#x73B0;<code>Lock</code>&#x63A5;&#x53E3;&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;.</p>
+<h4 id="lock">lock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> </span>{
+            sync.acquire(<span class="hljs-number">1</span>);
+        }
+</code></pre>
+<p>&#x5199;&#x9501;&#x7684;&#x52A0;&#x9501;&#xFF0C;&#x662F;&#x8C03;&#x7528;AQS&#x7684;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x72EC;&#x5360;&#x9501;&#x5B9E;&#x73B0;.</p>
+<h4 id="trylock">tryLock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tryLock</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> sync.tryWriteLock();
+        }
+</code></pre>
+<p>&#x5199;&#x9501;&#x7684;<code>tryLock</code>.&#x8C03;&#x7528;<code>sync.tryWriteLock</code>.&#x4E0D;&#x8003;&#x8651;<code>writerShoulBlock</code>&#x8FDB;&#x884C;&#x7684;&#x4E00;&#x6B21;&#x5F3A;&#x884C;&#x5C1D;&#x8BD5;.</p>
+<h4 id="unlock">unlock</h4>
+<pre><code class="lang-java">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> </span>{
+            sync.release(<span class="hljs-number">1</span>);
+        }
+</code></pre>
+<p>&#x5199;&#x9501;&#x7684;&#x89E3;&#x9501;&#xFF0C;&#x8C03;&#x7528;AQS&#x7684;&#x91CA;&#x653E;&#x72EC;&#x5360;&#x9501;&#x4E00;&#x6B21;.</p>
+<h3 id="&#x5176;&#x4ED6;">&#x5176;&#x4ED6;</h3>
+<p>&#x5176;&#x4ED6;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x5BF9;&#x4E8E;&#x7C7B;&#x5185;&#x90E8;&#x5C5E;&#x6027;&#x7684;&#x67E5;&#x8BE2;&#x65B9;&#x6CD5;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x5BF9;&#x5F53;&#x524D;&#x9501;&#x72B6;&#x6001;&#x7684;&#x76D1;&#x63A7;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x5C55;&#x5F00;&#x4E86;. &#x90FD;&#x662F;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x7684;&#x5C5E;&#x6027;&#x67E5;&#x8BE2;.</p>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2>
+<p><code>ReentrantReadWriteLock</code>, &#x7EE7;&#x627F;&#x81EA;AQS&#x6846;&#x67B6;, &#x5B9E;&#x73B0;&#x4E86;&#x8BFB;&#x5199;&#x9501;&#xFF0C;&#x53EF;&#x91CD;&#x5165;&#x7279;&#x6027;.</p>
+<p>&#x65E2;&#x7136;&#x662F;&#x7EE7;&#x627F;&#x81EA;AQS&#x6846;&#x67B6;. &#x90A3;&#x4E48;&#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x4ECD;&#x7136;&#x662F;&#x5BF9;<code>State</code>&#x7684;&#x5B9A;&#x4E49;.</p>
+<ol>
+<li>State&#x7684;&#x4F4E;16&#x4F4D;&#xFF0C;&#x4FDD;&#x5B58;&#x72EC;&#x5360;&#x9501;&#x7684;&#x52A0;&#x9501;&#x4FE1;&#x606F;&#x53CA;&#x91CD;&#x5165;&#x6B21;&#x6570;.</li>
+<li><p>State&#x7684;&#x9AD8;16&#x4F4D;&#xFF0C;&#x4FDD;&#x5B58;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x52A0;&#x9501;&#x4FE1;&#x606F;&#xFF0C;&#x53CA;&#x52A0;&#x9501;&#x6570;&#x91CF;. &#x5171;&#x4EAB;&#x9501;&#x7684;&#x91CD;&#x5165;&#x6B21;&#x6570;&#xFF0C;&#x7531;&#x5355;&#x72EC;&#x7684;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;.</p>
+</li>
+<li><p>&#x8BFB;&#x5199;&#x9501;</p>
+</li>
+</ol>
+<p>&#x8BFB;&#x5199;&#x9501;&#x529F;&#x80FD;&#x7531;&#x4E24;&#x4E2A;&#x5B50;&#x7C7B;<code>ReadLock</code>&#x548C;<code>WriteLock</code>&#x5B9E;&#x73B0;&#xFF0C;&#x8D1F;&#x8D23;&#x8C03;&#x7528;AQS&#x7684;&#x72EC;&#x5360;&#x9501;&#x52A0;&#x89E3;&#x9501;&#x548C;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x52A0;&#x89E3;&#x9501;.</p>
+<ul>
+<li>&#x516C;&#x5E73;&#x9501;/&#x975E;&#x516C;&#x5E73;&#x9501;</li>
+</ul>
+<p>&#x7531;AQS&#x7684;&#x5B50;&#x7C7B;<code>Sync</code>&#x53CA;<code>NonfairSync``FairSync</code>&#x5B9E;&#x73B0;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x63A7;&#x5236;&#x65B0;&#x52A0;&#x5165;&#x7684;&#x52A0;&#x9501;&#x8BF7;&#x6C42;&#x662F;&#x5426;&#x8981;&#x6392;&#x961F;&#x6765;&#x5B9E;&#x73B0;&#x7684;.</p>
+<ul>
+<li>&#x53EF;&#x91CD;&#x5165;&#x6027;</li>
+</ul>
+<p>&#x53EF;&#x91CD;&#x5165;&#x9501;&#xFF0C;&#x9700;&#x8981;&#x8BB0;&#x5F55;&#x9501;&#x7684;&#x6301;&#x6709;&#x7EBF;&#x7A0B;&#xFF0C;&#x5BF9;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x7684;&#x6570;&#x91CF;&#x8FDB;&#x884C;&#x9012;&#x589E;&#x9012;&#x51CF;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7B80;&#x5355;&#x7684;&#x662F;&#x5426;&#x4E3A;&#x67D0;&#x4E2A;&#x7279;&#x5B9A;&#x503C;. </p>
+<p>&#x5199;&#x9501;&#x7684;&#x91CD;&#x5165;&#x6570;&#x91CF;&#x4FDD;&#x5B58;&#x5728;State&#x7684;&#x4F4E;16&#x4F4D;. &#x8BFB;&#x9501;&#x7684;&#x91CD;&#x5165;&#x6570;&#x91CF;&#x4FDD;&#x5B58;&#x5728;<code>readHolds</code>&#x4E2D;. &#x7531;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x4E8E;<code>ThreadLocal</code>&#x7684;&#x7ED3;&#x6784;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;&#x7EBF;&#x7A0B;-&gt;&#x91CD;&#x5165;&#x6570;&#x91CF;&#x7684;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;.</p>
+<ul>
+<li>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x5355;&#x72EC;&#x4FDD;&#x5B58;&#x7B2C;&#x4E00;&#x4E2A;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;? <code>firstReader</code> &#x548C; <code>firstReaderHoldCount</code>.</li>
+</ul>
+<p>&#x603B;&#x7684;&#x8BF4;&#x662F;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;ThreadLocal&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x51CF;&#x5C11;&#x5185;&#x5B58;&#x5360;&#x7528;&#x3002;&#x8BE6;&#x7EC6;&#x5206;&#x6790;&#x770B;&#x8FD9;&#x91CC;: <a href="https://www.mdnice.com/writing/f2beb7d9c58f43afbdeec9ce708d4582" target="_blank">https://www.mdnice.com/writing/f2beb7d9c58f43afbdeec9ce708d4582</a></p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x7AE0;">&#x53C2;&#x8003;&#x6587;&#x7AE0;</h2>
+<p><a href="https://www.mdnice.com/writing/f2beb7d9c58f43afbdeec9ce708d4582" target="_blank">&#x5173;&#x4E8E;ReentrantReadWriteLock&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x83B7;&#x53D6;&#x8BFB;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x5355;&#x72EC;&#x8BB0;&#x5F55;&#x95EE;&#x9898;&#x8BA8;&#x8BBA;&#xFF08;firstReader&#x548C;firstReaderHoldCount&#xFF09;</a></p>
+<p><br></p>
+<p>&#x5B8C;&#x3002;
+<br>
+<br>
+<br></p>
+<h2 id="&#x8054;&#x7CFB;&#x6211;">&#x8054;&#x7CFB;&#x6211;</h2>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6B22;&#x8FCE;&#x5173;&#x6CE8;&#x6211;&#x7684;&#x4E2A;&#x4EBA;&#x516C;&#x4F17;&#x53F7;&#x3010; &#x547C;&#x5EF6;&#x5341; &#x3011;&#xFF0C;&#x4F1A;&#x4E0D;&#x5B9A;&#x671F;&#x66F4;&#x65B0;&#x5F88;&#x591A;&#x540E;&#x7AEF;&#x5DE5;&#x7A0B;&#x5E08;&#x7684;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x3002;
+&#x4E5F;&#x6B22;&#x8FCE;&#x76F4;&#x63A5;&#x516C;&#x4F17;&#x53F7;&#x79C1;&#x4FE1;&#x6216;&#x8005;&#x90AE;&#x7BB1;&#x8054;&#x7CFB;&#x6211;&#xFF0C;&#x4E00;&#x5B9A;&#x77E5;&#x65E0;&#x4E0D;&#x8A00;&#xFF0C;&#x8A00;&#x65E0;&#x4E0D;&#x5C3D;&#x3002;
+<img src="http://img.couplecoders.tech/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88.png" alt=""></p>
+<p><br>
+<br></p>
+<p><strong>&#x4EE5;&#x4E0A;&#x7686;&#x4E3A;&#x4E2A;&#x4EBA;&#x6240;&#x601D;&#x6240;&#x5F97;&#xFF0C;&#x5982;&#x6709;&#x9519;&#x8BEF;&#x6B22;&#x8FCE;&#x8BC4;&#x8BBA;&#x533A;&#x6307;&#x6B63;&#x3002;</strong></p>
+<p><strong>&#x6B22;&#x8FCE;&#x8F6C;&#x8F7D;&#xFF0C;&#x70E6;&#x8BF7;&#x7F72;&#x540D;&#x5E76;&#x4FDD;&#x7559;&#x539F;&#x6587;&#x94FE;&#x63A5;&#x3002;</strong></p>
+<p><strong>&#x8054;&#x7CFB;&#x90AE;&#x7BB1;&#xFF1A;huyanshi2580@gmail.com</strong></p>
+<p><strong>&#x66F4;&#x591A;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x89C1;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;&#x6216;&#x5173;&#x6CE8;&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7; &lt;&#x547C;&#x5EF6;&#x5341; &gt;------&gt;<a href="../..">&#x547C;&#x5EF6;&#x5341;</a></strong> </p>
+<footer class="page-footer"><span class="copyright">&#x7248;&#x6743;&#x6240;&#x6709;&#xFF0C;&#x76D7;&#x7248;&#x5FC5;&#x7A76; all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last Modified On&#xFF1A;
+2021-10-17 02:51:50
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2021-09-30-(juc系列)Semaphore源码阅读.html" class="navigation navigation-prev " aria-label="Previous page: (juc系列)Semaphore源码阅读">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="2021-10-09-(juc系列)Phaser源码学习.html" class="navigation navigation-next " aria-label="Next page: (juc系列)Phaser源码学习">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"layout":"post","category":["Java","JUC","Lock"],"tags":["Java","JUC","Lock"],"title":"(juc系列)ReentrantReadWriteLock源码学习","level":"1.3.3.8","depth":3,"next":{"title":"(juc系列)Phaser源码学习","level":"1.3.3.9","depth":3,"path":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","ref":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","articles":[]},"previous":{"title":"(juc系列)Semaphore源码阅读","level":"1.3.3.7","depth":3,"path":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","expandable-chapters","splitter","-lunr","-search","search-pro","copy-code-button","back-to-top-button","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"版权所有，盗版必究","modify_label":"Last Modified On：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/HuBlanker"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"呼延十","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java基础学习笔记","language":"zh-hans","gitbook":"*","description":"java-base"},"file":{"path":"java/juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.md","mtime":"2021-10-16T18:51:50.869Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-17T10:55:34.051Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

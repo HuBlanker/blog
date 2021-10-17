@@ -1,0 +1,1329 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>LinkedHashMap源码分析 · Java基础学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="呼延十">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="2018-11-03-HashTable和-HashMap的区别.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    集合类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                <a href="../2019-08-12-简易却高效的HashMap实现.html">
+            
+                    
+                    简易却高效的HashMap实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../2019-09-09-多级-HashMap的优化.html">
+            
+                <a href="../2019-09-09-多级-HashMap的优化.html">
+            
+                    
+                    多级-HashMap的优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="2019-04-27-Java对阻塞队列的实现.html">
+            
+                <a href="2019-04-27-Java对阻塞队列的实现.html">
+            
+                    
+                    Java对阻塞队列的实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="2019-05-01-Guava中的一些增强集合类.html">
+            
+                <a href="2019-05-01-Guava中的一些增强集合类.html">
+            
+                    
+                    Guava中的一些增强集合类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                <a href="2019-05-13-Map接口在1.8版本新增的几个方法.html">
+            
+                    
+                    Map接口在1.8版本新增的几个方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                <a href="2018-10-11-ArrayList和LinkedList的区别.html">
+            
+                    
+                    ArrayList和LinkedList的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="2019-05-01-Java中-Collections工具类的学习.html">
+            
+                <a href="2019-05-01-Java中-Collections工具类的学习.html">
+            
+                    
+                    Java中-Collections工具类的学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="2018-12-23-Vector源码阅读.html">
+            
+                <a href="2018-12-23-Vector源码阅读.html">
+            
+                    
+                    Vector源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                <a href="2019-05-19-跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习.html">
+            
+                    
+                    跳表(SkipList)的原理及ConcurrentSkipListMap的源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                <a href="2019-05-25-Java中-TreeMap和-TreeSet的使用.html">
+            
+                    
+                    Java中-TreeMap和-TreeSet的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                <a href="2018-11-07-Concurrent-Hash-Map源码阅读.html">
+            
+                    
+                    Concurrent-Hash-Map源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="2018-10-16-HashMap源码阅读.html">
+            
+                <a href="2018-10-16-HashMap源码阅读.html">
+            
+                    
+                    HashMap源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="2018-11-03-HashTable和-HashMap的区别.html">
+            
+                <a href="2018-11-03-HashTable和-HashMap的区别.html">
+            
+                    
+                    HashTable和-HashMap的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.14" data-path="2018-12-16-LinkedHashMap源码分析.html">
+            
+                <a href="2018-12-16-LinkedHashMap源码分析.html">
+            
+                    
+                    LinkedHashMap源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    JUC并发包
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    Atomic原子类
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                <a href="../juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.html">
+            
+                    
+                    (juc系列)从-AtomicInteger来学习-Java的原子类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                    线程池
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                <a href="../juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.html">
+            
+                    
+                    (juc系列)Java中Executors提供的的4种线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../juc/2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                <a href="../juc/2021-10-14-(juc系列)ForkJoin框架源码学习.html">
+            
+                    
+                    (juc系列)ForkJoin框架源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                <a href="../juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.html">
+            
+                    
+                    Java中的-ThreadPoolExecutor类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="../juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                <a href="../juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.html">
+            
+                    
+                    (juc系列)ThreadPoolExecutor源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="../juc/2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                <a href="../juc/2019-03-29-(juc系列)用线程池执行定时任务.html">
+            
+                    
+                    (juc系列)用线程池执行定时任务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="../juc/2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                <a href="../juc/2021-10-13-(juc系列)Executors类的工厂方法.html">
+            
+                    
+                    (juc系列)Executors类的工厂方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <span>
+            
+                    
+                    Lock锁
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../juc/2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                <a href="../juc/2021-09-28-(juc系列)AQS源码学习笔记.html">
+            
+                    
+                    (juc系列)AQS源码学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../juc/2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                <a href="../juc/2021-09-30-(juc系列)CountDownLatch源码阅读.html">
+            
+                    
+                    (juc系列)CountDownLatch源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="../juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                <a href="../juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.html">
+            
+                    
+                    (juc系列)CyclicBarrier源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="../juc/2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                <a href="../juc/2021-09-28-(juc系列)ReentrantLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="../juc/2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                <a href="../juc/2021-10-06-(juc系列)StampedLock源码学习.html">
+            
+                    
+                    (juc系列)StampedLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="../juc/2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                <a href="../juc/2021-10-12-(juc系列)Exchanger源码阅读.html">
+            
+                    
+                    (juc系列)Exchanger源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.7" data-path="../juc/2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                <a href="../juc/2021-09-30-(juc系列)Semaphore源码阅读.html">
+            
+                    
+                    (juc系列)Semaphore源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.8" data-path="../juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                <a href="../juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.html">
+            
+                    
+                    (juc系列)ReentrantReadWriteLock源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.9" data-path="../juc/2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                <a href="../juc/2021-10-09-(juc系列)Phaser源码学习.html">
+            
+                    
+                    (juc系列)Phaser源码学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-08-15-JVM性能监控工具<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM性能监控工具<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                <a href="../JVM/2019-07-30-JVM数据区域与垃圾收集<深入了解JVM读书笔记>.html">
+            
+                    
+                    JVM数据区域与垃圾收集<深入了解JVM读书笔记>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../2019-01-28-Java类加载的顺序.html">
+            
+                <a href="../2019-01-28-Java类加载的顺序.html">
+            
+                    
+                    Java类加载的顺序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" >
+            
+                <span>
+            
+                    
+                    其他
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                <a href="../2019-01-20-使用自定义注解实现接口参数校验.html">
+            
+                    
+                    使用自定义注解实现接口参数校验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                <a href="../2018-09-09-String-StringBuilder-StringBuffer异同.html">
+            
+                    
+                    String-StringBuilder-StringBuffer异同
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../2018-11-11-Java的键盘输入方法.html">
+            
+                <a href="../2018-11-11-Java的键盘输入方法.html">
+            
+                    
+                    Java的键盘输入方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="../2019-04-28-使用nio来读写文件.html">
+            
+                <a href="../2019-04-28-使用nio来读写文件.html">
+            
+                    
+                    使用nio来读写文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                <a href="../2018-03-10-java8-接口的静态方法和默认方法.html">
+            
+                    
+                    接口的静态方法和默认方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.6" data-path="../2019-05-11-用int来表示多个bool判断.html">
+            
+                <a href="../2019-05-11-用int来表示多个bool判断.html">
+            
+                    
+                    用int来表示多个bool判断
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.7" data-path="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                <a href="../2019-05-10-监听nginx日志实现博客访问计数.html">
+            
+                    
+                    监听nginx日志实现博客访问计数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.8" data-path="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                <a href="../2019-05-19-一致性hash算法及其Java实现.html">
+            
+                    
+                    一致性hash算法及其Java实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.9" data-path="../2019-04-28-优雅的实现程序计时器.html">
+            
+                <a href="../2019-04-28-优雅的实现程序计时器.html">
+            
+                    
+                    优雅的实现程序计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.10" data-path="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                <a href="../2019-05-12-Java中的常量类缓存机制.html">
+            
+                    
+                    Java中的常量类缓存机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.11" data-path="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                <a href="../2019-07-21-Java中几个和时间有关的类.html">
+            
+                    
+                    Java中几个和时间有关的类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.12" data-path="../2018-03-13-java8-stream api 入门.html">
+            
+                <a href="../2018-03-13-java8-stream api 入门.html">
+            
+                    
+                    java8-stream api 入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.13" data-path="../2018-11-19-java的volatile关键字详解.html">
+            
+                <a href="../2018-11-19-java的volatile关键字详解.html">
+            
+                    
+                    java的volatile关键字详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.14" data-path="../2019-04-22-Java实现计数器-Counter.html">
+            
+                <a href="../2019-04-22-Java实现计数器-Counter.html">
+            
+                    
+                    Java实现计数器-Counter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.15" data-path="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                <a href="../2018-11-28-Java8-Date-Time-使用案例.html">
+            
+                    
+                    Java8-Date-Time-使用案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.16" data-path="../2018-11-18-抽象类和接口的区别.html">
+            
+                <a href="../2018-11-18-抽象类和接口的区别.html">
+            
+                    
+                    抽象类和接口的区别
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.17" data-path="../2018-03-31-java8-Date-Time-api.html">
+            
+                <a href="../2018-03-31-java8-Date-Time-api.html">
+            
+                    
+                    java8-Date-Time-api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.18" data-path="../2018-03-11-java8-Optional类初体验.html">
+            
+                <a href="../2018-03-11-java8-Optional类初体验.html">
+            
+                    
+                    java8-Optional类初体验
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.19" data-path="2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                <a href="2019-05-02-Java中-Comparable和-Comparator的区别及联系.html">
+            
+                    
+                    Java中-Comparable和-Comparator的区别及联系
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.20" data-path="../2019-01-29-Java的序列化与反序列化.html">
+            
+                <a href="../2019-01-29-Java的序列化与反序列化.html">
+            
+                    
+                    Java的序列化与反序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >LinkedHashMap源码分析</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <font color="red">LInkedHashMap&#x662F;&#x57FA;&#x4E8E;HashMap&#x7684;,&#x56E0;&#x6B64;&#x5982;&#x679C;&#x4E0D;&#x592A;&#x6E05;&#x695A;HashMap&#x7684;&#x5B9E;&#x73B0;&#x7684;&#x8BDD;,&#x8BF7;&#x5148;&#x9605;&#x8BFB;<a href="../../&#x6E90;&#x7801;&#x9605;&#x8BFB;/java/2018/10/16/HashMap&#x6E90;&#x7801;&#x9605;&#x8BFB;">HashMap &#x6E90;&#x7801;&#x9605;&#x8BFB; </a></font>
+
+<p><br>
+<br>
+&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;,HashMap &#x662F;&#x65E0;&#x5E8F;&#x7684;,&#x4E5F;&#x5C31;&#x662F;&#x8BF4;,&#x904D;&#x5386;&#x65F6;&#x5019;&#x7684;&#x987A;&#x5E8F;&#x4E0E;&#x8BBF;&#x95EE;&#x7684;&#x987A;&#x5E8F;&#x65E0;&#x5173;.</p>
+<p>&#x800C;&#x5728;&#x4E00;&#x4E9B;&#x573A;&#x666F;&#x4E0B;,&#x6211;&#x4EEC;&#x5373;&#x9700;&#x8981;HashMap&#x7684;&#x7279;&#x6027;,&#x53C8;&#x9700;&#x8981;&#x5B83;&#x80FD;&#x591F;&#x4FDD;&#x6301;&#x4E00;&#x5B9A;&#x7684;&#x987A;&#x5E8F;&#x5462;?</p>
+<p>JAVA &#x5728; JDK1.4 &#x4EE5;&#x540E;&#x63D0;&#x4F9B;&#x4E86; LinkedHashMap &#x6765;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x5B9E;&#x73B0;&#x4E86;&#x6709;&#x5E8F;&#x7684; HashMap&#xFF01;</p>
+<p>LinkedHashMap&#x53EF;&#x4EE5;&#x6709;&#x4E24;&#x79CD;&#x4FDD;&#x5B58;&#x7684;&#x987A;&#x5E8F;:&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x53CA;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;.</p>
+<p>&#x5728;&#x5982;&#x4E0B;&#x7684;&#x4EE3;&#x7801;&#x4E2D;,&#x6211;&#x4EEC;&#x4EE5;<code>1,2,4,3</code>&#x7684;&#x987A;&#x5E8F;&#x5206;&#x522B;&#x5411;<code>HashMap</code>,<code>&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x7684;LinkedHashMap</code>,<code>&#x8BBF;&#x95EE;&#x987A;&#x5E8F;&#x7684;LinkedHashMap</code>&#x4E2D;&#x63D2;&#x5165;&#x56DB;&#x6761;&#x6570;&#x636E;,&#x5E76;&#x5728;<code>&#x8BBF;&#x95EE;&#x987A;&#x5E8F;&#x7684;LinkedHashMap</code>&#x4E2D;&#x6309;&#x7167;<code>4231</code>&#x7684;&#x987A;&#x5E8F;&#x8BBF;&#x95EE;&#x5143;&#x7D20;.</p>
+<p>&#x4EE3;&#x7801;&#x5982;&#x4E0B;:</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">linkedHashMapTest</span><span class="hljs-params">()</span> </span>{
+  Map&lt;String, Integer&gt; test = <span class="hljs-keyword">new</span> LinkedHashMap&lt;&gt;();
+  test.put(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">1</span>);
+  test.put(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">2</span>);
+  test.put(<span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">4</span>);
+  test.put(<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">3</span>);
+  System.out.println();
+  System.out.print(<span class="hljs-string">&quot;LinkedHashMap:&quot;</span>);
+  test.forEach((key, value) -&gt; System.out.print(value));
+
+  <span class="hljs-comment">//hashmap</span>
+  Map&lt;String, Integer&gt; test1 = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+  test1.put(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">1</span>);
+  test1.put(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">2</span>);
+  test1.put(<span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">4</span>);
+  test1.put(<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">3</span>);
+  System.out.println();
+  System.out.print(<span class="hljs-string">&quot;HashMap:&quot;</span>);
+  test1.forEach((key, value) -&gt; System.out.print(value));
+
+  <span class="hljs-comment">//linkedHashMap &#x6309;&#x7167;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;</span>
+  Map&lt;String, Integer&gt; test2 = <span class="hljs-keyword">new</span> LinkedHashMap&lt;&gt;(<span class="hljs-number">16</span>,<span class="hljs-number">0.75f</span>,<span class="hljs-keyword">true</span>);
+  test2.put(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">1</span>);
+  test2.put(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">2</span>);
+  test2.put(<span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">4</span>);
+  test2.put(<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">3</span>);
+
+  test2.get(<span class="hljs-string">&quot;4&quot;</span>);
+  test2.get(<span class="hljs-string">&quot;2&quot;</span>);
+  test2.get(<span class="hljs-string">&quot;3&quot;</span>);
+  test2.get(<span class="hljs-string">&quot;1&quot;</span>);
+  System.out.println();
+  System.out.print(<span class="hljs-string">&quot;linkedHashMap ---with use:&quot;</span>);
+  test2.forEach((key, value) -&gt; System.out.print(value));
+}
+</code></pre>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x5982;&#x4E0B;:</p>
+<pre><code>LinkedHashMap:1243
+HashMap:1234
+linkedHashMap ---with use:4231
+</code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;,HashMap&#x662F;&#x65E0;&#x5E8F;&#x7684;,&#x904D;&#x5386;&#x7ED3;&#x679C;&#x7684;&#x987A;&#x5E8F;&#x548C;&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x65E0;&#x5173;,&#x662F;<code>key</code>&#x503C;&#x7684;&#x81EA;&#x7136;&#x6392;&#x5E8F;,&#x800C;LinkedHashMap&#x7684;&#x987A;&#x5E8F;&#x662F;&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x6216;&#x8005;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;.</p>
+<h2 id="linkedhashmap&#x600E;&#x4E48;&#x4FDD;&#x5B58;&#x987A;&#x5E8F;&#x7684;">LInkedHashMap&#x600E;&#x4E48;&#x4FDD;&#x5B58;&#x987A;&#x5E8F;&#x7684;?</h2>
+<p>&#x5728;HashMap&#x7684;&#x57FA;&#x7840;&#x4E0A;,&#x5BF9;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6DFB;&#x52A0;&#x6307;&#x5411;&#x4E0A;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x548C;&#x4E0B;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7684;&quot;&#x6307;&#x9488;&quot;,&#x8FD9;&#x6837;&#x5728;&#x6570;&#x636E;&#x7684;&#x4FDD;&#x5B58;&#x65F6;,&#x4ECD;&#x4F7F;&#x7528;HashMap&#x7684;&#x539F;&#x7406;.&#x540C;&#x65F6;,&#x6DFB;&#x52A0;&#x5411;&#x524D;&#x5411;&#x540E;&#x6307;&#x9488;,&#x4F7F;&#x5F97;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;&#x5F62;&#x6210;&#x53CC;&#x5411;&#x94FE;&#x8868;,&#x5728;&#x904D;&#x5386;&#x65F6;&#x4F7F;&#x7528;&#x53CC;&#x5411;&#x94FE;&#x8868;&#x904D;&#x5386;,&#x4FDD;&#x8BC1;&#x987A;&#x5E8F;.</p>
+<h2 id="&#x6E90;&#x7801;&#x9605;&#x8BFB;">&#x6E90;&#x7801;&#x9605;&#x8BFB;</h2>
+<p>&#x4E0B;&#x9762;&#x5C06;&#x901A;&#x8FC7;&#x9605;&#x8BFB;LinkedHashMap&#x7684;&#x6E90;&#x7801;&#x6765;&#x5B66;&#x4E60;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7C7B;.</p>
+<h3 id="&#x7C7B;&#x7684;&#x5B9A;&#x4E49;">&#x7C7B;&#x7684;&#x5B9A;&#x4E49;</h3>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedHashMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title">HashMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;
+    <span class="hljs-keyword">implements</span> <span class="hljs-title">Map</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;</span>{
+
+    }
+</code></pre>
+<p>LinkedHashMap&#x96C6;&#x6210;&#x4E86;HashMap&#x7C7B;&#x4EE5;&#x53CA;&#x5B9E;&#x73B0;&#x4E86;Map&#x63A5;&#x53E3;,&#x90A3;&#x4E48;LinkedHashMap&#x4F5C;&#x4E3A;HashMap&#x7684;&#x5B50;&#x7C7B;,&#x5929;&#x7136;&#x96C6;&#x6210;&#x4E86;HashMap&#x7684;&#x6240;&#x6709;&#x65B9;&#x6CD5;,&#x4E5F;&#x62E5;&#x6709;&#x4E86;HashMap&#x7684;&#x4E00;&#x5207;&#x7279;&#x6027;.</p>
+<h3 id="&#x7C7B;&#x7684;&#x6210;&#x5458;">&#x7C7B;&#x7684;&#x6210;&#x5458;</h3>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * The head (eldest) of the doubly linked list.
+ */</span>
+<span class="hljs-keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;
+
+<span class="hljs-comment">/**
+ * The tail (youngest) of the doubly linked list.
+ */</span>
+<span class="hljs-keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;
+
+<span class="hljs-comment">/**
+ * The iteration ordering method for this linked hash map: &lt;tt&gt;true&lt;/tt&gt;
+ * for access-order, &lt;tt&gt;false&lt;/tt&gt; for insertion-order.
+ *
+ * <span class="hljs-doctag">@serial</span>
+ */</span>
+<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> accessOrder;
+</code></pre>
+<p>LInkedHashMap&#x65B0;&#x589E;&#x4E86;&#x4E09;&#x4E2A;&#x6210;&#x5458;&#x53D8;&#x91CF;,&#x9996;&#x5148;&#x662F;&#x53CC;&#x94FE;&#x8868;&#x7684;&#x5934;&#x90E8;&#x8282;&#x70B9;&#x548C;&#x5C3E;&#x90E8;&#x8282;&#x70B9;.&#x7136;&#x540E;&#x662F;&#x4E00;&#x4E2A;&#x6807;&#x8BC6;&#x4F4D;,&#x6807;&#x8BC6;&#x6B64;LinkedHashMap&#x4F7F;&#x7528;&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x8FD8;&#x662F;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;.
+&#x90A3;&#x4E48;<code>LinkedHashMap.Entry</code>&#x662F;&#x4EC0;&#x4E48;&#x5462;?</p>
+<pre><code class="lang-java"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Entry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">HashMap</span>.<span class="hljs-title">Node</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; </span>{
+    Entry&lt;K,V&gt; before, after;
+    Entry(<span class="hljs-keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) {
+        <span class="hljs-keyword">super</span>(hash, key, value, next);
+    }
+}
+</code></pre>
+<p><strong>&#x4ED6;&#x7EE7;&#x627F;&#x81EA;HashMap&#x7684;&#x5185;&#x90E8;&#x7C7B;Node,&#x4E4B;&#x540E;&#x53C8;&#x6DFB;&#x52A0;&#x4E86;&#x6307;&#x5411;&#x4E0A;&#x4E00;&#x8282;&#x70B9;&#x7684;before&#x548C;&#x6307;&#x5411;&#x4E0B;&#x4E00;&#x8282;&#x70B9;&#x7684;after,&#x8FD9;&#x6837;&#x5C31;&#x5F62;&#x6210;&#x4E86;&#x53CC;&#x5411;&#x94FE;&#x8868;,&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x5143;&#x7D20;&#x7684;&#x987A;&#x5E8F;.</strong></p>
+<h3 id="&#x6784;&#x9020;&#x65B9;&#x6CD5;">&#x6784;&#x9020;&#x65B9;&#x6CD5;</h3>
+<p><img src="http://img.couplecoders.tech/markdown-img-paste-20181216184342333.png" alt=""></p>
+<p>LinkedHashMap&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x5171;&#x6709;5&#x4E2A;,&#x9664;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x4E2A;,&#x5176;&#x4ED6;&#x7684;&#x5728;&#x5185;&#x90E8;&#x5B9E;&#x73B0;&#x90FD;&#x662F;&#x8C03;&#x7528;&#x4E86;<code>&#x7236;&#x7C7B;HashMap</code>&#x5BF9;&#x5E94;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;,&#x5E76;&#x5C06;&#x6807;&#x8BC6;&#x4F4D;<code>accessOrder</code>&#x7F6E;&#x4E3A;false.(&#x9ED8;&#x8BA4;&#x503C;&#x5373;false).&#x5728;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;,&#x5C06;<code>accessOrder</code>&#x7F6E;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x5165;&#x7684;&#x503C;.</p>
+<h3 id="get&#x65B9;&#x6CD5;">get()&#x65B9;&#x6CD5;</h3>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">get</span><span class="hljs-params">(Object key)</span> </span>{
+    Node&lt;K,V&gt; e;
+    <span class="hljs-keyword">if</span> ((e = getNode(hash(key), key)) == <span class="hljs-keyword">null</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">if</span> (accessOrder)
+        afterNodeAccess(e);
+    <span class="hljs-keyword">return</span> e.value;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeAccess</span><span class="hljs-params">(Node&lt;K,V&gt; e)</span> </span>{ <span class="hljs-comment">// move node to last</span>
+    LinkedHashMap.Entry&lt;K,V&gt; last;
+    <span class="hljs-keyword">if</span> (accessOrder &amp;&amp; (last = tail) != e) {
+        LinkedHashMap.Entry&lt;K,V&gt; p =
+            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;
+        p.after = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>)
+            head = a;
+        <span class="hljs-keyword">else</span>
+            b.after = a;
+        <span class="hljs-keyword">if</span> (a != <span class="hljs-keyword">null</span>)
+            a.before = b;
+        <span class="hljs-keyword">else</span>
+            last = b;
+        <span class="hljs-keyword">if</span> (last == <span class="hljs-keyword">null</span>)
+            head = p;
+        <span class="hljs-keyword">else</span> {
+            p.before = last;
+            last.after = p;
+        }
+        tail = p;
+        ++modCount;
+    }
+}
+</code></pre>
+<p>LinkedHashMap&#x5BF9;get&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x4E86;&#x91CD;&#x5199;,&#x5177;&#x4F53;&#x6D41;&#x7A0B;&#x4E3A;:</p>
+<ol>
+<li>&#x8C03;&#x7528;&#x7236;&#x7C7B;HashMap&#x7684;&#x7684;getNode()&#x65B9;&#x6CD5;,&#x5982;&#x679C;&#x7ED3;&#x679C;&#x503C;&#x4E3A;&#x7A7A;,&#x5219;&#x8FD4;&#x56DE;&#x7A7A;.</li>
+<li>&#x5982;&#x679C;<code>accessOrder</code>&#x4E3A;true,&#x5219;&#x8C03;&#x7528;<code>afterNodeAccess()</code>&#x65B9;&#x6CD5;&#x5C06;&#x5F53;&#x524D;&#x8BBF;&#x95EE;&#x7684;&#x5143;&#x7D20;&#x79FB;&#x52A8;&#x5230;&#x94FE;&#x8868;&#x7684;&#x672B;&#x5C3E;.(&#x5F53;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;&#x7684;LinkedHashMap&#x65F6;,&#x624D;&#x4F1A;&#x6267;&#x884C;&#x6B64;&#x64CD;&#x4F5C;.)</li>
+<li>&#x5982;&#x679C;<code>accessOrder</code>&#x4E3A;false,&#x8FD4;&#x56DE;<code>getNode()</code>&#x83B7;&#x5F97;&#x7684;&#x503C;.</li>
+</ol>
+<h3 id="put&#x65B9;&#x6CD5;">put()&#x65B9;&#x6CD5;</h3>
+<pre><code class="lang-java"><span class="hljs-function">Node&lt;K,V&gt; <span class="hljs-title">newNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; e)</span> </span>{
+    LinkedHashMap.Entry&lt;K,V&gt; p =
+        <span class="hljs-keyword">new</span> LinkedHashMap.Entry&lt;K,V&gt;(hash, key, value, e);
+    linkNodeLast(p);
+    <span class="hljs-keyword">return</span> p;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">linkNodeLast</span><span class="hljs-params">(LinkedHashMap.Entry&lt;K,V&gt; p)</span> </span>{
+    LinkedHashMap.Entry&lt;K,V&gt; last = tail;
+    tail = p;
+    <span class="hljs-keyword">if</span> (last == <span class="hljs-keyword">null</span>)
+        head = p;
+    <span class="hljs-keyword">else</span> {
+        p.before = last;
+        last.after = p;
+    }
+}
+</code></pre>
+<p>LInkedHashMap&#x5E76;&#x6CA1;&#x6709;&#x91CD;&#x5199;<code>put()</code>&#x65B9;&#x6CD5;,&#x4F46;&#x662F;&#x91CD;&#x5199;&#x4E86;put()&#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x8C03;&#x7528;&#x7684;newNode()&#x65B9;&#x6CD5;,&#x4EE3;&#x7801;&#x5982;&#x4E0A;&#x9762;&#x6240;&#x793A;.</p>
+<p>&#x5728;&#x91CD;&#x5199;&#x540E;&#x7684;<code>newNode()</code>&#x65B9;&#x6CD5;&#x4E2D;,&#x8C03;&#x7528;&#x7236;&#x7C7B;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x540E;,&#x8C03;&#x7528;<code>linkNodeLast()</code>&#x65B9;&#x6CD5;,&#x5C06;&#x65B0;&#x63D2;&#x5165;&#x7684;&#x8282;&#x70B9;&#x94FE;&#x63A5;&#x5728;&#x53CC;&#x94FE;&#x8868;&#x7684;&#x5C3E;&#x90E8;.</p>
+<h3 id="remove&#x65B9;&#x6CD5;">remove()&#x65B9;&#x6CD5;</h3>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeRemoval</span><span class="hljs-params">(Node&lt;K,V&gt; e)</span> </span>{ <span class="hljs-comment">// unlink</span>
+    LinkedHashMap.Entry&lt;K,V&gt; p =
+        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;
+    p.before = p.after = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>)
+        head = a;
+    <span class="hljs-keyword">else</span>
+        b.after = a;
+    <span class="hljs-keyword">if</span> (a == <span class="hljs-keyword">null</span>)
+        tail = b;
+    <span class="hljs-keyword">else</span>
+        a.before = b;
+}
+</code></pre>
+<p>LinkedHashMap&#x4E5F;&#x6CA1;&#x6709;&#x91CD;&#x5199;<code>remove()</code>&#x65B9;&#x6CD5;,&#x4F46;&#x662F;&#x5BF9;remove&#x65B9;&#x6CD5;&#x4E2D;<code>removeNode()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;<strong>afterNodeRemoval</strong>&#x8FDB;&#x884C;&#x4E86;&#x91CD;&#x5199;.</p>
+<p>&#x5728;&#x6309;&#x7167;HashMap&#x7684;&#x65B9;&#x5F0F;&#x5220;&#x9664;&#x8282;&#x70B9;&#x540E;,&#x5C06;&#x8BE5;&#x8282;&#x70B9;&#x540C;&#x6B65;&#x7684;&#x4ECE;&#x53CC;&#x94FE;&#x8868;&#x4E2D;&#x79FB;&#x9664;&#x6389;.</p>
+<h3 id="containsvaule&#x65B9;&#x6CD5;">containsVaule()&#x65B9;&#x6CD5;</h3>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsValue</span><span class="hljs-params">(Object value)</span> </span>{
+    <span class="hljs-keyword">for</span> (LinkedHashMap.Entry&lt;K,V&gt; e = head; e != <span class="hljs-keyword">null</span>; e = e.after) {
+        V v = e.value;
+        <span class="hljs-keyword">if</span> (v == value || (value != <span class="hljs-keyword">null</span> &amp;&amp; value.equals(v)))
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+}
+</code></pre>
+<p>&#x60F3;&#x5FC5;&#x4E0E;<code>HashMap</code>,LinkedHashMap&#x91CD;&#x5199;&#x540E;&#x7684;<code>containsVaule()</code>&#x66F4;&#x4E3A;&#x9AD8;&#x6548;&#x4E00;&#x4E9B;,&#x76F4;&#x63A5;&#x5728;&#x53CC;&#x94FE;&#x8868;&#x4E2D;&#x8FDB;&#x884C;&#x904D;&#x5386;&#x5224;&#x65AD;&#x662F;&#x5426;&#x5B58;&#x5728;value&#x76F8;&#x7B49;&#x7684;&#x503C;.</p>
+<h2 id="foreach">forEach</h2>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">forEach</span><span class="hljs-params">(BiConsumer&lt;? <span class="hljs-keyword">super</span> K, ? <span class="hljs-keyword">super</span> V&gt; action)</span> </span>{
+    <span class="hljs-keyword">if</span> (action == <span class="hljs-keyword">null</span>)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NullPointerException();
+    <span class="hljs-keyword">int</span> mc = modCount;
+    <span class="hljs-keyword">for</span> (LinkedHashMap.Entry&lt;K,V&gt; e = head; e != <span class="hljs-keyword">null</span>; e = e.after)
+        action.accept(e.key, e.value);
+    <span class="hljs-keyword">if</span> (modCount != mc)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConcurrentModificationException();
+}
+</code></pre>
+<p>LinkedHashMap&#x7684;&#x904D;&#x5386;&#x65B9;&#x5F0F;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6240;&#x793A;:</p>
+<p>&#x76F4;&#x63A5;&#x4ECE;&#x53CC;&#x94FE;&#x8868;&#x7684;&#x5934;&#x90E8;&#x5F00;&#x59CB;&#x904D;&#x5386;,&#x9010;&#x4E2A;&#x8F93;&#x51FA;&#x5373;&#x53EF;.</p>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2>
+<p>&#x5728;&#x8BFB;&#x61C2;&#x4E86;HashMap&#x7684;&#x6E90;&#x7801;&#x540E;,LinkedHashMap&#x4F1A;&#x663E;&#x5F97;&#x6BD4;&#x8F83;&#x7B80;&#x5355;,&#x56E0;&#x4E3A;&#x4ED6;&#x7684;&#x5927;&#x591A;&#x6570;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x5728;HashMap&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x5B8C;&#x6210;&#x7684;.</p>
+<p>LinkedHashMap&#x6709;&#x51E0;&#x4E2A;&#x6BD4;&#x8F83;&#x5173;&#x952E;&#x7684;&#x95EE;&#x9898;&#x5982;&#x4E0B;:</p>
+<h4 id="1&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#x5143;&#x7D20;&#x6709;&#x5E8F;">1.&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#x5143;&#x7D20;&#x6709;&#x5E8F;?</h4>
+<p>&#x5728;HashMap&#x7684;&#x57FA;&#x7840;&#x4E0A;,&#x5BF9;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x6DFB;&#x52A0;&#x5411;&#x524D;&#x5411;&#x540E;&#x6307;&#x9488;,&#x8FD9;&#x6837;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;&#x5F62;&#x6210;&#x4E86;&#x53CC;&#x5411;&#x94FE;&#x8868;,&#x81EA;&#x7136;&#x5C31;&#x662F;&#x6709;&#x5E8F;&#x7684;.</p>
+<h4 id="2&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x987A;&#x5E8F;&#x7684;&#x6B63;&#x786E;&#x4EE5;&#x53CA;&#x540C;&#x6B65;">2.&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x987A;&#x5E8F;&#x7684;&#x6B63;&#x786E;&#x4EE5;&#x53CA;&#x540C;&#x6B65;</h4>
+<p>&#x901A;&#x8FC7;&#x91CD;&#x5199;&#x7684;&#x4E00;&#x4E9B;&#x5173;&#x952E;&#x7684;&#x65B9;&#x6CD5;,&#x5728;&#x5143;&#x7D20;&#x53D1;&#x751F;<code>&#x589E;&#x5220;&#x6539;&#x67E5;</code>&#x7B49;&#x884C;&#x4E3A;&#x65F6;,&#x9664;&#x4E86;&#x5728;Hash&#x6876;&#x4E0A;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;,&#x4E5F;&#x5BF9;&#x94FE;&#x8868;&#x8FDB;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x66F4;&#x65B0;,&#x4EE5;&#x6B64;&#x6765;&#x4FDD;&#x8BC1;&#x987A;&#x5E8F;&#x7684;&#x6B63;&#x786E;.</p>
+<h4 id="3&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E24;&#x79CD;&#x987A;&#x5E8F;&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x6216;&#x8005;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;">3.&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E24;&#x79CD;&#x987A;&#x5E8F;(&#x63D2;&#x5165;&#x987A;&#x5E8F;&#x6216;&#x8005;&#x8BBF;&#x95EE;&#x987A;&#x5E8F;)?</h4>
+<p>&#x901A;&#x8FC7;&#x5185;&#x90E8;&#x7684;&#x6807;&#x8BC6;&#x4F4D;<code>accessOrder</code>&#x6765;&#x8BB0;&#x5F55;&#x5F53;&#x524D;LinkedHashMap&#x662F;&#x4EE5;&#x4EC0;&#x4E48;&#x4E3A;&#x5E8F;,&#x4E4B;&#x540E;&#x518D;&#x5904;&#x7406;&#x5143;&#x7D20;&#x65F6;&#x901A;&#x8FC7;&#x8BFB;&#x53D6;<code>accessOrder</code>&#x7684;&#x503C;&#x6765;&#x63A7;&#x5236;&#x94FE;&#x8868;&#x7684;&#x987A;&#x5E8F;.</p>
+<h4 id="4&#x4E3A;&#x4EC0;&#x4E48;&#x91CD;&#x5199;containsvalue&#x800C;&#x4E0D;&#x91CD;&#x5199;containskey">4.&#x4E3A;&#x4EC0;&#x4E48;&#x91CD;&#x5199;<code>containsValue()</code>&#x800C;&#x4E0D;&#x91CD;&#x5199;<code>containsKey()</code>?</h4>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x4E00;&#x4E0B;&#x4ED6;&#x4EEC;&#x5206;&#x522B;&#x662F;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x7684;,&#x5C31;&#x77E5;&#x9053;&#x539F;&#x56E0;&#x4E86;.</p>
+<p>&#x5728;HashMap&#x4E2D;:</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsValue</span><span class="hljs-params">(Object value)</span> </span>{
+    Node&lt;K,V&gt;[] tab; V v;
+    <span class="hljs-keyword">if</span> ((tab = table) != <span class="hljs-keyword">null</span> &amp;&amp; size &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; tab.length; ++i) {
+            <span class="hljs-keyword">for</span> (Node&lt;K,V&gt; e = tab[i]; e != <span class="hljs-keyword">null</span>; e = e.next) {
+                <span class="hljs-keyword">if</span> ((v = e.value) == value ||
+                    (value != <span class="hljs-keyword">null</span> &amp;&amp; value.equals(v)))
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            }
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">containsKey</span><span class="hljs-params">(Object key)</span> </span>{
+    <span class="hljs-keyword">return</span> getNode(hash(key), key) != <span class="hljs-keyword">null</span>;
+}
+</code></pre>
+<p>containsKey()&#x662F;&#x901A;&#x8FC7;hash&#x503C;&#x76F4;&#x63A5;&#x8BA1;&#x7B97;&#x51FA;&#x8BE5;key&#x5BF9;&#x5E94;&#x7684;&#x6570;&#x7EC4;&#x4E0B;&#x6807;,&#x4E4B;&#x540E;&#x5728;&#x8BE5;hash&#x6876;&#x7684;&#x94FE;&#x8868;&#x4E0A;&#x8FDB;&#x884C;&#x67E5;&#x627E;&#x76F8;&#x540C;&#x7684;key.</p>
+<p>containsValue()&#x662F;&#x5BF9;table&#x8FDB;&#x884C;&#x904D;&#x5386;,&#x5BF9;&#x5176;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;hash&#x6876;&#x7684;&#x6240;&#x6709;&#x503C;&#x8FDB;&#x884C;&#x904D;&#x5386;,&#x53BB;&#x5BFB;&#x627E;&#x76F8;&#x540C;&#x7684;value.</p>
+<p>&#x800C;&#x5728;LinkedHashMap&#x4E2D;,&#x5982;&#x679C;&#x90FD;&#x6539;&#x4E3A;&#x5BF9;&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x904D;&#x5386;&#x6765;&#x5BFB;&#x627E;key&#x548C;value.</p>
+<p>&#x65E0;&#x7591;&#x5728;value&#x7684;&#x67E5;&#x627E;&#x65F6;&#x4F1A;&#x6709;&#x6027;&#x80FD;&#x7684;&#x63D0;&#x5347;,&#x800C;&#x5BF9;&#x4E8E;key&#x7684;&#x67E5;&#x627E;&#x5219;&#x66F4;&#x4E3A;&#x4F4E;&#x6548;&#x4E86;.</p>
+<p>&#x5982;&#x679C;&#x6539;&#x4E3A;&#x904D;&#x5386;&#x53CC;&#x5411;&#x94FE;&#x8868;&#x8FDB;&#x884C;&#x67E5;&#x627E;key&#x503C;,&#x5219;&#x4ECE;<code>key-&gt;hash-&gt;index</code>&#x7684;&#x65B9;&#x6CD5;&#x9000;&#x5316;&#x5230;&#x9010;&#x4E00;&#x904D;&#x5386;,&#x4E27;&#x5931;&#x4E86;HashMap&#x7684;&#x6700;&#x5927;&#x7279;&#x6027;.</p>
+<p><br>
+&#x5B8C;&#x3002;</p>
+<p><br>
+<br>
+<br>
+<br></p>
+<p></p><h4 id="changelog">ChangeLog</h4>
+2018-12-16 &#x5B8C;&#x6210;
+<br>
+<br><p></p>
+<p><strong>&#x4EE5;&#x4E0A;&#x7686;&#x4E3A;&#x4E2A;&#x4EBA;&#x6240;&#x601D;&#x6240;&#x5F97;&#xFF0C;&#x5982;&#x6709;&#x9519;&#x8BEF;&#x6B22;&#x8FCE;&#x8BC4;&#x8BBA;&#x533A;&#x6307;&#x6B63;&#x3002;</strong></p>
+<p><strong>&#x6B22;&#x8FCE;&#x8F6C;&#x8F7D;&#xFF0C;&#x70E6;&#x8BF7;&#x7F72;&#x540D;&#x5E76;&#x4FDD;&#x7559;&#x539F;&#x6587;&#x94FE;&#x63A5;&#x3002;</strong></p>
+<p><strong>&#x8054;&#x7CFB;&#x90AE;&#x7BB1;&#xFF1A;huyanshi2580@gmail.com</strong></p>
+<p><strong>&#x66F4;&#x591A;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x89C1;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;------&gt;<a href="../..">&#x547C;&#x5EF6;&#x5341;</a></strong></p>
+<footer class="page-footer"><span class="copyright">&#x7248;&#x6743;&#x6240;&#x6709;&#xFF0C;&#x76D7;&#x7248;&#x5FC5;&#x7A76; all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Last Modified On&#xFF1A;
+2019-03-26 11:07:51
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2018-11-03-HashTable和-HashMap的区别.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: HashTable和-HashMap的区别">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"layout":"post","category":"java面试","tags":["Java","Java面试","Java集合","源码阅读"],"title":"LinkedHashMap源码分析","level":"1.2.14","depth":2,"next":{"title":"JUC并发包","level":"1.3","depth":1,"ref":"","articles":[{"title":"Atomic原子类","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"(juc系列)从-AtomicInteger来学习-Java的原子类","level":"1.3.1.1","depth":3,"path":"java/juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.md","ref":"java/juc/2019-04-23-(juc系列)从-AtomicInteger来学习-Java的原子类.md","articles":[]}]},{"title":"线程池","level":"1.3.2","depth":2,"ref":"","articles":[{"title":"(juc系列)Java中Executors提供的的4种线程池","level":"1.3.2.1","depth":3,"path":"java/juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.md","ref":"java/juc/2019-03-07-(juc系列)Java中Executors提供的的4种线程池.md","articles":[]},{"title":"(juc系列)ForkJoin框架源码学习","level":"1.3.2.2","depth":3,"path":"java/juc/2021-10-14-(juc系列)ForkJoin框架源码学习.md","ref":"java/juc/2021-10-14-(juc系列)ForkJoin框架源码学习.md","articles":[]},{"title":"Java中的-ThreadPoolExecutor类","level":"1.3.2.3","depth":3,"path":"java/juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.md","ref":"java/juc/2019-05-05-(juc系列)Java中的-ThreadPoolExecutor类.md","articles":[]},{"title":"(juc系列)ThreadPoolExecutor源码学习","level":"1.3.2.4","depth":3,"path":"java/juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.md","ref":"java/juc/2021-10-12-(juc系列)ThreadPoolExecutor源码学习.md","articles":[]},{"title":"(juc系列)用线程池执行定时任务","level":"1.3.2.5","depth":3,"path":"java/juc/2019-03-29-(juc系列)用线程池执行定时任务.md","ref":"java/juc/2019-03-29-(juc系列)用线程池执行定时任务.md","articles":[]},{"title":"(juc系列)Executors类的工厂方法","level":"1.3.2.6","depth":3,"path":"java/juc/2021-10-13-(juc系列)Executors类的工厂方法.md","ref":"java/juc/2021-10-13-(juc系列)Executors类的工厂方法.md","articles":[]}]},{"title":"Lock锁","level":"1.3.3","depth":2,"ref":"","articles":[{"title":"(juc系列)AQS源码学习笔记","level":"1.3.3.1","depth":3,"path":"java/juc/2021-09-28-(juc系列)AQS源码学习笔记.md","ref":"java/juc/2021-09-28-(juc系列)AQS源码学习笔记.md","articles":[]},{"title":"(juc系列)CountDownLatch源码阅读","level":"1.3.3.2","depth":3,"path":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)CountDownLatch源码阅读.md","articles":[]},{"title":"(juc系列)CyclicBarrier源码阅读","level":"1.3.3.3","depth":3,"path":"java/juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)CyclicBarrier源码阅读.md","articles":[]},{"title":"(juc系列)ReentrantLock源码学习","level":"1.3.3.4","depth":3,"path":"java/juc/2021-09-28-(juc系列)ReentrantLock源码学习.md","ref":"java/juc/2021-09-28-(juc系列)ReentrantLock源码学习.md","articles":[]},{"title":"(juc系列)StampedLock源码学习","level":"1.3.3.5","depth":3,"path":"java/juc/2021-10-06-(juc系列)StampedLock源码学习.md","ref":"java/juc/2021-10-06-(juc系列)StampedLock源码学习.md","articles":[]},{"title":"(juc系列)Exchanger源码阅读","level":"1.3.3.6","depth":3,"path":"java/juc/2021-10-12-(juc系列)Exchanger源码阅读.md","ref":"java/juc/2021-10-12-(juc系列)Exchanger源码阅读.md","articles":[]},{"title":"(juc系列)Semaphore源码阅读","level":"1.3.3.7","depth":3,"path":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","ref":"java/juc/2021-09-30-(juc系列)Semaphore源码阅读.md","articles":[]},{"title":"(juc系列)ReentrantReadWriteLock源码学习","level":"1.3.3.8","depth":3,"path":"java/juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.md","ref":"java/juc/2021-10-08-(juc系列)ReentrantReadWriteLock源码学习.md","articles":[]},{"title":"(juc系列)Phaser源码学习","level":"1.3.3.9","depth":3,"path":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","ref":"java/juc/2021-10-09-(juc系列)Phaser源码学习.md","articles":[]}]}]},"previous":{"title":"HashTable和-HashMap的区别","level":"1.2.13","depth":2,"path":"java/集合/2018-11-03-HashTable和-HashMap的区别.md","ref":"java/集合/2018-11-03-HashTable和-HashMap的区别.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","expandable-chapters","splitter","-lunr","-search","search-pro","copy-code-button","back-to-top-button","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"版权所有，盗版必究","modify_label":"Last Modified On：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/HuBlanker"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"呼延十","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java基础学习笔记","language":"zh-hans","gitbook":"*","description":"java-base"},"file":{"path":"java/集合/2018-12-16-LinkedHashMap源码分析.md","mtime":"2019-03-26T03:07:51.977Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-17T10:55:34.051Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
