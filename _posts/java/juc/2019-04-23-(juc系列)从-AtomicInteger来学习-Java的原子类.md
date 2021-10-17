@@ -8,6 +8,9 @@ tags:
   - java.util.concurrent
 ---
 
+
+本文源码基于: <font color='red'>JDK13</font>
+
 ## 前言
 
 Java的`concurrent`包一直都是很重要的知识点,因为他是进阶高级工程师必备,而其中的`atomic`包中的原子类是最为经常使用到的,所以学习一下`atomic`下的一些类的源码.
