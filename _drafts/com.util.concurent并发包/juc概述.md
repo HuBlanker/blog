@@ -25,13 +25,39 @@ juc包下, 包含以下内容:
   * Exchanger
 
 
-线程池调度.
+* 线程池
 
-![2021-10-11-17-38-50](http://img.couplecoders.tech/2021-10-11-17-38-50.png)
-
-* ThreadPoolExecutor
 
 一些同步的集合.
+
+ArrayBlockingQueue
+BlockingDeque
+BlockingQueue
+ConcurrentHashMap
+ConcurrentLinkedDeque
+ConcurrentLinkedQueue
+ConcurrentMap
+ConcurrentNavigableMap
+ConcurrentSkipListMap
+ConcurrentSkipListSet
+CopyOnWriteArrayList
+CopyOnWriteArraySet
+Delayed
+DelayQueue
+LinkedBlockingDeque
+LinkedBlockingQueue
+LinkedTransferQueue
+PriorityBlockingQueue
+SynchronousQueue
+ThreadLocalRandom
+TransferQueue
+
+# Flow等发布订阅系列
+
+SubmissionPublisher
+Flow
+
+# threadLocalRandom
 
 
 
