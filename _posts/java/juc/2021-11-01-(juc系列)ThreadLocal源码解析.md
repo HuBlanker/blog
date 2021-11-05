@@ -1,15 +1,16 @@
 ---
 layout: post
-category: [Java,ThreadLocal]
+category: [Java,ThreadLocal,JUC]
 tags:
   - Java
   - ThreadLocal
+  - JUC
 ---
 
 
 
 
-## 前言
+本文源码基于: <font color='red'>JDK13</font>
 
 ## ThreadLocal 源码解析
 
