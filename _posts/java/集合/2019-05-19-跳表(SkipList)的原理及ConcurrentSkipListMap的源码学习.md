@@ -451,7 +451,74 @@ get方法比较简单:
 
 跳表是一种可以在有序的列表上进行快速的查找的数据结构,他的查找删除插入的时间复杂度都O(logN).在跳表中,存储数据的就是底层的一个单链表,同时维护一份索引,索引是最多31条单链表,并且不同层的相同节点在纵向上也是一个链表,因此索引其实是一个矩形的结构,查找时,从矩形的左上角逐渐向右向下查找.
 
-ConcurrentSkilListMap是Java中对于跳表的一个并发实现,且没有使用锁机制,采用了CAS算法以提供并发的能力.
+`ConcurrentSkipListMap`是Java中对于跳表的一个并发实现,且没有使用锁机制,采用了CAS算法以提供并发的能力.
+
+
+## ConcurrentSkipListSet
+
+跳表实现集合. 内部使用`ConcurrentSkipListMap`实现.
+
+
+### 属性及构造方法
+
+```java
+
+    private final ConcurrentNavigableMap<E,Object> m;
+
+    public ConcurrentSkipListSet() {
+        m = new ConcurrentSkipListMap<E,Object>();
+    }
+
+    public ConcurrentSkipListSet(Comparator<? super E> comparator) {
+        m = new ConcurrentSkipListMap<E,Object>(comparator);
+    }
+
+    public ConcurrentSkipListSet(Collection<? extends E> c) {
+            m = new ConcurrentSkipListMap<E,Object>();
+            addAll(c);
+            }
+
+    public ConcurrentSkipListSet(SortedSet<E> s) {
+            m = new ConcurrentSkipListMap<E,Object>(s.comparator());
+            addAll(s);
+            }
+```
+
+内部持有一个map，构造方法是对map的初始化.
+
+同时支持将给定的集合，初始化到set中.
+
+
+
+
+###  add 方法
+
+```java
+
+    public boolean add(E e) {
+        return m.putIfAbsent(e, Boolean.TRUE) == null;
+    }
+```
+
+调用`map`的`不存在则添加方法`,以实现`Set`的唯一性语义.
+
+### remove
+
+```java
+
+    public boolean remove(Object o) {
+        return m.remove(o, Boolean.TRUE);
+    }
+```
+
+直接调用remove即可.
+
+
+其他方法全部由map进行代理.
+
+### 总结
+
+使用`map`来实现`Set`的又一个案例. map的keys就是所需要的set集合. values放一个无意义值即可.
 
 ## 参考文章
 
