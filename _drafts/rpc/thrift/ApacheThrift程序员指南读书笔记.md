@@ -303,9 +303,166 @@ Key chapter takeaways
 ### 4.1 终端传输, 内存和磁盘
 
 
+读写到内存/文件.
+
 * 内存 
 
 TMemoryBuffer
 
 * file 
+
+TSimpleFileTransport
+
+### 4.2 传输接口
+
+![s13283805302022](http://img.couplecoders.tech/s13283805302022.png)
+
+### 4.3 网络传输 (终端传输)
+
+TSocket 
+
+java/c++/python的Socket使用.
+
+#### 4.4 服务端传输
+
+
+一般自带的服务器(NONBLockingServer)带了传输层(TServerSocket), 但是也可以手动搞个传输出来.
+
+
+
+
+#### 4.5 分层的传输层
+
+分层模型可以更好的添加代码.
+
+
+层级传输可以像终端传输一样, 栈式的,足够灵活的使用.
+
+TFramedTransport, TBufferedTransport.
+
+### 总结
+
+```text
+ Transports are the lowest layer of the Apache Thrift software stack.
+ All Apache Thrift features depend on transports.
+ Transports implement the TTransport interface.
+ The TTransport interface defines device-independent, byte-level read and write
+operations.
+ Endpoint transports implement TTransport and perform read/write opera-
+tions against a device.
+ Endpoint transports are offered in most languages for memory, disk, and net-
+work devices.
+ Server transports use the factory pattern to manufacture network transports as
+client connections are accepted.
+ Layered transports implement TTransport and provide additional features on
+top of an underlying transport.
+ Layered transports enable separation of concerns and reuse in the transport
+stack.
+ The TFramedTransport is a commonly used layered transport and is required to
+connect to non-blocking servers.
+ A transport stack may include any number of layered transports but must always
+lead to endpoint transports at the bottom of the stack.
+```
+
+## 第五章 用协议来序列化数据
+
+
+语言, 操作系统, 硬件,
+无关的,独立的,序列化协议
+
+json/xml:
+
+* 二进制块怎么传输?
+* 属性确实或者多了怎么办?
+* 混合类型怎么支持? 
+
+
+支持多种协议,方便的自定义序列化.
+
+TProtocol接口
+
+给定协议可以写入多个传输层.
+
+TBinaryProtocol,TCompactProtocol,TJSONProtocol
+
+必须在传输层的最顶层,套上一个序列化接口.
+
+
+#### 5.1 二进制序列化 TBinaryProtocol
+
+
+#### 5.2 序列化接口
+
+
+一大堆read/write. 支持所有thriftIDL支持的类型.
+
+##### 5.2.1 Apache Thrift serialization
+
+关于不支持flaot/ 4-byte float的讨论,
+
+
+1. 不兼容
+2. 工作量太大
+
+所以一直不支持.
+
+* string
+
+用UTF-8.
+
+Java是UCF-16, 就转换呗
+
+
+
+UCF-8 全支持, 紧凑,没有字节顺序的浪费,因此用这个.
+
+*  binary 
+
+序列化过程中不改动.
+
+自己定义这块二进制是干啥的,自己反解析咯.
+
+*  集合
+
+list/set/map
+
+thrift的集合, 有一个begin和end方法,
+
+begin和end里面记录了集合中的元素数量.
+
+
+不做唯一性检查,各种语言自己做.
+所以python这种duck typing的有点问题,list能发起set的调用,但是收不到.
+
+* struct
+
+begin和end 
+
+每一个属性有writeFieldbegin和end.
+
+
+有skip()方法,可以跳过一些类型. 跳过多少个等等.
+
+序列化struct的代码也是生成的.
+
+* 消息 messages
+
+入参用Message封装.
+返回参数用Result来进行封装.
+
+这两个就是Message.
+
+Message包含: name, type, seqID.
+
+name就是方法名, id用来搞异步调用,大部分情况都是0.
+
+type是下面这四种类型: 
+
+![s23572806052022](http://img.couplecoders.tech/s23572806052022.png)
+
+
+##### 5.2.2 c++的TProtocol
+
+
+#### 5.3 序列化对象
 
