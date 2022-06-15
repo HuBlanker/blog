@@ -466,3 +466,137 @@ type是下面这四种类型:
 
 #### 5.3 序列化对象
 
+##### 5.3.3 对象体进化,迭代 
+
+
+#### 5.4 紧凑序列化协议
+
+#### 5.4 json序列化
+
+
+#### 5.4 怎么选Protocol
+
+1. binary是通用的.
+2. compact体积小, 性能可能会好, 也可能由于cpu导致变差.
+3. json人类可读
+
+#### 总结
+
+```text
+
+Apache Thrift protocols serialize application data into a standard format readable by any Apache Thrift language library supporting that protocol. The combination of transports and protocols creates a plug-in style architecture making Apache Thrift an extensible platform for data serialization, supporting a choice of protocols and the possible addition of new serialization protocols over time.
+ Apache Thrift protocols provide cross-language serialization.
+ The TProtocol interface provides the abstract interface for all Apache Thrift
+serialization formats.
+ Protocols depend on the transport layer TTransport interface to read and write
+serialized bytes.
+ One serialization protocol can be substituted for another with little or no
+impact on upper layers of software.
+ The TProtocol interface defines the Apache Thrift type system exposed
+through Apache Thrift IDL.
+ Protocols support the serialization of
+– RPC messages
+– Structs
+– Collections —List, set, and map
+– Base types—Ints, doubles, strings, and so on
+ Apache Thrift supplies three main protocols:
+– Binary—The default protocol, supported by the most languages, is fast and
+efficient.
+– Compact—Trades CPU overhead for reduced serialization size.
+– JSON—A text-based, widely interoperable, human-readable protocol with
+higher CPU overhead and relatively large serialization size.
+```
+
+
+## 第六章 IDL 
+
+### 6.1 接口
+
+thrift框架, 聚焦于
+"让程序员设计和构造跨语言的分布式计算接口",两部分组成:
+
+`UserDefined types` 用户定义类型, 在系统间进行交换的数据.
+`services` 暴露的一系列方法
+
+认真干业务, 而不是注意rpc和跨语言的序列化.
+
+
+
+* 尽量让IDL中的定义精确
+* 不能精确的部分应该以文档说明
+* 保持接口抽象并且远离具体实现细节
+
+
+IDL和c++语言不同,
+
+没有分隔符
+
+### 6.2 IDL 
+
+* IDL文件名 (正式点就好)
+* 元素名 每个元素必须有名字,不重复,区分大小写
+* 关键词 30个关键字 , 注意union. 好几个列, 但是一次只有一个可用. 还有一堆保留字, 别用,是别的语言的关键词, 用了容易出错.
+
+![s22075206132022](http://img.couplecoders.tech/s22075206132022.png)
+
+![s22101306132022](http://img.couplecoders.tech/s22101306132022.png)
+
+
+### 6.3 IDL 编译器
+
+#### 6.3.1 编译阶段和错误信息
+
+三阶段:
+
+1. 寻找关键字,名字,操作符等
+2. 使用预发规则解析成程序元素列表
+3. 元素列表解析成特定语言的code. 
+
+#### 6.3.2 命令行参数
+
+![s22095806132022](http://img.couplecoders.tech/s22095806132022.png)
+
+Graphviz 支持的一个图形化的开源语音, 能直接画图, 还可以.
+
+Java语言支持的一些额外参数:
+
+![s22540106132022](http://img.couplecoders.tech/s22540106132022.png)
+
+
+**-gen html 可以生成html的说明文件哦.**
+
+#### 6.4 注释 语法
+
+#### 6.5 命名空间
+
+namespace 语言 空间名
+
+多个语言各自玩.
+
+#### 6.6 内建类型
+
+##### 6.6.1 基础类型
+
+![s17290006142022](http://img.couplecoders.tech/s17290006142022.png)
+
+
+* 只有有符号整数
+* string和binary很像,具体是某些语言不一样.
+* bool 可能翻译成1/0.
+* 只有double, 没有float和bigdicimal.
+* void 只能是方法返回值.
+
+
+##### 6.6.2 集合类型
+
+![s17375206142022](http://img.couplecoders.tech/s17375206142022.png)
+
+* 自定义的c++集合
+* 有序的JAVA集合.
+
+##### 6.6.3 字面量
+
+常量和默认值,等字面量赋值.
+
+#### 6.7 常量
+
