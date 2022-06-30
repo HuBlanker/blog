@@ -565,15 +565,15 @@ Java语言支持的一些额外参数:
 
 **-gen html 可以生成html的说明文件哦.**
 
-#### 6.4 注释 语法
+### 6.4 注释 语法
 
-#### 6.5 命名空间
+### 6.5 命名空间
 
 namespace 语言 空间名
 
 多个语言各自玩.
 
-#### 6.6 内建类型
+### 6.6 内建类型
 
 ##### 6.6.1 基础类型
 
@@ -598,5 +598,181 @@ namespace 语言 空间名
 
 常量和默认值,等字面量赋值.
 
-#### 6.7 常量
+### 6.7 常量
+
+### 6.8 类型定义
+
+给类型自定义个名字, 更加清晰和自描述的.
+
+### 6.9 枚举
+
+问题不大, 都是了解了的.
+
+### 6.10 结构体,属性,等等
+
+default默认都会写入, 但是optional没有值就不写入. 
+
+optional属性有setter方法.会设置isset的flag, 调用这个才会序列化. 注意检查这一项.
+
+不同的requiredness, 对默认值的处理不一样, required和default, 是写入方为主,默认值在网络传输, optional是在读取方设置, 不走网络传输了.
+
+默认值版本不一致问题,没办法. 
+
+optional最好别弄默认值. 因为不传输, 读取方直接设置的默认值,很容易有版本问题,和写入方设想的不一样,出现一些不可预知的问题. 所以最好别弄. 
+
+* 异常
+
+* unions
+
+### 6.11 servings
+
+### 6.12 引用外部文件
+
+### 6.13 注解
+
+### 总结
+
+```text
+
+Apache Thrift IDL is an expressive yet compact interface definition language. It pro- vides modern features while supporting a wide range of implementation languages.
+ IDLs support the process of developing explicit mechanical contracts between clients and servers.
+ Apache Thrift supports a selection of commenting styles, including doc strings, that can be used to generate documentation with the Apache Thrift IDL com- piler and other tools (such as Doxygen).
+ Apache Thrift IDL supports a small but flexible set of base types:
+– binary – bool – byte – double – i16
+– i32
+– i64
+– string – void
+ Apache Thrift IDL supports three container types:
+– list – set – map
+ Apache Thrift IDL supports interface constants.
+ Apache Thrift IDL supports several user-defined types:
+– typedef – enum
+– struct
+– union
+– exception
+ Apache Thrift IDL doesn’t support type inheritance.
+ Apache Thrift IDL doesn’t support self-referential types or forward definitions
+(with experimental exceptions).
+ The service keyword allows RPC service interfaces to be defined.
+ Apache Thrift supports interface inheritance but not overloading or overriding.
+ IDL files can include other IDL files, allowing large interfaces to be organized
+across files.
+ The namespace keyword supports namespace and package generation in vari-
+ous target languages.
+```
+
+**Doxygen**
+
+
+
+## 第七章 用户定义类型 
+
+### 7.1 简单的用户定义类型例子
+
+
+### 7.2 类型设计
+
+* 命名空间
+* 常量 
+* 结构体
+* 基础类型
+* 类型定义
+* 属性ID   -> 废弃的属性应该和他的ID一起注释后放在原地,让后续维护的人知道这个ID别用. 容易造成混乱哦.
+* 枚举 -> 废弃的编号不应该重用.
+* 集合 
+* union -> 我们的feature-key 是不是很合适这种类型呢?
+* 必须或者可选 -> 默认挺好的,optional有些不传输能省网卡,required能保证一定有,但是不太好演进.
+
+
+### 7.3 序列化对象到磁盘
+
+基本上都是之前讲过的.
+
+### 7.4 在类型序列化之下. (更底层的东西么)
+
+生成的类包含四部分:
+
+* 属性列表
+* 默认构造函数
+* read方法 -> 用给定的序列化协议
+* write方法 -> 用给定的序列化协议
+
+
+
+
+#### 7.4.1 write方法序列化 
+
+#### 7.4.2 read方法反序列化
+
+
+### 7.5 类型演化
+
+类型或者接口演化, 是很重要滴.
+
+除了ID, 其他都可以随便改. 每种演化方案,都有对应的处理办法咯.
+
+* 属性改名字
+在默认的三个protocol中,随便改,因为并不传输name. 只传输ID和TYPE.
+
+* 新增一个必须的属性
+最常见的演化类型. 是向后兼容的. 
+反序列化的时候, 不认识的属性就忽略了. 
+新的程序接收到旧的数据,比较宽容,大不了给新的field搞个默认值.
+  - 必须字段 初始化后,最好别添加必须的字段了,除非一次性换完所有应用.
+  - 默认字段 这个挺好,就是如果没有默认值,旧的程序不序列化这个字段.
+  - 可选字段 这个也不错. 比较灵活
+  - 最佳时间  默认字段+默认值 或者可选字段+没有默认值. 都不要乱用ID就好.
+
+* 已有的属性不再需要了
+  - 直接注释掉即可
+  - 不要重用ID 
+  - 不能删除required的属性
+  - 注意删除没有默认值的属性
+
+* 属性的类型要修改
+  - 新旧程序不认识这个字段,会忽略. 
+  - 如果是可预期会更改类型,建议使用Union. 
+
+* 属性的必要性要修改
+ - required不要改
+ - optional和default比较随意改.
+
+* 属性的默认值需要修改.
+ - 会导致细小的,程序定义的错误,不是安全的.
+
+ ### 7.6 zlib 压缩
+
+ c++/java/python三种语言的应用.
+
+ ### 第七章总结
+
+ ```text 
+ Apache Thrift IDL provides a rich set of tools for describing data types that can be exchanged across languages and platforms. The Apache Thrift framework also pro- vides a flexible and comprehensive set of type serialization features:
+ Structs are the Apache Thrift IDL mechanism for creating cross-language, user- defined types.
+ Structs have one or more fields, each with a name, ID, type, requiredness, and, optionally, a default value.
+ Optional requiredness fields offer the most serialization flexibility, allowing user code to decide whether to serialize them or not:
+– Optional fields are a good choice for any data that may not need to be serial-
+ized on all occasions, particularly data fields of large size.
+– Optional fields must typically be set with language-specific set methods to
+ensure that the UDT serializes them when the write() method is called.
+– Optional fields must be tested for existence after de-serialization and prior to
+access in case they were not found during the de-serialization process.
+ Typedefs allow new semantic types to be created from existing types.
+ Enums allow new enumeration types to be created.
+ Unions are used to create fields that have more than one possible type or repre-
+sentation:
+– All union fields are optional.
+– Union values must be set with set methods in most languages.
+– Only one type should be set at a time within a union.
+ UDTs can be serialized by calling their write() method and de-serialized by calling their read() method.
+ Apache Thrift Interface Evolution features allow UDTs to change over time without breaking existing applications:
+– New fields can be added.
+– Old fields can be removed.
+– Fields can be represented with a selection of types when unions are used.
+ The TZlibTransport can be layered on top of memory and file endpoint trans-
+ports to compress serialized objects:
+– The TZlibTransport isn’t supported by all languages.
+```
+
+## 第八章  实现服务
 
