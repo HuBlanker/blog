@@ -9,4 +9,11 @@ _site/**
 **/img/**
 **/.DS_Store
 gitbook/java-base/_book/**
-
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+_multiconfig.yml
