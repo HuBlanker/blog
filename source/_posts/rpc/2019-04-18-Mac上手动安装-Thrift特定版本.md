@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Thrift,RPC,开发环境搭建]
 tags:
   - Thrift
   - RPC

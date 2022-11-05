@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC, Flow,SubmissionPublisher]
 tags:
   - Java
   - SubmissionPublisher

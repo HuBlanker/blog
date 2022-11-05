@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [开发者工具,Java,Linux,DEBUG]
 tags:
   - 开发者工具
   - Java

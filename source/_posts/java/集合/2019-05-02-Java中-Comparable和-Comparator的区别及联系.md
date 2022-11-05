@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,Java集合]
 tags:
   - Java
   - Java集合

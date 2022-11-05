@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Mysql,读书笔记,高性能MySQL]
 tags:
   - Java
   - 读书笔记

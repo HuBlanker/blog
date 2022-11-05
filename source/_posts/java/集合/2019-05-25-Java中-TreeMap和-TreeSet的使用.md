@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,数据结构,Java集合]
 tags:
   - Java
   - 数据结构

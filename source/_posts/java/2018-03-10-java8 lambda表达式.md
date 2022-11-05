@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [java8,java]
 tags:
   - Java
   - Java8

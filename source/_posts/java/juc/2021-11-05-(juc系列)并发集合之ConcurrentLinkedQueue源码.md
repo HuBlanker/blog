@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC, ConcurrentLinkedQueue]
 tags:
   - Java
   - ConcurrentLinkedQueue

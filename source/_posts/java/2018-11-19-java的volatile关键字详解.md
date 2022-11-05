@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java面试,Java]
 tags:
   - Java面试
   - Java

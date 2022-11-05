@@ -1,6 +1,5 @@
 ---
 layout: post
-category: 实际问题解决
 tags:
   - 实际问题解决
 ---

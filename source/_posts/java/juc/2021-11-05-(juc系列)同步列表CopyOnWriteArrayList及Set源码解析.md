@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java, JUC, CopyOnWriteArrayList,CopyOnWriteArraySet]
 tags:
   - Java
   - JUC

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,轮子]
 tags:
   - Java
   - 轮子

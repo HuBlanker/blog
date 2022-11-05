@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Linux,轮子]
 tags:
   - Linux
   - 轮子

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Lucene,轮子]
 tags:
   - Lucene
   - 轮子

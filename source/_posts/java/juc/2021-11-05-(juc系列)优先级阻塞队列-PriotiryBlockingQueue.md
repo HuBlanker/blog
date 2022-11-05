@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC, PriotiryBlockingQueue]
 tags:
   - Java
   - PriotiryBlockingQueue

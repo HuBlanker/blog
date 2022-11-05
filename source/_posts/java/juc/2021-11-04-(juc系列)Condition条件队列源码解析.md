@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC,Condition]
 tags:
   - Java
   - JUC

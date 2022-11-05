@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [算法,数据结构,实际问题解决]
 tags:
   - 算法
   - 数据结构

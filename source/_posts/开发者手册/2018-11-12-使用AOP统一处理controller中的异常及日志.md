@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [开发者手册,Spring Boot]
 tags:
   - 开发者手册
   - Spring Boot

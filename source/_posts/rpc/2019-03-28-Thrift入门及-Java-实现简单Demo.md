@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Thrift,RPC]
 tags:
   - Thrift
   - RPC

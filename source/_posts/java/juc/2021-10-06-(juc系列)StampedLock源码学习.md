@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC,StampedLock]
 tags:
   - Java
   - JUC

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [开发者工具，效率编程]
 tags:
   - 开发者工具
   - 效率编程

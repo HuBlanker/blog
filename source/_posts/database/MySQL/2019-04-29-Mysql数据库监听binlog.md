@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Mysql,轮子]
 tags:
   - MySQL
   - 轮子

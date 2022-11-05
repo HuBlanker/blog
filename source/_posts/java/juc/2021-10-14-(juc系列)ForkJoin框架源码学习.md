@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java]
 tags:
   - Java
 ---

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: MySQL
 tags:
   - MySQL
 ---

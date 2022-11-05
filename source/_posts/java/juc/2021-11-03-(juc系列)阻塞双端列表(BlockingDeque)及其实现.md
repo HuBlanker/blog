@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java, 阻塞双端队列, BlockingDeque]
 tags:
   - Java
   - 阻塞双端队列

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,ThreadLocal,JUC]
 tags:
   - Java
   - ThreadLocal

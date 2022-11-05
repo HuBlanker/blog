@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [搜索, 数据结构, BKD树]
 tags:
   - 搜索
   - 数据结构

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,DEBUG,面试]
 tags:
   - Java
   - DEBUG

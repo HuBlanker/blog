@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java面试,Java,多线程,java.util.concurrent]
 tags:
   - Java面试
   - Java

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Redis,翻译]
 tags:
   - Redis
   - 翻译

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java, JUC, ReentrantLock]
 tags:
   - Java
   - JUC

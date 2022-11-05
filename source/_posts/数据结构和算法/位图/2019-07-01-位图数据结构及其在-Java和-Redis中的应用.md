@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,Redis,数据结构,源码阅读]
 tags:
   - Java
   - Redis

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC, 线程池]
 tags:
   - Java
   - JUC

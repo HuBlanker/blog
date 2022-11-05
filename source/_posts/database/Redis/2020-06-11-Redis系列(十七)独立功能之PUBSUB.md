@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Redis]
 tags:
   - Redis
 ---

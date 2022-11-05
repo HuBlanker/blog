@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,阻塞队列,BlockingQueue]
 tags:
   - Java
   - 阻塞队列

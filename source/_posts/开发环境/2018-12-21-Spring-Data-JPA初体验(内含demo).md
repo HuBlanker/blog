@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [开发环境搭建,JPA,Spring Boot,开发者手册]
 featured: true
 tags:
   - 开发环境搭建

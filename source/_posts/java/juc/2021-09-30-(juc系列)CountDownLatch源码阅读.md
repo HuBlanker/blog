@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java, JUC, CountDownLatch]
 tags:
   - Java
   - CountDownLatch

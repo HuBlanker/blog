@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,延迟队列,DelayQueue]
 tags:
   - Java
   - 延迟队列

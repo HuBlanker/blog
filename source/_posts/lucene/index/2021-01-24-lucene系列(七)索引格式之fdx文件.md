@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Lucene, 搜索]
 tags:
   - Lucene
   - 搜索

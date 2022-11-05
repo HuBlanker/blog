@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,TransferQueue]
 tags:
   - Java
   - TransferQueue

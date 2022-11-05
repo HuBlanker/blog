@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Effective Java,读书笔记,源码阅读]
 tags:
   - 源码阅读
   - 读书笔记

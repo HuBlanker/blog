@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Java,JUC, SynchronousQueue]
 tags:
   - Java
   - SynchronousQueue

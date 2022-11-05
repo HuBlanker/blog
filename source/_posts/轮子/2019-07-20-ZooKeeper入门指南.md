@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [轮子]
 tags:
   - 轮子
 ---

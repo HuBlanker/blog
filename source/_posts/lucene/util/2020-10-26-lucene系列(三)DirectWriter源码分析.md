@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Lucene, 搜索，整数编码]
 tags:  
     - Lucene
     - 搜索

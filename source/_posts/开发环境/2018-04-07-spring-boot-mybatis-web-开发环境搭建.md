@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Spring Boot,Web]
 tags:
   - 开发环境搭建
   - Spring Boot

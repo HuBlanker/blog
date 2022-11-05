@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [Lucene,搜索,索引文件,Lucene工具]
 tags:
   - Lucene
   - 搜索

@@ -1,6 +1,5 @@
 ---
 layout: post
-category: [源码阅读,Java,Java集合]
 tags:
   - Java
   - 源码阅读
