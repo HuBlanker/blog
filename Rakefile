@@ -8,7 +8,6 @@ task :ps do
 end
 
 
-
 desc "commit"
 task :ci, :msg do |t, args|
      mm = args[:msg]
