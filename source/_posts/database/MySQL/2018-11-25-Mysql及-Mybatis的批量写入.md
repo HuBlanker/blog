@@ -1,5 +1,6 @@
 ---
 layout: post
+category: [MySQL,MyBatis]
 tags:
   - MySQL
   - MyBatis
