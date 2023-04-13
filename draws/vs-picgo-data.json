@@ -1,0 +1,58 @@
+{
+  "uploaded": [
+    {
+      "fileName": "20230411144915.png",
+      "width": 248,
+      "height": 85,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230411144915.png",
+      "type": "qiniu",
+      "id": "450640c6-cd64-4a7c-8409-6d25430d040b"
+    },
+    {
+      "fileName": "20230411145019.png",
+      "width": 655,
+      "height": 70,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230411145019.png",
+      "type": "qiniu",
+      "id": "85ae16ab-fb08-42b1-862a-a0607aed14ac"
+    },
+    {
+      "fileName": "20230411145036.png",
+      "width": 655,
+      "height": 123,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230411145036.png",
+      "type": "qiniu",
+      "id": "6b47dd5d-2eba-4054-beab-9ce057a0123c"
+    },
+    {
+      "fileName": "20230411150257.png",
+      "width": 209,
+      "height": 132,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230411150257.png",
+      "type": "qiniu",
+      "id": "229b6134-6b08-414b-9cea-a8bb2721228e"
+    },
+    {
+      "fileName": "20230411150320.png",
+      "width": 321,
+      "height": 331,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230411150320.png",
+      "type": "qiniu",
+      "id": "83d662c7-9ca4-4a3d-bdfd-cec2c6785f1b"
+    },
+    {
+      "fileName": "20230413093018.png",
+      "width": 1337,
+      "height": 559,
+      "extname": ".png",
+      "imgUrl": "http://img.couplecoders.tech/20230413093018.png",
+      "type": "qiniu",
+      "id": "6a8e99bc-2f29-4940-920a-cfe98e21d44b"
+    }
+  ]
+}
