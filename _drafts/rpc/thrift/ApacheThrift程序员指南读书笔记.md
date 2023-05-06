@@ -776,3 +776,25 @@ ports to compress serialized objects:
 
 ## 第八章  实现服务
 
+8.1 8.2 没什么营养
+
+
+### 8.3 接口演化
+
+* 添加参数
+* 移除参数
+* 添加方法
+* 移除方法
+
+### 8.4 深入服务
+
+
+* Iface : 接口 
+* IfFactory: 抽象接口, 制造Iface.
+* Client: 客户端代理
+* Processor: 服务端调度员,决定调用哪个实现
+* ProcessorFactory: 抽象工厂, 制造Processor的实例.
+* _args structs: 方法的参数对象,用来包含所有参数,序列化及反序列化.
+* *_result structs : 方法的返回结果对象, 包含返回值以及异常. 序列化及反序列化.
+
+
