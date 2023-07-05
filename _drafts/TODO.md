@@ -117,3 +117,28 @@ Tair（分布式缓存方案）实现分布式锁，解决任务重复创建问�
 FastUtil 包 
 
 jetty.
+
+bytebuffer.
+
+
+MBean. 
+
+spring. 
+
+rpc (thrift, dubbo, grpc)
+
+推荐系统 
+
+twitter开源推荐系统 
+
+向量相关.
+
+
+tcp/ip 
+
+
+spring. 
+
+
+云原生. 
+
